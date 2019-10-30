@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package kin.transaction.v3;
+
+option go_package = "github.com/kinecosystem/kin-api/generated/go/transaction/v3;transaction";
+option java_package = "org.kin.gen.transaction.v3";
+
+service Transaction {
+    rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
+    rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
+
+    rpc SubmitSend(SubmitSendRequest) returns (SubmitSendResponse);
+    rpc WaitForTxn(WaitForTxnRequest) returns (WaitForTxnResponse);
+}
+
+message GetBalanceRequest {
+    // todo
+}
+message GetBalanceResponse {
+    // todo
+}
+
+message GetHistoryRequest {
+    // todo
+}
+message GetHistoryResponse {
+    // todo
+}
+
+message SubmitSendRequest {
+    // todo
+}
+
+message SubmitSendResponse {
+    // todo
+}
+
+message WaitForTxnRequest {
+    // todo:
+}
+
+message WaitForTxnResponse {
+    // todo:
+}
