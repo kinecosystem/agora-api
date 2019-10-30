@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package kin.account.v3;
+
+option go_package = "github.com/kinecosystem/kin-api/generated/go/account/v3;account";
+option java_package = "org.kin.gen.account.v3";
+
+service Account {
+    // CreateAccount creates an account using a seed account configured
+    // by the service.
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+}
+
+message CreateAccountRequest {
+    // The stellar account_id to be created.
+    //
+    // required: true
+    // min: 56
+    // max: 56
+    string stellar_account_id = 1;
+}
+
+message CreateAccountResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+        EXISTS = 1;
+    }
+}

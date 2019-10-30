@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package kin.metrics.v3;
+
+option go_package = "github.com/kinecosystem/kin-api/generated/go/metrics/v3;metrics";
+option java_package = "org.kin.gen.metrics.v3";
+
+service Ingestion {
+    rpc Submit(SubmitRequest) returns (SubmitResponse);
+}
+
+message SubmitRequest {
+    // todo:
+}
+
+message SubmitResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+    }
+}

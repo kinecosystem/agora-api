@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package kin.metrics.v3;
+
+option go_package = "github.com/kinecosystem/kin-api/generated/go/metrics/v3;metrics";
+option java_package = "org.kin.gen.metrics.v3";
+
+// todo
