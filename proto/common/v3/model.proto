@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package kin.common.v3;
+
+option go_package = "github.com/kinecosystem/kin-api/genproto/common/v3;common";
+option java_package = "org.kin.gen.common.v3";
+
+import "validate/validate.proto";
+
+message StellarAccountId {
+    string value = 1 [(validate.rules).string = {
+        min_bytes: 56
+        max_bytes: 56
+    }];
+}

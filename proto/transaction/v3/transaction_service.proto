@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kin.transaction.v3;
 
-option go_package = "github.com/kinecosystem/kin-api/generated/go/transaction/v3;transaction";
+option go_package = "github.com/kinecosystem/kin-api/genproto/transaction/v3;transaction";
 option java_package = "org.kin.gen.transaction.v3";
 
 service Transaction {
