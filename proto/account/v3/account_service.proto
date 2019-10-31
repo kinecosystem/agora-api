@@ -2,8 +2,11 @@ syntax = "proto3";
 
 package kin.account.v3;
 
-option go_package = "github.com/kinecosystem/kin-api/generated/go/account/v3;account";
+option go_package = "github.com/kinecosystem/kin-api/genproto/account/v3;account";
 option java_package = "org.kin.gen.account.v3";
+
+import "common/v3/model.proto";
+import "validate/validate.proto";
 
 service Account {
     // CreateAccount creates an account using a seed account configured
@@ -12,12 +15,8 @@ service Account {
 }
 
 message CreateAccountRequest {
-    // The stellar account_id to be created.
-    //
-    // required: true
-    // min: 56
-    // max: 56
-    string stellar_account_id = 1;
+    // Account to be created
+    common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
 }
 
 message CreateAccountResponse {
