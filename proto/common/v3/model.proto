@@ -8,7 +8,11 @@ option java_package = "org.kin.gen.common.v3";
 import "validate/validate.proto";
 
 message StellarAccountId {
+    // The public key of accounts always starts with a G, so we
+    // ensure that the value starts with a G to prevent the secret
+    // key from being used.
     string value = 1 [(validate.rules).string = {
+        pattern: "^G[a-zA-Z0-9]*$"
         min_bytes: 56
         max_bytes: 56
     }];

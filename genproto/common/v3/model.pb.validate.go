@@ -51,6 +51,13 @@ func (m *StellarAccountId) Validate() error {
 		}
 	}
 
+	if !_StellarAccountId_Value_Pattern.MatchString(m.GetValue()) {
+		return StellarAccountIdValidationError{
+			field:  "Value",
+			reason: "value does not match regex pattern \"^G[a-zA-Z0-9]*$\"",
+		}
+	}
+
 	return nil
 }
 
@@ -107,6 +114,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = StellarAccountIdValidationError{}
+
+var _StellarAccountId_Value_Pattern = regexp.MustCompile("^G[a-zA-Z0-9]*$")
 
 // Validate checks the field values on TransactionId with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
