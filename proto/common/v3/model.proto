@@ -13,3 +13,25 @@ message StellarAccountId {
         max_bytes: 56
     }];
 }
+
+message TransactionId {
+    // The hex-encoded sha256 hash of a transaction.
+    string hash = 1 [(validate.rules).string = {
+        min_bytes: 64
+        max_bytes: 64
+    }];
+}
+
+message OperationId {
+    // The transaction which the operation was contained in.
+    TransactionId transaction_id = 1 [(validate.rules).message.required = true];
+
+    // The offset within the transaction.
+    uint32 offset = 2;
+}
+
+message BigDecimal {
+    string value = 1 [(validate.rules).string = {
+        pattern: "^(?:[1-9][0-9]{0,14}|0)(?:\\.[0-9]{0,11}[1-9])?$"
+    }];
+}
