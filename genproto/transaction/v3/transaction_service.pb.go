@@ -4,8 +4,12 @@
 package transaction
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -302,4 +306,192 @@ var fileDescriptor_67d4eb25f503063e = []byte{
 	0xc7, 0x1f, 0x4d, 0xa9, 0x2c, 0x6d, 0xf4, 0xda, 0x21, 0x58, 0x0a, 0xdb, 0xc0, 0xd0, 0x0d, 0xd7,
 	0xa6, 0x76, 0xba, 0x02, 0xec, 0xee, 0xa2, 0x1e, 0x5e, 0xda, 0xdb, 0x64, 0x2c, 0x8f, 0x3b, 0xa2,
 	0xf8, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x94, 0x00, 0x7d, 0x6a, 0xd9, 0x02, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// TransactionClient is the client API for Transaction service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type TransactionClient interface {
+	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error)
+	GetHistory(ctx context.Context, in *GetHistoryRequest, opts ...grpc.CallOption) (*GetHistoryResponse, error)
+	SubmitSend(ctx context.Context, in *SubmitSendRequest, opts ...grpc.CallOption) (*SubmitSendResponse, error)
+	WaitForTxn(ctx context.Context, in *WaitForTxnRequest, opts ...grpc.CallOption) (*WaitForTxnResponse, error)
+}
+
+type transactionClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewTransactionClient(cc *grpc.ClientConn) TransactionClient {
+	return &transactionClient{cc}
+}
+
+func (c *transactionClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
+	out := new(GetBalanceResponse)
+	err := c.cc.Invoke(ctx, "/kin.transaction.v3.Transaction/GetBalance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionClient) GetHistory(ctx context.Context, in *GetHistoryRequest, opts ...grpc.CallOption) (*GetHistoryResponse, error) {
+	out := new(GetHistoryResponse)
+	err := c.cc.Invoke(ctx, "/kin.transaction.v3.Transaction/GetHistory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionClient) SubmitSend(ctx context.Context, in *SubmitSendRequest, opts ...grpc.CallOption) (*SubmitSendResponse, error) {
+	out := new(SubmitSendResponse)
+	err := c.cc.Invoke(ctx, "/kin.transaction.v3.Transaction/SubmitSend", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionClient) WaitForTxn(ctx context.Context, in *WaitForTxnRequest, opts ...grpc.CallOption) (*WaitForTxnResponse, error) {
+	out := new(WaitForTxnResponse)
+	err := c.cc.Invoke(ctx, "/kin.transaction.v3.Transaction/WaitForTxn", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TransactionServer is the server API for Transaction service.
+type TransactionServer interface {
+	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceResponse, error)
+	GetHistory(context.Context, *GetHistoryRequest) (*GetHistoryResponse, error)
+	SubmitSend(context.Context, *SubmitSendRequest) (*SubmitSendResponse, error)
+	WaitForTxn(context.Context, *WaitForTxnRequest) (*WaitForTxnResponse, error)
+}
+
+// UnimplementedTransactionServer can be embedded to have forward compatible implementations.
+type UnimplementedTransactionServer struct {
+}
+
+func (*UnimplementedTransactionServer) GetBalance(ctx context.Context, req *GetBalanceRequest) (*GetBalanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
+}
+func (*UnimplementedTransactionServer) GetHistory(ctx context.Context, req *GetHistoryRequest) (*GetHistoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHistory not implemented")
+}
+func (*UnimplementedTransactionServer) SubmitSend(ctx context.Context, req *SubmitSendRequest) (*SubmitSendResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitSend not implemented")
+}
+func (*UnimplementedTransactionServer) WaitForTxn(ctx context.Context, req *WaitForTxnRequest) (*WaitForTxnResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WaitForTxn not implemented")
+}
+
+func RegisterTransactionServer(s *grpc.Server, srv TransactionServer) {
+	s.RegisterService(&_Transaction_serviceDesc, srv)
+}
+
+func _Transaction_GetBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServer).GetBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.transaction.v3.Transaction/GetBalance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServer).GetBalance(ctx, req.(*GetBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Transaction_GetHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetHistoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServer).GetHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.transaction.v3.Transaction/GetHistory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServer).GetHistory(ctx, req.(*GetHistoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Transaction_SubmitSend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitSendRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServer).SubmitSend(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.transaction.v3.Transaction/SubmitSend",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServer).SubmitSend(ctx, req.(*SubmitSendRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Transaction_WaitForTxn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WaitForTxnRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServer).WaitForTxn(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.transaction.v3.Transaction/WaitForTxn",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServer).WaitForTxn(ctx, req.(*WaitForTxnRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Transaction_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "kin.transaction.v3.Transaction",
+	HandlerType: (*TransactionServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetBalance",
+			Handler:    _Transaction_GetBalance_Handler,
+		},
+		{
+			MethodName: "GetHistory",
+			Handler:    _Transaction_GetHistory_Handler,
+		},
+		{
+			MethodName: "SubmitSend",
+			Handler:    _Transaction_SubmitSend_Handler,
+		},
+		{
+			MethodName: "WaitForTxn",
+			Handler:    _Transaction_WaitForTxn_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "transaction/v3/transaction_service.proto",
 }

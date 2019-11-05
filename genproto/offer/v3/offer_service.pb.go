@@ -4,8 +4,12 @@
 package offer
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -169,4 +173,124 @@ var fileDescriptor_8927836b16a2e50f = []byte{
 	0x2e, 0x49, 0x05, 0x73, 0x74, 0x13, 0x0b, 0x32, 0xf5, 0xd3, 0x53, 0xf3, 0xc0, 0x81, 0xa9, 0x0f,
 	0x0b, 0x69, 0x6b, 0x30, 0x23, 0x89, 0x0d, 0x2c, 0x6a, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x01,
 	0x4c, 0xb7, 0x63, 0x82, 0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// OfferClient is the client API for Offer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type OfferClient interface {
+	// todo
+	GetOffers(ctx context.Context, in *GetOffersRequest, opts ...grpc.CallOption) (*GetOffersResponse, error)
+	// todo
+	ClaimOffer(ctx context.Context, in *ClaimOfferRequest, opts ...grpc.CallOption) (*ClaimOfferResponse, error)
+}
+
+type offerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewOfferClient(cc *grpc.ClientConn) OfferClient {
+	return &offerClient{cc}
+}
+
+func (c *offerClient) GetOffers(ctx context.Context, in *GetOffersRequest, opts ...grpc.CallOption) (*GetOffersResponse, error) {
+	out := new(GetOffersResponse)
+	err := c.cc.Invoke(ctx, "/kin.offer.v3.Offer/GetOffers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *offerClient) ClaimOffer(ctx context.Context, in *ClaimOfferRequest, opts ...grpc.CallOption) (*ClaimOfferResponse, error) {
+	out := new(ClaimOfferResponse)
+	err := c.cc.Invoke(ctx, "/kin.offer.v3.Offer/ClaimOffer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OfferServer is the server API for Offer service.
+type OfferServer interface {
+	// todo
+	GetOffers(context.Context, *GetOffersRequest) (*GetOffersResponse, error)
+	// todo
+	ClaimOffer(context.Context, *ClaimOfferRequest) (*ClaimOfferResponse, error)
+}
+
+// UnimplementedOfferServer can be embedded to have forward compatible implementations.
+type UnimplementedOfferServer struct {
+}
+
+func (*UnimplementedOfferServer) GetOffers(ctx context.Context, req *GetOffersRequest) (*GetOffersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOffers not implemented")
+}
+func (*UnimplementedOfferServer) ClaimOffer(ctx context.Context, req *ClaimOfferRequest) (*ClaimOfferResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClaimOffer not implemented")
+}
+
+func RegisterOfferServer(s *grpc.Server, srv OfferServer) {
+	s.RegisterService(&_Offer_serviceDesc, srv)
+}
+
+func _Offer_GetOffers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOffersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OfferServer).GetOffers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.offer.v3.Offer/GetOffers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OfferServer).GetOffers(ctx, req.(*GetOffersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Offer_ClaimOffer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClaimOfferRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OfferServer).ClaimOffer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.offer.v3.Offer/ClaimOffer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OfferServer).ClaimOffer(ctx, req.(*ClaimOfferRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Offer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "kin.offer.v3.Offer",
+	HandlerType: (*OfferServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetOffers",
+			Handler:    _Offer_GetOffers_Handler,
+		},
+		{
+			MethodName: "ClaimOffer",
+			Handler:    _Offer_ClaimOffer_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "offer/v3/offer_service.proto",
 }

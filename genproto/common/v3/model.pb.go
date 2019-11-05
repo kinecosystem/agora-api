@@ -22,6 +22,9 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type StellarAccountId struct {
+	// The public key of accounts always starts with a G, so we
+	// ensure that the value starts with a G to prevent the secret
+	// key from being used.
 	Value                string   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

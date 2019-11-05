@@ -4,10 +4,14 @@
 package account
 
 import (
+	context "context"
 	fmt "fmt"
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	proto "github.com/golang/protobuf/proto"
 	v3 "github.com/kinecosystem/kin-api/genproto/common/v3"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -156,4 +160,88 @@ var fileDescriptor_eb584e8026f725ac = []byte{
 	0xc4, 0x44, 0x99, 0x17, 0x63, 0xd1, 0x7d, 0x1c, 0xf3, 0xb9, 0x60, 0x19, 0x4a, 0x77, 0x0b, 0xf6,
 	0x79, 0xec, 0x81, 0x87, 0x93, 0xd0, 0x4d, 0xa2, 0x8f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x9b, 0xcc,
 	0xef, 0xcb, 0x09, 0x02, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// AccountClient is the client API for Account service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AccountClient interface {
+	// CreateAccount creates an account using a seed account configured
+	// by the service.
+	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
+}
+
+type accountClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAccountClient(cc *grpc.ClientConn) AccountClient {
+	return &accountClient{cc}
+}
+
+func (c *accountClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error) {
+	out := new(CreateAccountResponse)
+	err := c.cc.Invoke(ctx, "/kin.account.v3.Account/CreateAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AccountServer is the server API for Account service.
+type AccountServer interface {
+	// CreateAccount creates an account using a seed account configured
+	// by the service.
+	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
+}
+
+// UnimplementedAccountServer can be embedded to have forward compatible implementations.
+type UnimplementedAccountServer struct {
+}
+
+func (*UnimplementedAccountServer) CreateAccount(ctx context.Context, req *CreateAccountRequest) (*CreateAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
+}
+
+func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
+	s.RegisterService(&_Account_serviceDesc, srv)
+}
+
+func _Account_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).CreateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.account.v3.Account/CreateAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).CreateAccount(ctx, req.(*CreateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Account_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "kin.account.v3.Account",
+	HandlerType: (*AccountServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateAccount",
+			Handler:    _Account_CreateAccount_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "account/v3/account_service.proto",
 }

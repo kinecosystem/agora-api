@@ -4,8 +4,12 @@
 package metrics
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -137,4 +141,84 @@ var fileDescriptor_914678a26d61e0c1 = []byte{
 	0x2e, 0xf2, 0x17, 0x0b, 0x96, 0xcb, 0xf5, 0x6a, 0x20, 0xeb, 0x31, 0x94, 0x75, 0xec, 0xcf, 0x80,
 	0xcb, 0xe9, 0xd8, 0xa9, 0xf2, 0xd2, 0x7c, 0x07, 0x00, 0x00, 0xff, 0xff, 0x02, 0x62, 0xaf, 0x62,
 	0x5d, 0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// IngestionClient is the client API for Ingestion service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type IngestionClient interface {
+	Submit(ctx context.Context, in *SubmitRequest, opts ...grpc.CallOption) (*SubmitResponse, error)
+}
+
+type ingestionClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewIngestionClient(cc *grpc.ClientConn) IngestionClient {
+	return &ingestionClient{cc}
+}
+
+func (c *ingestionClient) Submit(ctx context.Context, in *SubmitRequest, opts ...grpc.CallOption) (*SubmitResponse, error) {
+	out := new(SubmitResponse)
+	err := c.cc.Invoke(ctx, "/kin.metrics.v3.Ingestion/Submit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// IngestionServer is the server API for Ingestion service.
+type IngestionServer interface {
+	Submit(context.Context, *SubmitRequest) (*SubmitResponse, error)
+}
+
+// UnimplementedIngestionServer can be embedded to have forward compatible implementations.
+type UnimplementedIngestionServer struct {
+}
+
+func (*UnimplementedIngestionServer) Submit(ctx context.Context, req *SubmitRequest) (*SubmitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Submit not implemented")
+}
+
+func RegisterIngestionServer(s *grpc.Server, srv IngestionServer) {
+	s.RegisterService(&_Ingestion_serviceDesc, srv)
+}
+
+func _Ingestion_Submit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IngestionServer).Submit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kin.metrics.v3.Ingestion/Submit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IngestionServer).Submit(ctx, req.(*SubmitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Ingestion_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "kin.metrics.v3.Ingestion",
+	HandlerType: (*IngestionServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Submit",
+			Handler:    _Ingestion_Submit_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "metrics/v3/ingestion_service.proto",
 }
