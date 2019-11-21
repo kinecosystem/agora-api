@@ -188,3 +188,166 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateAccountResponseValidationError{}
+
+// Validate checks the field values on GetBalanceRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *GetBalanceRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetAccountId() == nil {
+		return GetBalanceRequestValidationError{
+			field:  "AccountId",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetAccountId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetBalanceRequestValidationError{
+				field:  "AccountId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetBalanceRequestValidationError is the validation error returned by
+// GetBalanceRequest.Validate if the designated constraints aren't met.
+type GetBalanceRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBalanceRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBalanceRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBalanceRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBalanceRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBalanceRequestValidationError) ErrorName() string {
+	return "GetBalanceRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetBalanceRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBalanceRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBalanceRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBalanceRequestValidationError{}
+
+// Validate checks the field values on GetBalanceResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetBalanceResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Result
+
+	if v, ok := interface{}(m.GetAmount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetBalanceResponseValidationError{
+				field:  "Amount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetBalanceResponseValidationError is the validation error returned by
+// GetBalanceResponse.Validate if the designated constraints aren't met.
+type GetBalanceResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBalanceResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBalanceResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBalanceResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBalanceResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBalanceResponseValidationError) ErrorName() string {
+	return "GetBalanceResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetBalanceResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBalanceResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBalanceResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBalanceResponseValidationError{}
