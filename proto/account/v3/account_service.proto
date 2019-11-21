@@ -12,6 +12,9 @@ service Account {
     // CreateAccount creates an account using a seed account configured
     // by the service.
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+
+    // GetBalance returns the balance of a specified account.
+    rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
 }
 
 message CreateAccountRequest {
@@ -25,4 +28,18 @@ message CreateAccountResponse {
         OK = 0;
         EXISTS = 1;
     }
+}
+
+message GetBalanceRequest {
+    common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
+}
+
+message GetBalanceResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+        NOT_FOUND = 1;
+    }
+
+    common.v3.BigDecimal amount = 2;
 }

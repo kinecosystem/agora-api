@@ -117,27 +117,27 @@ var _ interface {
 
 var _StellarAccountId_Value_Pattern = regexp.MustCompile("^G[a-zA-Z0-9]*$")
 
-// Validate checks the field values on TransactionId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *TransactionId) Validate() error {
+// Validate checks the field values on TransactionHash with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *TransactionHash) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if len(m.GetHash()) != 64 {
-		return TransactionIdValidationError{
-			field:  "Hash",
-			reason: "value length must be 64 bytes",
+	if len(m.GetValue()) != 32 {
+		return TransactionHashValidationError{
+			field:  "Value",
+			reason: "value length must be 32 bytes",
 		}
 	}
 
 	return nil
 }
 
-// TransactionIdValidationError is the validation error returned by
-// TransactionId.Validate if the designated constraints aren't met.
-type TransactionIdValidationError struct {
+// TransactionHashValidationError is the validation error returned by
+// TransactionHash.Validate if the designated constraints aren't met.
+type TransactionHashValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -145,22 +145,22 @@ type TransactionIdValidationError struct {
 }
 
 // Field function returns field value.
-func (e TransactionIdValidationError) Field() string { return e.field }
+func (e TransactionHashValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e TransactionIdValidationError) Reason() string { return e.reason }
+func (e TransactionHashValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e TransactionIdValidationError) Cause() error { return e.cause }
+func (e TransactionHashValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e TransactionIdValidationError) Key() bool { return e.key }
+func (e TransactionHashValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e TransactionIdValidationError) ErrorName() string { return "TransactionIdValidationError" }
+func (e TransactionHashValidationError) ErrorName() string { return "TransactionHashValidationError" }
 
 // Error satisfies the builtin error interface
-func (e TransactionIdValidationError) Error() string {
+func (e TransactionHashValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -172,14 +172,14 @@ func (e TransactionIdValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sTransactionId.%s: %s%s",
+		"invalid %sTransactionHash.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = TransactionIdValidationError{}
+var _ error = TransactionHashValidationError{}
 
 var _ interface {
 	Field() string
@@ -187,91 +187,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = TransactionIdValidationError{}
-
-// Validate checks the field values on OperationId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *OperationId) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if m.GetTransactionId() == nil {
-		return OperationIdValidationError{
-			field:  "TransactionId",
-			reason: "value is required",
-		}
-	}
-
-	if v, ok := interface{}(m.GetTransactionId()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return OperationIdValidationError{
-				field:  "TransactionId",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for Offset
-
-	return nil
-}
-
-// OperationIdValidationError is the validation error returned by
-// OperationId.Validate if the designated constraints aren't met.
-type OperationIdValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e OperationIdValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e OperationIdValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e OperationIdValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e OperationIdValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e OperationIdValidationError) ErrorName() string { return "OperationIdValidationError" }
-
-// Error satisfies the builtin error interface
-func (e OperationIdValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sOperationId.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = OperationIdValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = OperationIdValidationError{}
+} = TransactionHashValidationError{}
 
 // Validate checks the field values on BigDecimal with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.

@@ -36,140 +36,6 @@ var (
 // define the regex for a UUID once up-front
 var _transaction_service_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on GetBalanceRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *GetBalanceRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// GetBalanceRequestValidationError is the validation error returned by
-// GetBalanceRequest.Validate if the designated constraints aren't met.
-type GetBalanceRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetBalanceRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetBalanceRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetBalanceRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetBalanceRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetBalanceRequestValidationError) ErrorName() string {
-	return "GetBalanceRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetBalanceRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetBalanceRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetBalanceRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetBalanceRequestValidationError{}
-
-// Validate checks the field values on GetBalanceResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetBalanceResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// GetBalanceResponseValidationError is the validation error returned by
-// GetBalanceResponse.Validate if the designated constraints aren't met.
-type GetBalanceResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetBalanceResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetBalanceResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetBalanceResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetBalanceResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetBalanceResponseValidationError) ErrorName() string {
-	return "GetBalanceResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetBalanceResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetBalanceResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetBalanceResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetBalanceResponseValidationError{}
-
 // Validate checks the field values on GetHistoryRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.
@@ -312,6 +178,13 @@ func (m *SubmitSendRequest) Validate() error {
 		return nil
 	}
 
+	if l := len(m.GetTransactionXdr()); l < 1 || l > 10240 {
+		return SubmitSendRequestValidationError{
+			field:  "TransactionXdr",
+			reason: "value length must be between 1 and 10240 bytes, inclusive",
+		}
+	}
+
 	return nil
 }
 
@@ -379,6 +252,34 @@ func (m *SubmitSendResponse) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Result
+
+	if m.GetHash() == nil {
+		return SubmitSendResponseValidationError{
+			field:  "Hash",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetHash()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SubmitSendResponseValidationError{
+				field:  "Hash",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Ledger
+
+	if l := len(m.GetResultXdr()); l < 1 || l > 10240 {
+		return SubmitSendResponseValidationError{
+			field:  "ResultXdr",
+			reason: "value length must be between 1 and 10240 bytes, inclusive",
+		}
+	}
+
 	return nil
 }
 
@@ -438,87 +339,37 @@ var _ interface {
 	ErrorName() string
 } = SubmitSendResponseValidationError{}
 
-// Validate checks the field values on WaitForTxnRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *WaitForTxnRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// WaitForTxnRequestValidationError is the validation error returned by
-// WaitForTxnRequest.Validate if the designated constraints aren't met.
-type WaitForTxnRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e WaitForTxnRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e WaitForTxnRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e WaitForTxnRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e WaitForTxnRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e WaitForTxnRequestValidationError) ErrorName() string {
-	return "WaitForTxnRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e WaitForTxnRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sWaitForTxnRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = WaitForTxnRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = WaitForTxnRequestValidationError{}
-
-// Validate checks the field values on WaitForTxnResponse with the rules
+// Validate checks the field values on GetTransactionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *WaitForTxnResponse) Validate() error {
+func (m *GetTransactionRequest) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetTransactionHash() == nil {
+		return GetTransactionRequestValidationError{
+			field:  "TransactionHash",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetTransactionHash()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetTransactionRequestValidationError{
+				field:  "TransactionHash",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
 }
 
-// WaitForTxnResponseValidationError is the validation error returned by
-// WaitForTxnResponse.Validate if the designated constraints aren't met.
-type WaitForTxnResponseValidationError struct {
+// GetTransactionRequestValidationError is the validation error returned by
+// GetTransactionRequest.Validate if the designated constraints aren't met.
+type GetTransactionRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -526,24 +377,24 @@ type WaitForTxnResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e WaitForTxnResponseValidationError) Field() string { return e.field }
+func (e GetTransactionRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e WaitForTxnResponseValidationError) Reason() string { return e.reason }
+func (e GetTransactionRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e WaitForTxnResponseValidationError) Cause() error { return e.cause }
+func (e GetTransactionRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e WaitForTxnResponseValidationError) Key() bool { return e.key }
+func (e GetTransactionRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e WaitForTxnResponseValidationError) ErrorName() string {
-	return "WaitForTxnResponseValidationError"
+func (e GetTransactionRequestValidationError) ErrorName() string {
+	return "GetTransactionRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e WaitForTxnResponseValidationError) Error() string {
+func (e GetTransactionRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -555,14 +406,14 @@ func (e WaitForTxnResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sWaitForTxnResponse.%s: %s%s",
+		"invalid %sGetTransactionRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = WaitForTxnResponseValidationError{}
+var _ error = GetTransactionRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -570,4 +421,82 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = WaitForTxnResponseValidationError{}
+} = GetTransactionRequestValidationError{}
+
+// Validate checks the field values on GetTransactionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetTransactionResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for State
+
+	// no validation rules for Ledger
+
+	if len(m.GetResultXdr()) > 10240 {
+		return GetTransactionResponseValidationError{
+			field:  "ResultXdr",
+			reason: "value length must be at most 10240 bytes",
+		}
+	}
+
+	return nil
+}
+
+// GetTransactionResponseValidationError is the validation error returned by
+// GetTransactionResponse.Validate if the designated constraints aren't met.
+type GetTransactionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTransactionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTransactionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTransactionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTransactionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTransactionResponseValidationError) ErrorName() string {
+	return "GetTransactionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTransactionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTransactionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTransactionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTransactionResponseValidationError{}

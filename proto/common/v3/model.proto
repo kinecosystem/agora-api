@@ -18,20 +18,12 @@ message StellarAccountId {
     }];
 }
 
-message TransactionId {
-    // The hex-encoded sha256 hash of a transaction.
-    string hash = 1 [(validate.rules).string = {
-        min_bytes: 64
-        max_bytes: 64
+message TransactionHash {
+    // The sha256 hash of a transaction.
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
     }];
-}
-
-message OperationId {
-    // The transaction which the operation was contained in.
-    TransactionId transaction_id = 1 [(validate.rules).message.required = true];
-
-    // The offset within the transaction.
-    uint32 offset = 2;
 }
 
 message BigDecimal {
