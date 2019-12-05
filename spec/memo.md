@@ -23,7 +23,8 @@
     infer that the memo format is the one described in this
     document. If the MXB matches the defined constant, however,
     it does not gaurentee that the memo encoding is that of the
-    one described in this document.
+    one described in this document. The value of the magic byte
+    is `0x1`.
 
 **Ver**: Version (3 bits)
 
