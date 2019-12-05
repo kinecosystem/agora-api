@@ -9,6 +9,8 @@ import "validate/validate.proto";
 import "common/v3/model.proto";
 
 service Transaction {
+    // GetHistory returns the transaction history for an account,
+    // with additional off-chain data if available.
     rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
 
     // SubmitSend submits a send transaction, which _may_ be whitelisted.
@@ -25,10 +27,38 @@ service Transaction {
 }
 
 message GetHistoryRequest {
-    // todo
+    // Account to get history for.
+    common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // An optional history cursor indicating where in
+    // the history to 'resume' from.
+    Cursor cursor = 2;
+
+    // The order in which to return history items from
+    // the cursor.
+    Direction direction = 3;
+    enum Direction {
+        // ASC direction returns all history items in
+        // ascending (based on chain order) from the cursor.
+        ASC  = 0;
+
+        // SESC direction returns all history items in
+        // descending (based on chain order) from _before_ the cursor.
+        DESC = 1;
+    }
 }
+
 message GetHistoryResponse {
-    // todo
+    Result result = 1;
+    enum Result {
+        OK        = 0;
+        NOT_FOUND = 1;
+    }
+
+    repeated HistoryItem items = 2 [(validate.rules).repeated = {
+        min_items: 0,
+        max_items: 128,
+    }];
 }
 
 message SubmitSendRequest {
@@ -98,8 +128,45 @@ message GetTransactionResponse {
     // Non-zero when state == State::SUCCESS
     int64 ledger = 2;
 
-    // Present when state != STATE::UNKNOWN
-    bytes result_xdr = 3 [(validate.rules).bytes = {
+    // Present when state != State::UNKNOWN
+    HistoryItem item = 3;
+}
+
+message HistoryItem {
+    // The hash of the transaction.
+    common.v3.TransactionHash hash = 1 [(validate.rules).message.required = true];
+
+    // Contains the transaction result from when the transaction was submitted
+    bytes result_xdr = 2 [(validate.rules).bytes = {
+        min_len: 1
         max_len: 10240
+    }];
+
+    // Contains the transaction envelope for the transaction.
+    bytes envelope_xdr = 3 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 10240
+    }];
+
+    // The cursor position of this item.
+    Cursor cursor = 4;
+
+    // If the transaction contained a valid Agora generated memo, then
+    // agora_data_url will be present. Clients may use this URL to obtain
+    // off-chain data.
+    //
+    // todo: standardize agora_data_url protocol / spec. likely just a GET
+    // with the transaction hash as a parameter.
+    common.v3.AgoraDataUrl agora_data_url = 5;
+
+    // If the service was able to resolve, or manages, the off-chain chain
+    // data associated with the memo, AgoraData will be populated.
+    common.v3.AgoraData agora_data = 6;
+}
+
+message Cursor {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 128
     }];
 }
