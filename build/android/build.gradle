@@ -1,0 +1,83 @@
+apply plugin: "java"
+apply plugin: "com.google.protobuf"
+apply plugin: "maven"
+
+version = '0.0.1'
+group = 'org.kin.gen'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://jitpack.io'
+        credentials { username authToken }
+    }
+}
+
+def grpcVersion = "1.13.1"
+def validateVersion = "0.2.0"
+dependencies {
+    compile "io.grpc:grpc-protobuf:${grpcVersion}"
+    compile "io.grpc:grpc-stub:${grpcVersion}"
+    compile "io.envoyproxy.protoc-gen-validate:pgv-java-stub:${validateVersion}"
+}
+
+def generatedSrcRoot = file("${buildDir}/generated/source/proto/main/java/")
+sourceSets.main {
+    proto {
+        srcDir "${rootDir}/../../proto"
+    }
+    java {
+        srcDirs = ["${generatedSrcRoot}"]
+    }
+}
+
+compileJava {
+    options.annotationProcessorGeneratedSourcesDirectory generatedSrcRoot
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.5.1-1"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+        javapgv {
+            artifact = "io.envoyproxy.protoc-gen-validate:protoc-gen-validate:0.1.0"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+            javapgv {
+                option "lang=java"
+            }
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes('kin-api': project.name,
+                'Version': project.version)
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
