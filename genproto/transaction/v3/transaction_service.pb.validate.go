@@ -44,6 +44,35 @@ func (m *GetHistoryRequest) Validate() error {
 		return nil
 	}
 
+	if m.GetAccountId() == nil {
+		return GetHistoryRequestValidationError{
+			field:  "AccountId",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetAccountId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetHistoryRequestValidationError{
+				field:  "AccountId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCursor()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetHistoryRequestValidationError{
+				field:  "Cursor",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Direction
+
 	return nil
 }
 
@@ -109,6 +138,30 @@ var _ interface {
 func (m *GetHistoryResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	// no validation rules for Result
+
+	if len(m.GetItems()) > 128 {
+		return GetHistoryResponseValidationError{
+			field:  "Items",
+			reason: "value must contain no more than 128 item(s)",
+		}
+	}
+
+	for idx, item := range m.GetItems() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetHistoryResponseValidationError{
+					field:  fmt.Sprintf("Items[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
@@ -435,10 +488,13 @@ func (m *GetTransactionResponse) Validate() error {
 
 	// no validation rules for Ledger
 
-	if len(m.GetResultXdr()) > 10240 {
-		return GetTransactionResponseValidationError{
-			field:  "ResultXdr",
-			reason: "value length must be at most 10240 bytes",
+	if v, ok := interface{}(m.GetItem()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetTransactionResponseValidationError{
+				field:  "Item",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
 	}
 
@@ -500,3 +556,200 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetTransactionResponseValidationError{}
+
+// Validate checks the field values on HistoryItem with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *HistoryItem) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetHash() == nil {
+		return HistoryItemValidationError{
+			field:  "Hash",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetHash()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoryItemValidationError{
+				field:  "Hash",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if l := len(m.GetResultXdr()); l < 1 || l > 10240 {
+		return HistoryItemValidationError{
+			field:  "ResultXdr",
+			reason: "value length must be between 1 and 10240 bytes, inclusive",
+		}
+	}
+
+	if l := len(m.GetEnvelopeXdr()); l < 1 || l > 10240 {
+		return HistoryItemValidationError{
+			field:  "EnvelopeXdr",
+			reason: "value length must be between 1 and 10240 bytes, inclusive",
+		}
+	}
+
+	if v, ok := interface{}(m.GetCursor()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoryItemValidationError{
+				field:  "Cursor",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAgoraDataUrl()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoryItemValidationError{
+				field:  "AgoraDataUrl",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAgoraData()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoryItemValidationError{
+				field:  "AgoraData",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// HistoryItemValidationError is the validation error returned by
+// HistoryItem.Validate if the designated constraints aren't met.
+type HistoryItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e HistoryItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e HistoryItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e HistoryItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e HistoryItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e HistoryItemValidationError) ErrorName() string { return "HistoryItemValidationError" }
+
+// Error satisfies the builtin error interface
+func (e HistoryItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sHistoryItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = HistoryItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = HistoryItemValidationError{}
+
+// Validate checks the field values on Cursor with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Cursor) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := len(m.GetValue()); l < 1 || l > 128 {
+		return CursorValidationError{
+			field:  "Value",
+			reason: "value length must be between 1 and 128 bytes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// CursorValidationError is the validation error returned by Cursor.Validate if
+// the designated constraints aren't met.
+type CursorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CursorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CursorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CursorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CursorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CursorValidationError) ErrorName() string { return "CursorValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CursorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCursor.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CursorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CursorValidationError{}
