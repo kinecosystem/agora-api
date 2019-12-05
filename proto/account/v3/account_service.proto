@@ -13,13 +13,45 @@ service Account {
     // by the service.
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
 
-    // GetBalance returns the balance of a specified account.
-    rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
+    // GetAccountInfo returns the balance of a specified account.
+    rpc GetAccountInfo(GetAccountInfoRequest) returns (GetAccountInfoResponse);
+}
+
+message AccountInfo {
+    common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // The last known sequence number of the account.
+    int64 sequence_number = 2;
+
+    // The last known balance, in quarks, of the account.
+    int64 balance = 3;
 }
 
 message CreateAccountRequest {
     // Account to be created
     common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // An optional app user mapping that maps the app + app_user to this
+    // account.
+    //
+    // The mappings are stored on a per-service basis. That is, mappings
+    // created on a specific endpoint are only available at that endpoint.
+    // There is no global mapping data source. The mapping data is only
+    // useful for reverse lookups by apps.
+    AppUserMapping app_mapping = 2;
+    message AppUserMapping {
+        // The app_id of the app creating the account.
+        string app_id = 1 [(validate.rules).string = {
+            pattern: "^[a-zA-Z0-9]{3,4}$"
+        }];
+
+        // The app_account_id of the user this account is being
+        // created for.
+        string app_account_id = 2 [(validate.rules).string = {
+            min_len: 1
+            max_len: 256
+        }];
+    }
 }
 
 message CreateAccountResponse {
@@ -28,18 +60,22 @@ message CreateAccountResponse {
         OK = 0;
         EXISTS = 1;
     }
+
+    // Will be present if the account was created or already existed.
+    AccountInfo account_info = 2;
 }
 
-message GetBalanceRequest {
+message GetAccountInfoRequest {
     common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
 }
 
-message GetBalanceResponse {
+message GetAccountInfoResponse {
     Result result = 1;
     enum Result {
         OK = 0;
         NOT_FOUND = 1;
     }
 
-    common.v3.BigDecimal amount = 2;
+    // Present iff result == Result::OK
+    AccountInfo account_info = 2;
 }
