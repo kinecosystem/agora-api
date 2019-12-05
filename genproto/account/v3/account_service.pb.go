@@ -48,47 +48,112 @@ func (x CreateAccountResponse_Result) String() string {
 }
 
 func (CreateAccountResponse_Result) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{1, 0}
+	return fileDescriptor_eb584e8026f725ac, []int{2, 0}
 }
 
-type GetBalanceResponse_Result int32
+type GetAccountInfoResponse_Result int32
 
 const (
-	GetBalanceResponse_OK        GetBalanceResponse_Result = 0
-	GetBalanceResponse_NOT_FOUND GetBalanceResponse_Result = 1
+	GetAccountInfoResponse_OK        GetAccountInfoResponse_Result = 0
+	GetAccountInfoResponse_NOT_FOUND GetAccountInfoResponse_Result = 1
 )
 
-var GetBalanceResponse_Result_name = map[int32]string{
+var GetAccountInfoResponse_Result_name = map[int32]string{
 	0: "OK",
 	1: "NOT_FOUND",
 }
 
-var GetBalanceResponse_Result_value = map[string]int32{
+var GetAccountInfoResponse_Result_value = map[string]int32{
 	"OK":        0,
 	"NOT_FOUND": 1,
 }
 
-func (x GetBalanceResponse_Result) String() string {
-	return proto.EnumName(GetBalanceResponse_Result_name, int32(x))
+func (x GetAccountInfoResponse_Result) String() string {
+	return proto.EnumName(GetAccountInfoResponse_Result_name, int32(x))
 }
 
-func (GetBalanceResponse_Result) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{3, 0}
+func (GetAccountInfoResponse_Result) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_eb584e8026f725ac, []int{4, 0}
+}
+
+type AccountInfo struct {
+	AccountId *v3.StellarAccountId `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	// The last known sequence number of the account.
+	SequenceNumber int64 `protobuf:"varint,2,opt,name=sequence_number,json=sequenceNumber,proto3" json:"sequence_number,omitempty"`
+	// The last known balance, in quarks, of the account.
+	Balance              int64    `protobuf:"varint,3,opt,name=balance,proto3" json:"balance,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AccountInfo) Reset()         { *m = AccountInfo{} }
+func (m *AccountInfo) String() string { return proto.CompactTextString(m) }
+func (*AccountInfo) ProtoMessage()    {}
+func (*AccountInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_eb584e8026f725ac, []int{0}
+}
+
+func (m *AccountInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AccountInfo.Unmarshal(m, b)
+}
+func (m *AccountInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AccountInfo.Marshal(b, m, deterministic)
+}
+func (m *AccountInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AccountInfo.Merge(m, src)
+}
+func (m *AccountInfo) XXX_Size() int {
+	return xxx_messageInfo_AccountInfo.Size(m)
+}
+func (m *AccountInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_AccountInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AccountInfo proto.InternalMessageInfo
+
+func (m *AccountInfo) GetAccountId() *v3.StellarAccountId {
+	if m != nil {
+		return m.AccountId
+	}
+	return nil
+}
+
+func (m *AccountInfo) GetSequenceNumber() int64 {
+	if m != nil {
+		return m.SequenceNumber
+	}
+	return 0
+}
+
+func (m *AccountInfo) GetBalance() int64 {
+	if m != nil {
+		return m.Balance
+	}
+	return 0
 }
 
 type CreateAccountRequest struct {
 	// Account to be created
-	AccountId            *v3.StellarAccountId `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	AccountId *v3.StellarAccountId `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	// An optional app user mapping that maps the app + app_user to this
+	// account.
+	//
+	// The mappings are stored on a per-service basis. That is, mappings
+	// created on a specific endpoint are only available at that endpoint.
+	// There is no global mapping data source. The mapping data is only
+	// useful for reverse lookups by apps.
+	AppMapping           *CreateAccountRequest_AppUserMapping `protobuf:"bytes,2,opt,name=app_mapping,json=appMapping,proto3" json:"app_mapping,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                             `json:"-"`
+	XXX_unrecognized     []byte                               `json:"-"`
+	XXX_sizecache        int32                                `json:"-"`
 }
 
 func (m *CreateAccountRequest) Reset()         { *m = CreateAccountRequest{} }
 func (m *CreateAccountRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateAccountRequest) ProtoMessage()    {}
 func (*CreateAccountRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{0}
+	return fileDescriptor_eb584e8026f725ac, []int{1}
 }
 
 func (m *CreateAccountRequest) XXX_Unmarshal(b []byte) error {
@@ -116,18 +181,77 @@ func (m *CreateAccountRequest) GetAccountId() *v3.StellarAccountId {
 	return nil
 }
 
+func (m *CreateAccountRequest) GetAppMapping() *CreateAccountRequest_AppUserMapping {
+	if m != nil {
+		return m.AppMapping
+	}
+	return nil
+}
+
+type CreateAccountRequest_AppUserMapping struct {
+	// The app_id of the app creating the account.
+	AppId string `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	// The app_account_id of the user this account is being
+	// created for.
+	AppAccountId         string   `protobuf:"bytes,2,opt,name=app_account_id,json=appAccountId,proto3" json:"app_account_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateAccountRequest_AppUserMapping) Reset()         { *m = CreateAccountRequest_AppUserMapping{} }
+func (m *CreateAccountRequest_AppUserMapping) String() string { return proto.CompactTextString(m) }
+func (*CreateAccountRequest_AppUserMapping) ProtoMessage()    {}
+func (*CreateAccountRequest_AppUserMapping) Descriptor() ([]byte, []int) {
+	return fileDescriptor_eb584e8026f725ac, []int{1, 0}
+}
+
+func (m *CreateAccountRequest_AppUserMapping) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateAccountRequest_AppUserMapping.Unmarshal(m, b)
+}
+func (m *CreateAccountRequest_AppUserMapping) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateAccountRequest_AppUserMapping.Marshal(b, m, deterministic)
+}
+func (m *CreateAccountRequest_AppUserMapping) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateAccountRequest_AppUserMapping.Merge(m, src)
+}
+func (m *CreateAccountRequest_AppUserMapping) XXX_Size() int {
+	return xxx_messageInfo_CreateAccountRequest_AppUserMapping.Size(m)
+}
+func (m *CreateAccountRequest_AppUserMapping) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateAccountRequest_AppUserMapping.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateAccountRequest_AppUserMapping proto.InternalMessageInfo
+
+func (m *CreateAccountRequest_AppUserMapping) GetAppId() string {
+	if m != nil {
+		return m.AppId
+	}
+	return ""
+}
+
+func (m *CreateAccountRequest_AppUserMapping) GetAppAccountId() string {
+	if m != nil {
+		return m.AppAccountId
+	}
+	return ""
+}
+
 type CreateAccountResponse struct {
-	Result               CreateAccountResponse_Result `protobuf:"varint,1,opt,name=result,proto3,enum=kin.account.v3.CreateAccountResponse_Result" json:"result,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                     `json:"-"`
-	XXX_unrecognized     []byte                       `json:"-"`
-	XXX_sizecache        int32                        `json:"-"`
+	Result CreateAccountResponse_Result `protobuf:"varint,1,opt,name=result,proto3,enum=kin.account.v3.CreateAccountResponse_Result" json:"result,omitempty"`
+	// Will be present if the account was created or already existed.
+	AccountInfo          *AccountInfo `protobuf:"bytes,2,opt,name=account_info,json=accountInfo,proto3" json:"account_info,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *CreateAccountResponse) Reset()         { *m = CreateAccountResponse{} }
 func (m *CreateAccountResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateAccountResponse) ProtoMessage()    {}
 func (*CreateAccountResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{1}
+	return fileDescriptor_eb584e8026f725ac, []int{2}
 }
 
 func (m *CreateAccountResponse) XXX_Unmarshal(b []byte) error {
@@ -155,131 +279,151 @@ func (m *CreateAccountResponse) GetResult() CreateAccountResponse_Result {
 	return CreateAccountResponse_OK
 }
 
-type GetBalanceRequest struct {
+func (m *CreateAccountResponse) GetAccountInfo() *AccountInfo {
+	if m != nil {
+		return m.AccountInfo
+	}
+	return nil
+}
+
+type GetAccountInfoRequest struct {
 	AccountId            *v3.StellarAccountId `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
 }
 
-func (m *GetBalanceRequest) Reset()         { *m = GetBalanceRequest{} }
-func (m *GetBalanceRequest) String() string { return proto.CompactTextString(m) }
-func (*GetBalanceRequest) ProtoMessage()    {}
-func (*GetBalanceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{2}
+func (m *GetAccountInfoRequest) Reset()         { *m = GetAccountInfoRequest{} }
+func (m *GetAccountInfoRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAccountInfoRequest) ProtoMessage()    {}
+func (*GetAccountInfoRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_eb584e8026f725ac, []int{3}
 }
 
-func (m *GetBalanceRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetBalanceRequest.Unmarshal(m, b)
+func (m *GetAccountInfoRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAccountInfoRequest.Unmarshal(m, b)
 }
-func (m *GetBalanceRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetBalanceRequest.Marshal(b, m, deterministic)
+func (m *GetAccountInfoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAccountInfoRequest.Marshal(b, m, deterministic)
 }
-func (m *GetBalanceRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetBalanceRequest.Merge(m, src)
+func (m *GetAccountInfoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAccountInfoRequest.Merge(m, src)
 }
-func (m *GetBalanceRequest) XXX_Size() int {
-	return xxx_messageInfo_GetBalanceRequest.Size(m)
+func (m *GetAccountInfoRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAccountInfoRequest.Size(m)
 }
-func (m *GetBalanceRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetBalanceRequest.DiscardUnknown(m)
+func (m *GetAccountInfoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAccountInfoRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetBalanceRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetAccountInfoRequest proto.InternalMessageInfo
 
-func (m *GetBalanceRequest) GetAccountId() *v3.StellarAccountId {
+func (m *GetAccountInfoRequest) GetAccountId() *v3.StellarAccountId {
 	if m != nil {
 		return m.AccountId
 	}
 	return nil
 }
 
-type GetBalanceResponse struct {
-	Result               GetBalanceResponse_Result `protobuf:"varint,1,opt,name=result,proto3,enum=kin.account.v3.GetBalanceResponse_Result" json:"result,omitempty"`
-	Amount               *v3.BigDecimal            `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
-	XXX_unrecognized     []byte                    `json:"-"`
-	XXX_sizecache        int32                     `json:"-"`
+type GetAccountInfoResponse struct {
+	Result GetAccountInfoResponse_Result `protobuf:"varint,1,opt,name=result,proto3,enum=kin.account.v3.GetAccountInfoResponse_Result" json:"result,omitempty"`
+	// Present iff result == Result::OK
+	AccountInfo          *AccountInfo `protobuf:"bytes,2,opt,name=account_info,json=accountInfo,proto3" json:"account_info,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
-func (m *GetBalanceResponse) Reset()         { *m = GetBalanceResponse{} }
-func (m *GetBalanceResponse) String() string { return proto.CompactTextString(m) }
-func (*GetBalanceResponse) ProtoMessage()    {}
-func (*GetBalanceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_eb584e8026f725ac, []int{3}
+func (m *GetAccountInfoResponse) Reset()         { *m = GetAccountInfoResponse{} }
+func (m *GetAccountInfoResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAccountInfoResponse) ProtoMessage()    {}
+func (*GetAccountInfoResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_eb584e8026f725ac, []int{4}
 }
 
-func (m *GetBalanceResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetBalanceResponse.Unmarshal(m, b)
+func (m *GetAccountInfoResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAccountInfoResponse.Unmarshal(m, b)
 }
-func (m *GetBalanceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetBalanceResponse.Marshal(b, m, deterministic)
+func (m *GetAccountInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAccountInfoResponse.Marshal(b, m, deterministic)
 }
-func (m *GetBalanceResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetBalanceResponse.Merge(m, src)
+func (m *GetAccountInfoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAccountInfoResponse.Merge(m, src)
 }
-func (m *GetBalanceResponse) XXX_Size() int {
-	return xxx_messageInfo_GetBalanceResponse.Size(m)
+func (m *GetAccountInfoResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAccountInfoResponse.Size(m)
 }
-func (m *GetBalanceResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetBalanceResponse.DiscardUnknown(m)
+func (m *GetAccountInfoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAccountInfoResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetBalanceResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetAccountInfoResponse proto.InternalMessageInfo
 
-func (m *GetBalanceResponse) GetResult() GetBalanceResponse_Result {
+func (m *GetAccountInfoResponse) GetResult() GetAccountInfoResponse_Result {
 	if m != nil {
 		return m.Result
 	}
-	return GetBalanceResponse_OK
+	return GetAccountInfoResponse_OK
 }
 
-func (m *GetBalanceResponse) GetAmount() *v3.BigDecimal {
+func (m *GetAccountInfoResponse) GetAccountInfo() *AccountInfo {
 	if m != nil {
-		return m.Amount
+		return m.AccountInfo
 	}
 	return nil
 }
 
 func init() {
 	proto.RegisterEnum("kin.account.v3.CreateAccountResponse_Result", CreateAccountResponse_Result_name, CreateAccountResponse_Result_value)
-	proto.RegisterEnum("kin.account.v3.GetBalanceResponse_Result", GetBalanceResponse_Result_name, GetBalanceResponse_Result_value)
+	proto.RegisterEnum("kin.account.v3.GetAccountInfoResponse_Result", GetAccountInfoResponse_Result_name, GetAccountInfoResponse_Result_value)
+	proto.RegisterType((*AccountInfo)(nil), "kin.account.v3.AccountInfo")
 	proto.RegisterType((*CreateAccountRequest)(nil), "kin.account.v3.CreateAccountRequest")
+	proto.RegisterType((*CreateAccountRequest_AppUserMapping)(nil), "kin.account.v3.CreateAccountRequest.AppUserMapping")
 	proto.RegisterType((*CreateAccountResponse)(nil), "kin.account.v3.CreateAccountResponse")
-	proto.RegisterType((*GetBalanceRequest)(nil), "kin.account.v3.GetBalanceRequest")
-	proto.RegisterType((*GetBalanceResponse)(nil), "kin.account.v3.GetBalanceResponse")
+	proto.RegisterType((*GetAccountInfoRequest)(nil), "kin.account.v3.GetAccountInfoRequest")
+	proto.RegisterType((*GetAccountInfoResponse)(nil), "kin.account.v3.GetAccountInfoResponse")
 }
 
 func init() { proto.RegisterFile("account/v3/account_service.proto", fileDescriptor_eb584e8026f725ac) }
 
 var fileDescriptor_eb584e8026f725ac = []byte{
-	// 409 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x93, 0xdf, 0x8a, 0xd3, 0x40,
-	0x14, 0xc6, 0x9d, 0x82, 0xd1, 0x3d, 0xb2, 0x4b, 0x1c, 0x5c, 0x5d, 0x8b, 0xb0, 0x6b, 0x50, 0x50,
-	0xd0, 0x09, 0x36, 0x97, 0x7b, 0xb5, 0xb1, 0xfe, 0x59, 0x84, 0x16, 0x92, 0x16, 0x44, 0x94, 0x3a,
-	0x4d, 0x0e, 0x71, 0x68, 0x92, 0xa9, 0xc9, 0x24, 0x20, 0xbe, 0x81, 0xaf, 0xe2, 0x2b, 0xf8, 0x64,
-	0x5e, 0x49, 0x26, 0x53, 0xda, 0xa6, 0x62, 0xbd, 0xd8, 0xbb, 0x93, 0x33, 0xe7, 0xfb, 0xce, 0xfc,
-	0xbe, 0x24, 0x70, 0xc6, 0xa3, 0x48, 0x56, 0xb9, 0x72, 0x6b, 0xcf, 0x35, 0xe5, 0xac, 0xc4, 0xa2,
-	0x16, 0x11, 0xb2, 0x65, 0x21, 0x95, 0xa4, 0x47, 0x0b, 0x91, 0x33, 0x73, 0xc4, 0x6a, 0xaf, 0x7f,
-	0xaf, 0xe6, 0xa9, 0x88, 0xb9, 0x42, 0x77, 0x55, 0xb4, 0x83, 0xfd, 0xe3, 0x48, 0x66, 0x99, 0xcc,
-	0x1b, 0xa7, 0x4c, 0xc6, 0x98, 0xb6, 0x6d, 0xe7, 0x33, 0xdc, 0x79, 0x59, 0x20, 0x57, 0x78, 0xd1,
-	0x7a, 0x04, 0xf8, 0xb5, 0xc2, 0x52, 0xd1, 0xb7, 0x00, 0xab, 0x85, 0x22, 0x3e, 0x21, 0x67, 0xe4,
-	0xc9, 0xad, 0xc1, 0x29, 0x6b, 0x96, 0xb5, 0x3e, 0xac, 0xf6, 0x58, 0xa8, 0x30, 0x4d, 0x79, 0x61,
-	0x94, 0x97, 0xb1, 0x7f, 0xf3, 0xb7, 0x7f, 0xfd, 0x07, 0xe9, 0xd9, 0x24, 0x38, 0xe0, 0xab, 0xa6,
-	0xf3, 0x1d, 0x8e, 0x3b, 0x1b, 0xca, 0xa5, 0xcc, 0x4b, 0xa4, 0x43, 0xb0, 0x0a, 0x2c, 0xab, 0x54,
-	0x69, 0xfb, 0xa3, 0xc1, 0x33, 0xb6, 0xcd, 0xc2, 0xfe, 0x2a, 0x63, 0x81, 0xd6, 0x04, 0x46, 0xeb,
-	0x3c, 0x00, 0xab, 0xed, 0x50, 0x0b, 0x7a, 0xe3, 0x77, 0xf6, 0x35, 0x0a, 0x60, 0xbd, 0x7a, 0x7f,
-	0x19, 0x4e, 0x42, 0x9b, 0x38, 0x9f, 0xe0, 0xf6, 0x1b, 0x54, 0x3e, 0x4f, 0x79, 0x1e, 0xe1, 0xd5,
-	0xb3, 0xfd, 0x24, 0x40, 0x37, 0xfd, 0x0d, 0xd9, 0x45, 0x87, 0xec, 0x69, 0x97, 0x6c, 0x57, 0xd3,
-	0xc1, 0xa2, 0x2f, 0xc0, 0xe2, 0x59, 0x33, 0x7e, 0xd2, 0xd3, 0xf7, 0xbb, 0xdf, 0xb9, 0x9f, 0x2f,
-	0x92, 0x21, 0x46, 0x22, 0xe3, 0x69, 0x60, 0x06, 0x9d, 0xd3, 0x9d, 0x24, 0x0e, 0xe1, 0x60, 0x34,
-	0x9e, 0xcc, 0x5e, 0x8f, 0xa7, 0xa3, 0xa1, 0x4d, 0x06, 0xbf, 0x08, 0xdc, 0x30, 0x40, 0xf4, 0x23,
-	0x1c, 0x6e, 0xc5, 0x4b, 0x1f, 0xed, 0x49, 0x5f, 0x47, 0xd7, 0x7f, 0xfc, 0x5f, 0xef, 0x88, 0x86,
-	0x00, 0x6b, 0x44, 0xfa, 0xf0, 0x5f, 0xf8, 0xad, 0xaf, 0xb3, 0x3f, 0x21, 0x7f, 0x0a, 0x77, 0x65,
-	0x91, 0xe8, 0xc1, 0x04, 0x37, 0x87, 0x3f, 0x9c, 0x27, 0x42, 0x7d, 0xa9, 0xe6, 0x4d, 0x3c, 0xee,
-	0x42, 0xe4, 0x18, 0xc9, 0xf2, 0x5b, 0xa9, 0x50, 0x3f, 0x3c, 0xe7, 0x4b, 0xe1, 0x26, 0x98, 0xeb,
-	0xcf, 0xdd, 0x5d, 0xff, 0x4f, 0xe7, 0xa6, 0x9c, 0x5b, 0xfa, 0xc4, 0xfb, 0x13, 0x00, 0x00, 0xff,
-	0xff, 0x9a, 0xb2, 0x8b, 0x15, 0x6c, 0x03, 0x00, 0x00,
+	// 564 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0xdd, 0x6e, 0x12, 0x41,
+	0x14, 0xc7, 0x9d, 0x6d, 0x58, 0xe4, 0xd0, 0xae, 0x64, 0x52, 0x10, 0xd1, 0xa4, 0x64, 0xd3, 0x6a,
+	0x2f, 0xca, 0x2e, 0x61, 0xbd, 0x31, 0x4d, 0x4c, 0x58, 0x5b, 0x95, 0x18, 0x21, 0x59, 0x20, 0x31,
+	0xf5, 0x83, 0x0c, 0xcb, 0x14, 0x37, 0x5d, 0x66, 0xc7, 0xdd, 0x81, 0x44, 0x8d, 0x89, 0xd7, 0x3e,
+	0x82, 0xcf, 0xe0, 0x1b, 0x78, 0xe3, 0xa5, 0xcf, 0xc4, 0x95, 0xd9, 0xaf, 0x16, 0xb0, 0x49, 0xb9,
+	0xe0, 0xee, 0xcc, 0x99, 0xf3, 0x3b, 0x1f, 0xff, 0x33, 0x19, 0xa8, 0x12, 0xdb, 0xf6, 0xa6, 0x4c,
+	0xe8, 0x33, 0x43, 0x4f, 0xcc, 0x41, 0x40, 0xfd, 0x99, 0x63, 0x53, 0x8d, 0xfb, 0x9e, 0xf0, 0xb0,
+	0x72, 0xe1, 0x30, 0x2d, 0xb9, 0xd2, 0x66, 0x46, 0xe5, 0xee, 0x8c, 0xb8, 0xce, 0x88, 0x08, 0xaa,
+	0xa7, 0x46, 0x1c, 0x58, 0x29, 0xda, 0xde, 0x64, 0xe2, 0xb1, 0x30, 0xd3, 0xc4, 0x1b, 0x51, 0x37,
+	0x76, 0xab, 0x3f, 0x11, 0xe4, 0x9b, 0x31, 0xde, 0x62, 0xe7, 0x1e, 0x7e, 0x09, 0x90, 0x16, 0x72,
+	0x46, 0x65, 0x54, 0x45, 0x87, 0xf9, 0xc6, 0x9e, 0x16, 0x16, 0x89, 0x79, 0x6d, 0x66, 0x68, 0x5d,
+	0x41, 0x5d, 0x97, 0xf8, 0x29, 0x36, 0x32, 0x6f, 0xcf, 0xcd, 0xcc, 0x0f, 0x24, 0x15, 0x90, 0x95,
+	0x23, 0xa9, 0x13, 0x3f, 0x82, 0x3b, 0x01, 0xfd, 0x34, 0xa5, 0xcc, 0xa6, 0x03, 0x36, 0x9d, 0x0c,
+	0xa9, 0x5f, 0x96, 0xaa, 0xe8, 0x70, 0xcb, 0x52, 0x52, 0x77, 0x3b, 0xf2, 0xe2, 0x32, 0x64, 0x87,
+	0xc4, 0x25, 0xcc, 0xa6, 0xe5, 0xad, 0x28, 0x20, 0x3d, 0xaa, 0xbf, 0x24, 0xd8, 0x7d, 0xe6, 0x53,
+	0x22, 0x68, 0x52, 0xcb, 0x0a, 0xc9, 0x40, 0x6c, 0xb0, 0xcb, 0x1e, 0xe4, 0x09, 0xe7, 0x83, 0x09,
+	0xe1, 0xdc, 0x61, 0xe3, 0xa8, 0xc3, 0x7c, 0xc3, 0xd0, 0x96, 0x55, 0xd5, 0xae, 0x6b, 0x42, 0x6b,
+	0x72, 0xde, 0x0f, 0xa8, 0xff, 0x3a, 0x46, 0x2d, 0x20, 0x9c, 0x27, 0x76, 0x45, 0x80, 0xb2, 0x7c,
+	0x8b, 0xeb, 0x20, 0x87, 0x75, 0x92, 0x6e, 0x73, 0xe6, 0xbd, 0xb9, 0x59, 0xf2, 0x77, 0x1b, 0xf8,
+	0xc3, 0x5b, 0x52, 0xfb, 0xd2, 0xac, 0x9d, 0xd5, 0x6b, 0x4f, 0xde, 0x7f, 0x35, 0x8e, 0x1e, 0x7f,
+	0xdb, 0xb7, 0x32, 0x84, 0xf3, 0xd6, 0x08, 0xd7, 0x41, 0x09, 0x89, 0x85, 0x39, 0xa5, 0x88, 0x84,
+	0xb9, 0x99, 0xf5, 0x33, 0x05, 0x54, 0xfe, 0x2e, 0x59, 0xdb, 0x84, 0xf3, 0xcb, 0x01, 0xd5, 0xdf,
+	0x08, 0x8a, 0x2b, 0x9d, 0x06, 0xdc, 0x63, 0x01, 0xc5, 0x27, 0x20, 0xfb, 0x34, 0x98, 0xba, 0x22,
+	0xaa, 0xae, 0x34, 0x8e, 0x6e, 0x18, 0x30, 0xc6, 0x34, 0x2b, 0x62, 0xac, 0x84, 0xc5, 0x4f, 0x61,
+	0xfb, 0xb2, 0x1b, 0x76, 0xee, 0x25, 0x62, 0xdd, 0x5f, 0xcd, 0xb5, 0xf0, 0x9c, 0xac, 0x3c, 0xb9,
+	0x3a, 0xa8, 0x0f, 0x40, 0x8e, 0x33, 0x62, 0x19, 0xa4, 0xce, 0xab, 0xc2, 0x2d, 0x0c, 0x20, 0x9f,
+	0xbe, 0x69, 0x75, 0x7b, 0xdd, 0x02, 0x52, 0x09, 0x14, 0x5f, 0x50, 0xb1, 0x08, 0x6f, 0x7a, 0xd9,
+	0xea, 0x1f, 0x04, 0xa5, 0xd5, 0x1a, 0x89, 0x42, 0xa7, 0x2b, 0x0a, 0xd5, 0x56, 0xa7, 0xba, 0x9e,
+	0xdb, 0xb4, 0x44, 0x7b, 0xff, 0x49, 0xb4, 0x03, 0xb9, 0x76, 0xa7, 0x37, 0x78, 0xde, 0xe9, 0xb7,
+	0x4f, 0x0a, 0xa8, 0xf1, 0x17, 0x41, 0x36, 0xa1, 0xf1, 0x3b, 0xd8, 0x59, 0xda, 0x1b, 0xde, 0x5f,
+	0xe7, 0xdd, 0x56, 0x0e, 0xd6, 0x5a, 0x3e, 0x1e, 0x80, 0xb2, 0x3c, 0x33, 0x3e, 0xb8, 0x49, 0x93,
+	0x38, 0xff, 0xc3, 0xf5, 0xa4, 0x33, 0xfb, 0x50, 0xf2, 0xfc, 0x71, 0x14, 0x3c, 0xa6, 0x8b, 0xc0,
+	0xd9, 0xf1, 0xd8, 0x11, 0x1f, 0xa7, 0xc3, 0x70, 0xbf, 0xfa, 0x85, 0xc3, 0xa8, 0xed, 0x05, 0x9f,
+	0x03, 0x41, 0xa3, 0x43, 0x8d, 0x70, 0x47, 0x1f, 0x53, 0x16, 0x7d, 0x5f, 0xfa, 0xd5, 0xff, 0x78,
+	0x9c, 0x98, 0x43, 0x39, 0xba, 0x31, 0xfe, 0x05, 0x00, 0x00, 0xff, 0xff, 0xea, 0x2a, 0x7d, 0xcd,
+	0x3c, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -297,8 +441,8 @@ type AccountClient interface {
 	// CreateAccount creates an account using a seed account configured
 	// by the service.
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
-	// GetBalance returns the balance of a specified account.
-	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error)
+	// GetAccountInfo returns the balance of a specified account.
+	GetAccountInfo(ctx context.Context, in *GetAccountInfoRequest, opts ...grpc.CallOption) (*GetAccountInfoResponse, error)
 }
 
 type accountClient struct {
@@ -318,9 +462,9 @@ func (c *accountClient) CreateAccount(ctx context.Context, in *CreateAccountRequ
 	return out, nil
 }
 
-func (c *accountClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceResponse, error) {
-	out := new(GetBalanceResponse)
-	err := c.cc.Invoke(ctx, "/kin.account.v3.Account/GetBalance", in, out, opts...)
+func (c *accountClient) GetAccountInfo(ctx context.Context, in *GetAccountInfoRequest, opts ...grpc.CallOption) (*GetAccountInfoResponse, error) {
+	out := new(GetAccountInfoResponse)
+	err := c.cc.Invoke(ctx, "/kin.account.v3.Account/GetAccountInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -332,8 +476,8 @@ type AccountServer interface {
 	// CreateAccount creates an account using a seed account configured
 	// by the service.
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
-	// GetBalance returns the balance of a specified account.
-	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceResponse, error)
+	// GetAccountInfo returns the balance of a specified account.
+	GetAccountInfo(context.Context, *GetAccountInfoRequest) (*GetAccountInfoResponse, error)
 }
 
 // UnimplementedAccountServer can be embedded to have forward compatible implementations.
@@ -343,8 +487,8 @@ type UnimplementedAccountServer struct {
 func (*UnimplementedAccountServer) CreateAccount(ctx context.Context, req *CreateAccountRequest) (*CreateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
 }
-func (*UnimplementedAccountServer) GetBalance(ctx context.Context, req *GetBalanceRequest) (*GetBalanceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
+func (*UnimplementedAccountServer) GetAccountInfo(ctx context.Context, req *GetAccountInfoRequest) (*GetAccountInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountInfo not implemented")
 }
 
 func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
@@ -369,20 +513,20 @@ func _Account_CreateAccount_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_GetBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBalanceRequest)
+func _Account_GetAccountInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountInfoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).GetBalance(ctx, in)
+		return srv.(AccountServer).GetAccountInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/kin.account.v3.Account/GetBalance",
+		FullMethod: "/kin.account.v3.Account/GetAccountInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).GetBalance(ctx, req.(*GetBalanceRequest))
+		return srv.(AccountServer).GetAccountInfo(ctx, req.(*GetAccountInfoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -396,8 +540,8 @@ var _Account_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Account_CreateAccount_Handler,
 		},
 		{
-			MethodName: "GetBalance",
-			Handler:    _Account_GetBalance_Handler,
+			MethodName: "GetAccountInfo",
+			Handler:    _Account_GetAccountInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

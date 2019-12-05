@@ -36,6 +36,92 @@ var (
 // define the regex for a UUID once up-front
 var _account_service_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on AccountInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *AccountInfo) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetAccountId() == nil {
+		return AccountInfoValidationError{
+			field:  "AccountId",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetAccountId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AccountInfoValidationError{
+				field:  "AccountId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for SequenceNumber
+
+	// no validation rules for Balance
+
+	return nil
+}
+
+// AccountInfoValidationError is the validation error returned by
+// AccountInfo.Validate if the designated constraints aren't met.
+type AccountInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AccountInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AccountInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AccountInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AccountInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AccountInfoValidationError) ErrorName() string { return "AccountInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AccountInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAccountInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AccountInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AccountInfoValidationError{}
+
 // Validate checks the field values on CreateAccountRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -55,6 +141,16 @@ func (m *CreateAccountRequest) Validate() error {
 		if err := v.Validate(); err != nil {
 			return CreateAccountRequestValidationError{
 				field:  "AccountId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetAppMapping()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateAccountRequestValidationError{
+				field:  "AppMapping",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -130,6 +226,16 @@ func (m *CreateAccountResponse) Validate() error {
 
 	// no validation rules for Result
 
+	if v, ok := interface{}(m.GetAccountInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateAccountResponseValidationError{
+				field:  "AccountInfo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -189,16 +295,16 @@ var _ interface {
 	ErrorName() string
 } = CreateAccountResponseValidationError{}
 
-// Validate checks the field values on GetBalanceRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *GetBalanceRequest) Validate() error {
+// Validate checks the field values on GetAccountInfoRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetAccountInfoRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if m.GetAccountId() == nil {
-		return GetBalanceRequestValidationError{
+		return GetAccountInfoRequestValidationError{
 			field:  "AccountId",
 			reason: "value is required",
 		}
@@ -206,7 +312,7 @@ func (m *GetBalanceRequest) Validate() error {
 
 	if v, ok := interface{}(m.GetAccountId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetBalanceRequestValidationError{
+			return GetAccountInfoRequestValidationError{
 				field:  "AccountId",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -217,9 +323,9 @@ func (m *GetBalanceRequest) Validate() error {
 	return nil
 }
 
-// GetBalanceRequestValidationError is the validation error returned by
-// GetBalanceRequest.Validate if the designated constraints aren't met.
-type GetBalanceRequestValidationError struct {
+// GetAccountInfoRequestValidationError is the validation error returned by
+// GetAccountInfoRequest.Validate if the designated constraints aren't met.
+type GetAccountInfoRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -227,24 +333,24 @@ type GetBalanceRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetBalanceRequestValidationError) Field() string { return e.field }
+func (e GetAccountInfoRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetBalanceRequestValidationError) Reason() string { return e.reason }
+func (e GetAccountInfoRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetBalanceRequestValidationError) Cause() error { return e.cause }
+func (e GetAccountInfoRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetBalanceRequestValidationError) Key() bool { return e.key }
+func (e GetAccountInfoRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetBalanceRequestValidationError) ErrorName() string {
-	return "GetBalanceRequestValidationError"
+func (e GetAccountInfoRequestValidationError) ErrorName() string {
+	return "GetAccountInfoRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetBalanceRequestValidationError) Error() string {
+func (e GetAccountInfoRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -256,14 +362,14 @@ func (e GetBalanceRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetBalanceRequest.%s: %s%s",
+		"invalid %sGetAccountInfoRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetBalanceRequestValidationError{}
+var _ error = GetAccountInfoRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -271,22 +377,22 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetBalanceRequestValidationError{}
+} = GetAccountInfoRequestValidationError{}
 
-// Validate checks the field values on GetBalanceResponse with the rules
+// Validate checks the field values on GetAccountInfoResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetBalanceResponse) Validate() error {
+func (m *GetAccountInfoResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	// no validation rules for Result
 
-	if v, ok := interface{}(m.GetAmount()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetAccountInfo()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return GetBalanceResponseValidationError{
-				field:  "Amount",
+			return GetAccountInfoResponseValidationError{
+				field:  "AccountInfo",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -296,9 +402,9 @@ func (m *GetBalanceResponse) Validate() error {
 	return nil
 }
 
-// GetBalanceResponseValidationError is the validation error returned by
-// GetBalanceResponse.Validate if the designated constraints aren't met.
-type GetBalanceResponseValidationError struct {
+// GetAccountInfoResponseValidationError is the validation error returned by
+// GetAccountInfoResponse.Validate if the designated constraints aren't met.
+type GetAccountInfoResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -306,24 +412,24 @@ type GetBalanceResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetBalanceResponseValidationError) Field() string { return e.field }
+func (e GetAccountInfoResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetBalanceResponseValidationError) Reason() string { return e.reason }
+func (e GetAccountInfoResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetBalanceResponseValidationError) Cause() error { return e.cause }
+func (e GetAccountInfoResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetBalanceResponseValidationError) Key() bool { return e.key }
+func (e GetAccountInfoResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetBalanceResponseValidationError) ErrorName() string {
-	return "GetBalanceResponseValidationError"
+func (e GetAccountInfoResponseValidationError) ErrorName() string {
+	return "GetAccountInfoResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetBalanceResponseValidationError) Error() string {
+func (e GetAccountInfoResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -335,14 +441,14 @@ func (e GetBalanceResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetBalanceResponse.%s: %s%s",
+		"invalid %sGetAccountInfoResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetBalanceResponseValidationError{}
+var _ error = GetAccountInfoResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -350,4 +456,88 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetBalanceResponseValidationError{}
+} = GetAccountInfoResponseValidationError{}
+
+// Validate checks the field values on CreateAccountRequest_AppUserMapping with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *CreateAccountRequest_AppUserMapping) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if !_CreateAccountRequest_AppUserMapping_AppId_Pattern.MatchString(m.GetAppId()) {
+		return CreateAccountRequest_AppUserMappingValidationError{
+			field:  "AppId",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9]{3,4}$\"",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetAppAccountId()); l < 1 || l > 256 {
+		return CreateAccountRequest_AppUserMappingValidationError{
+			field:  "AppAccountId",
+			reason: "value length must be between 1 and 256 runes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// CreateAccountRequest_AppUserMappingValidationError is the validation error
+// returned by CreateAccountRequest_AppUserMapping.Validate if the designated
+// constraints aren't met.
+type CreateAccountRequest_AppUserMappingValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateAccountRequest_AppUserMappingValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateAccountRequest_AppUserMappingValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateAccountRequest_AppUserMappingValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateAccountRequest_AppUserMappingValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateAccountRequest_AppUserMappingValidationError) ErrorName() string {
+	return "CreateAccountRequest_AppUserMappingValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateAccountRequest_AppUserMappingValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateAccountRequest_AppUserMapping.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateAccountRequest_AppUserMappingValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateAccountRequest_AppUserMappingValidationError{}
+
+var _CreateAccountRequest_AppUserMapping_AppId_Pattern = regexp.MustCompile("^[a-zA-Z0-9]{3,4}$")
