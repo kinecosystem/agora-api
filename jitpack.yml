@@ -1,0 +1,2 @@
+install:
+  - ./build/android/gradlew install -PauthToken=$TOKEN -p build/android
