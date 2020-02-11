@@ -22,7 +22,7 @@ repositories {
     }
 }
 
-def grpcVersion = "1.13.1"
+def grpcVersion = "1.18.0"
 def validateVersion = "0.2.0"
 dependencies {
     compile "io.grpc:grpc-protobuf:${grpcVersion}"
