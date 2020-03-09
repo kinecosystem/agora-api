@@ -4,6 +4,7 @@ package kin.agora.common.v3;
 
 option go_package = "github.com/kinecosystem/agora-api/genproto/common/v3;common";
 option java_package = "org.kin.agora.gen.common.v3";
+option objc_class_prefix = "APBCommonV3";
 
 import "validate/validate.proto";
 
