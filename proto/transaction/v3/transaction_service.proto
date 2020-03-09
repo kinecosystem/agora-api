@@ -4,6 +4,7 @@ package kin.agora.transaction.v3;
 
 option go_package = "github.com/kinecosystem/agora-api/genproto/transaction/v3;transaction";
 option java_package = "org.kin.agora.gen.transaction.v3";
+option objc_class_prefix = "APBTransactionV3";
 
 import "validate/validate.proto";
 import "common/v3/model.proto";
