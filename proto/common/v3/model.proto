@@ -99,6 +99,11 @@ message Invoice {
 
         // The amount in quarks.
         int64 amount = 3;
+
+        // The app SKU related to this line item, if applicable.
+        bytes sku = 4 [(validate.rules).bytes = {
+            max_len: 128
+        }];
     }
 
     Nonce nonce = 2 [(validate.rules).message.required = true];
