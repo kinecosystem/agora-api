@@ -422,3 +422,332 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AgoraDataValidationError{}
+
+// Validate checks the field values on InvoiceHash with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *InvoiceHash) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if len(m.GetValue()) != 32 {
+		return InvoiceHashValidationError{
+			field:  "Value",
+			reason: "value length must be 32 bytes",
+		}
+	}
+
+	return nil
+}
+
+// InvoiceHashValidationError is the validation error returned by
+// InvoiceHash.Validate if the designated constraints aren't met.
+type InvoiceHashValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InvoiceHashValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InvoiceHashValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InvoiceHashValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InvoiceHashValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InvoiceHashValidationError) ErrorName() string { return "InvoiceHashValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InvoiceHashValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvoiceHash.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InvoiceHashValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InvoiceHashValidationError{}
+
+// Validate checks the field values on Invoice with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Invoice) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := len(m.GetItems()); l < 1 || l > 1024 {
+		return InvoiceValidationError{
+			field:  "Items",
+			reason: "value must contain between 1 and 1024 items, inclusive",
+		}
+	}
+
+	for idx, item := range m.GetItems() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return InvoiceValidationError{
+					field:  fmt.Sprintf("Items[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.GetNonce() == nil {
+		return InvoiceValidationError{
+			field:  "Nonce",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetNonce()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InvoiceValidationError{
+				field:  "Nonce",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// InvoiceValidationError is the validation error returned by Invoice.Validate
+// if the designated constraints aren't met.
+type InvoiceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InvoiceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InvoiceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InvoiceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InvoiceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InvoiceValidationError) ErrorName() string { return "InvoiceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InvoiceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvoice.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InvoiceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InvoiceValidationError{}
+
+// Validate checks the field values on Nonce with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Nonce) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetGenerationTime() == nil {
+		return NonceValidationError{
+			field:  "GenerationTime",
+			reason: "value is required",
+		}
+	}
+
+	// no validation rules for Value
+
+	return nil
+}
+
+// NonceValidationError is the validation error returned by Nonce.Validate if
+// the designated constraints aren't met.
+type NonceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e NonceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e NonceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e NonceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e NonceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e NonceValidationError) ErrorName() string { return "NonceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e NonceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sNonce.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = NonceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = NonceValidationError{}
+
+// Validate checks the field values on Invoice_LineItem with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *Invoice_LineItem) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 128 {
+		return Invoice_LineItemValidationError{
+			field:  "Title",
+			reason: "value length must be between 1 and 128 runes, inclusive",
+		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetDescription()); l < 0 || l > 256 {
+		return Invoice_LineItemValidationError{
+			field:  "Description",
+			reason: "value length must be between 0 and 256 runes, inclusive",
+		}
+	}
+
+	// no validation rules for Amount
+
+	return nil
+}
+
+// Invoice_LineItemValidationError is the validation error returned by
+// Invoice_LineItem.Validate if the designated constraints aren't met.
+type Invoice_LineItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Invoice_LineItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Invoice_LineItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Invoice_LineItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Invoice_LineItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Invoice_LineItemValidationError) ErrorName() string { return "Invoice_LineItemValidationError" }
+
+// Error satisfies the builtin error interface
+func (e Invoice_LineItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvoice_LineItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Invoice_LineItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Invoice_LineItemValidationError{}
