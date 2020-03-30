@@ -256,7 +256,17 @@ func (m *GetHistoryResponse) GetItems() []*HistoryItem {
 
 type SubmitSendRequest struct {
 	// The raw XDR bytes (not base64 encoded) of the transaction envelope.
-	TransactionXdr       []byte      `protobuf:"bytes,1,opt,name=transaction_xdr,json=transactionXdr,proto3" json:"transaction_xdr,omitempty"`
+	TransactionXdr []byte `protobuf:"bytes,1,opt,name=transaction_xdr,json=transactionXdr,proto3" json:"transaction_xdr,omitempty"`
+	// An invoice indicating what the submitted transaction is for.
+	//
+	// If an invoice is included in this request, it is expected that the foreign key in
+	// the transaction memo is the 230-bit prefix of the invoice hash. The submitted
+	// invoice will be included in any calls made to the configured webhook(s) of the
+	// third-party app the transaction pertains to.
+	//
+	// The submitted invoice data will only be available for retrieval from the service it
+	// was submitted to and not directly from the blockchain nor any other deployments of
+	// the service.
 	Invoice              *v3.Invoice `protobuf:"bytes,2,opt,name=invoice,proto3" json:"invoice,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
