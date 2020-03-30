@@ -56,8 +56,8 @@ message GetHistoryResponse {
     }
 
     repeated HistoryItem items = 2 [(validate.rules).repeated = {
-        min_items: 0,
-        max_items: 128,
+        min_items: 0
+        max_items: 128
     }];
 }
 
@@ -67,6 +67,8 @@ message SubmitSendRequest {
         min_len: 1
         max_len: 10240
     }];
+
+    common.v3.Invoice invoice = 2;
 }
 
 message SubmitSendResponse {

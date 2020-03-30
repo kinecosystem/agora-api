@@ -238,6 +238,16 @@ func (m *SubmitSendRequest) Validate() error {
 		}
 	}
 
+	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SubmitSendRequestValidationError{
+				field:  "Invoice",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 

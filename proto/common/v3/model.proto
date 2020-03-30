@@ -6,6 +6,7 @@ option go_package = "github.com/kinecosystem/kin-api/genproto/common/v3;common";
 option java_package = "org.kin.gen.common.v3";
 
 import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
 
 message StellarAccountId {
     // The public key of accounts always starts with a G, so we
@@ -72,4 +73,44 @@ message AgoraData {
     // abused the memo system, likely by circumventing the Agora
     // services.
     int64 quark_price = 5;
+}
+
+message InvoiceHash {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
+    }];
+}
+
+message Invoice {
+    repeated LineItem items = 1 [(validate.rules).repeated = {
+        min_items: 1
+        max_items: 1024
+    }];
+    message LineItem {
+        string title = 1 [(validate.rules).string = {
+            min_len: 1
+            max_len: 128
+        }];
+        string description = 2 [(validate.rules).string = {
+            min_len: 0
+            max_len: 256
+        }];
+
+        // The amount in quarks.
+        int64 amount = 3;
+    }
+
+    Nonce nonce = 2 [(validate.rules).message.required = true];
+}
+
+message Nonce {
+    // The time the nonce was generated.
+    //
+    // If the generation time value is too far in the past _or_ future of the service time,
+    // the nonce will be rejected.
+    google.protobuf.Timestamp generation_time = 1 [(validate.rules).timestamp.required = true];
+
+    // A random value.
+    int64 value = 2;
 }
