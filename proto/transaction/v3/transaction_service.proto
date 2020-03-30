@@ -68,6 +68,16 @@ message SubmitSendRequest {
         max_len: 10240
     }];
 
+    // An invoice indicating what the submitted transaction is for.
+    //
+    // If an invoice is included in this request, it is expected that the foreign key in
+    // the transaction memo is the 230-bit prefix of the invoice hash. The submitted
+    // invoice will be included in any calls made to the configured webhook(s) of the
+    // third-party app the transaction pertains to.
+    //
+    // The submitted invoice data will only be available for retrieval from the service it
+    // was submitted to and not directly from the blockchain nor any other deployments of
+    // the service.
     common.v3.Invoice invoice = 2;
 }
 
