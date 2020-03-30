@@ -695,6 +695,13 @@ func (m *Invoice_LineItem) Validate() error {
 
 	// no validation rules for Amount
 
+	if len(m.GetSku()) > 128 {
+		return Invoice_LineItemValidationError{
+			field:  "Sku",
+			reason: "value length must be at most 128 bytes",
+		}
+	}
+
 	return nil
 }
 
