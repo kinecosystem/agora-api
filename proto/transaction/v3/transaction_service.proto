@@ -97,6 +97,11 @@ message SubmitSendResponse {
         // Clients should not submit send transactions until
         // they've verified they have sufficient funds.
         INSUFFICIENT_BALANCE = 2;
+
+        // Another invoice with the same invoice hash prefix exists
+        // in the store. Clients should regenerate the invoice
+        // with a new nonce and resubmit.
+        INVOICE_COLLISION = 3;
     }
 
     // The hash of the transaction, which may be used for other RPCs.
