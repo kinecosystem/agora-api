@@ -357,14 +357,24 @@ func (m *AgoraData) Validate() error {
 
 	// no validation rules for TransactionType
 
-	if len(m.GetForeignKey()) != 256 {
+	// no validation rules for TotalAmount
+
+	if len(m.GetForeignKey()) > 256 {
 		return AgoraDataValidationError{
 			field:  "ForeignKey",
-			reason: "value length must be 256 bytes",
+			reason: "value length must be at most 256 bytes",
 		}
 	}
 
-	// no validation rules for QuarkPrice
+	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AgoraDataValidationError{
+				field:  "Invoice",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
