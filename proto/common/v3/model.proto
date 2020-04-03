@@ -60,19 +60,22 @@ message AgoraData {
         P2P     = 3;
     }
 
-    // The full foreign key of the off-chain data, which is
-    // prefixed in the memo. This can be treated similar SKU.
-    bytes foreign_key = 4 [(validate.rules).bytes = {
-        min_len: 256
-        max_len: 256
-    }];
-
-    // The price, in quarks, of the 'item' the transaction
+    // The total amount, in quarks, of the 'item(s)' the transaction
     // was related to. This should be the same as the transaction
     // amount. If there is a mismatch, then the client mis-used or
     // abused the memo system, likely by circumventing the Agora
     // services.
-    int64 quark_price = 5;
+    int64 total_amount = 4;
+
+    // The full foreign key of the off-chain data, which is
+    // prefixed in the memo. This can be treated similar SKU.
+    bytes foreign_key = 5 [(validate.rules).bytes = {
+        max_len: 256
+    }];
+
+    // The invoice related to the transaction, if the service was
+    // able to resolve one using the foreign key.
+    Invoice invoice = 6;
 }
 
 message InvoiceHash {
