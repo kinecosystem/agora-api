@@ -104,7 +104,7 @@ message SubmitSendResponse {
         INVOICE_COLLISION = 3;
     }
 
-    // The hash of the transaction, if it was successfully submitted.
+    // The hash of the transaction, if it was submitted.
     // May be used for other RPCs.
     common.v3.TransactionHash hash = 2;
 
@@ -113,9 +113,9 @@ message SubmitSendResponse {
     // Non-zero on success.
     int64 ledger = 3;
 
-    // The transaction result XDR.
+    // The transaction result XDR, if a transaction was submitted.
     bytes result_xdr = 4 [(validate.rules).bytes = {
-        min_len: 1
+        min_len: 0
         max_len: 10240
     }];
 }
