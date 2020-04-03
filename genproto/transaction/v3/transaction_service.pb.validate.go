@@ -329,10 +329,10 @@ func (m *SubmitSendResponse) Validate() error {
 
 	// no validation rules for Ledger
 
-	if l := len(m.GetResultXdr()); l < 1 || l > 10240 {
+	if l := len(m.GetResultXdr()); l < 0 || l > 10240 {
 		return SubmitSendResponseValidationError{
 			field:  "ResultXdr",
-			reason: "value length must be between 1 and 10240 bytes, inclusive",
+			reason: "value length must be between 0 and 10240 bytes, inclusive",
 		}
 	}
 
