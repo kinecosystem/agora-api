@@ -317,13 +317,6 @@ func (m *SubmitSendResponse) Validate() error {
 
 	// no validation rules for Result
 
-	if m.GetHash() == nil {
-		return SubmitSendResponseValidationError{
-			field:  "Hash",
-			reason: "value is required",
-		}
-	}
-
 	if v, ok := interface{}(m.GetHash()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SubmitSendResponseValidationError{
