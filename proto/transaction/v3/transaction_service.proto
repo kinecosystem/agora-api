@@ -104,8 +104,9 @@ message SubmitSendResponse {
         INVOICE_COLLISION = 3;
     }
 
-    // The hash of the transaction, which may be used for other RPCs.
-    common.v3.TransactionHash hash = 2 [(validate.rules).message.required = true];
+    // The hash of the transaction, if it was successfully submitted.
+    // May be used for other RPCs.
+    common.v3.TransactionHash hash = 2;
 
     // The ledger in which the submitted transaction was included in.
     //
