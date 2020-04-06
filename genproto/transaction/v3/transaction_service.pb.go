@@ -271,8 +271,8 @@ type SubmitSendRequest struct {
 	// An invoice indicating what the submitted transaction is for.
 	//
 	// If an invoice is included in this request, it is expected that the foreign key in
-	// the transaction memo is the 230-bit prefix of the invoice hash. The submitted
-	// invoice will be included in any calls made to the configured webhook(s) of the
+	// the transaction memo is the SHA-224 hash of the invoice. The submitted invoice
+	// will be included in any calls made to the configured webhook(s) of the
 	// third-party app the transaction pertains to.
 	//
 	// The submitted invoice data will only be available for retrieval from the service it
