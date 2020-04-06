@@ -98,10 +98,14 @@ message SubmitSendResponse {
         // they've verified they have sufficient funds.
         INSUFFICIENT_BALANCE = 2;
 
-        // Another invoice with the same invoice hash prefix exists
-        // in the store. Clients should regenerate the invoice
+        // The nonce in the invoice is invalid - either the invoice
+        // nonce generation time is out of bounds, or the nonce has
+        // already been used. Clients should regenerate the invoice
         // with a new nonce and resubmit.
-        INVOICE_COLLISION = 3;
+        INVALID_INVOICE_NONCE = 3;
+
+        // The provided invoice has already been paid for.
+        INVOICE_PAID = 4;
     }
 
     // The hash of the transaction, if it was submitted.
