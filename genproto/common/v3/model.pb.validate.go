@@ -441,10 +441,10 @@ func (m *InvoiceHash) Validate() error {
 		return nil
 	}
 
-	if len(m.GetValue()) != 32 {
+	if len(m.GetValue()) != 28 {
 		return InvoiceHashValidationError{
 			field:  "Value",
-			reason: "value length must be 32 bytes",
+			reason: "value length must be 28 bytes",
 		}
 	}
 

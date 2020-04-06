@@ -79,9 +79,10 @@ message AgoraData {
 }
 
 message InvoiceHash {
+    // The SHA-224 hash of the invoice.
     bytes value = 1 [(validate.rules).bytes = {
-        min_len: 32
-        max_len: 32
+        min_len: 28
+        max_len: 28
     }];
 }
 
