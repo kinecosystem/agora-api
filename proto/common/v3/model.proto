@@ -6,7 +6,6 @@ option go_package = "github.com/kinecosystem/kin-api-internal/genproto/common/v3
 option java_package = "org.kin.gen.common.v3";
 
 import "validate/validate.proto";
-import "google/protobuf/timestamp.proto";
 
 message StellarAccountId {
     // The public key of accounts always starts with a G, so we
@@ -52,30 +51,16 @@ message AgoraData {
         max_len: 1024
     }];
 
-    TransactionType transaction_type = 3;
-    enum TransactionType {
-        UNKNOWN = 0;
-        EARN    = 1;
-        SPEND   = 2;
-        P2P     = 3;
-    }
-
     // The total amount, in quarks, of the 'item(s)' the transaction
     // was related to. This should be the same as the transaction
     // amount. If there is a mismatch, then the client mis-used or
     // abused the memo system, likely by circumventing the Agora
     // services.
-    int64 total_amount = 4;
-
-    // The full foreign key of the off-chain data, which is
-    // prefixed in the memo. This can be treated similar SKU.
-    bytes foreign_key = 5 [(validate.rules).bytes = {
-        max_len: 256
-    }];
+    int64 total_amount = 3;
 
     // The invoice related to the transaction, if the service was
     // able to resolve one using the foreign key.
-    Invoice invoice = 6;
+    Invoice invoice = 4;
 }
 
 message InvoiceHash {
@@ -109,17 +94,11 @@ message Invoice {
             max_len: 128
         }];
     }
-
-    Nonce nonce = 2 [(validate.rules).message.required = true];
 }
 
-message Nonce {
-    // The time the nonce was generated.
-    //
-    // If the generation time value is too far in the past _or_ future of the service time,
-    // the nonce will be rejected.
-    google.protobuf.Timestamp generation_time = 1 [(validate.rules).timestamp.required = true];
-
-    // A random value.
-    int64 value = 2;
+message InvoiceList {
+    repeated Invoice invoices = 1 [(validate.rules).repeated = {
+        min_items: 1
+        max_items: 100
+    }];
 }

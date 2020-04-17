@@ -13,11 +13,11 @@ service Transaction {
     // with additional off-chain data if available.
     rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
 
-    // SubmitSend submits a send transaction, which _may_ be whitelisted.
+    // SubmitTransaction submits a transaction, which _may_ be whitelisted.
     //
     // If the memo does not conform to the 'memo standard' (todo: name),
     // the transaction is not eligible for whitelisting.
-    rpc SubmitSend(SubmitSendRequest) returns (SubmitSendResponse);
+    rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
 
     // GetTransaction blocks until the specified transaction is resolved,
     // or until the RPC is cancelled by client / server, or fails.
@@ -61,27 +61,28 @@ message GetHistoryResponse {
     }];
 }
 
-message SubmitSendRequest {
+message SubmitTransactionRequest {
     // The raw XDR bytes (not base64 encoded) of the transaction envelope.
     bytes transaction_xdr = 1 [(validate.rules).bytes = {
         min_len: 1
         max_len: 10240
     }];
 
-    // An invoice indicating what the submitted transaction is for.
+    // An optional invoice list associating each operation with an invoice.
     //
-    // If an invoice is included in this request, it is expected that the foreign key in
-    // the transaction memo is the SHA-224 hash of the invoice. The submitted invoice
-    // will be included in any calls made to the configured webhook(s) of the
-    // third-party app the transaction pertains to.
+    // If an invoice list is included, it is expected that the foreign key in
+    // the transaction memo is the SHA-224 hash of the serialized invoice list.
+    //
+    // The invoice list will be included in webhook calls for the application the
+    // transaction pertains to (as specified by the memo app index).
     //
     // The submitted invoice data will only be available for retrieval from the service it
     // was submitted to and not directly from the blockchain nor any other deployments of
     // the service.
-    common.v3.Invoice invoice = 2;
+    common.v3.InvoiceList invoice_list = 2;
 }
 
-message SubmitSendResponse {
+message SubmitTransactionResponse {
     Result result = 1;
     enum Result {
         OK = 0;
@@ -98,27 +99,45 @@ message SubmitSendResponse {
         // they've verified they have sufficient funds.
         INSUFFICIENT_BALANCE = 2;
 
-        // The nonce in the invoice is invalid - either the invoice
-        // nonce generation time is out of bounds, or the nonce has
-        // already been used. Clients should regenerate the invoice
-        // with a new nonce and resubmit.
-        INVALID_INVOICE_NONCE = 3;
+        // Indicates there was an error with one or more of the
+        // supplied invoices.
+        //
+        // See: invoice_errors.
+        INVOICE_ERROR = 3;
+    }
 
-        // The provided invoice has already been paid for.
-        INVOICE_PAID = 4;
+    // Present when result = INVOICE_ERROR.
+    repeated InvoiceError invoice_errors = 2;
+    message InvoiceError {
+        // The operation index the invoice corresponds to.
+        uint32 op_index = 1 [(validate.rules).uint32.lte = 100];
+
+        // The invoice that was submitted.
+        common.v3.Invoice invoice = 2 [(validate.rules).message.required = true];
+
+        Reason reason = 3;
+        enum Reason {
+            UNKNOWN = 0;
+
+            // The provided invoice has already been paid for.
+            //
+            // This is only applicable when the memo transaction type
+            // is SPEND.
+            ALREADY_PAID = 1;
+        }
     }
 
     // The hash of the transaction, if it was submitted.
     // May be used for other RPCs.
-    common.v3.TransactionHash hash = 2;
+    common.v3.TransactionHash hash = 3;
 
     // The ledger in which the submitted transaction was included in.
     //
     // Non-zero on success.
-    int64 ledger = 3;
+    int64 ledger = 4;
 
     // The transaction result XDR, if a transaction was submitted.
-    bytes result_xdr = 4 [(validate.rules).bytes = {
+    bytes result_xdr = 5 [(validate.rules).bytes = {
         min_len: 0
         max_len: 10240
     }];
@@ -130,7 +149,7 @@ message GetTransactionRequest {
 
 message GetTransactionResponse {
     // The state of the transaction. The states are the same as
-    // SubmitSend, with the exception of UNKNOWN, which indicates
+    // SubmitTransaction, with the exception of UNKNOWN, which indicates
     // that the system is not yet aware of the transaction. This
     // cano occur if the transaction is still pending, or has been
     // dropped.
@@ -181,9 +200,18 @@ message HistoryItem {
     // with the transaction hash as a parameter.
     common.v3.AgoraDataUrl agora_data_url = 5;
 
+    bytes foreign_key = 6 [(validate.rules).bytes = {
+        max_len: 256
+    }];
+
     // If the service was able to resolve, or manages, the off-chain chain
-    // data associated with the memo, AgoraData will be populated.
-    common.v3.AgoraData agora_data = 6;
+    // data associated with the memo, op_agora_data will be populated.
+    //
+    // Each item in the list corresponds to the operation in the transaction
+    // with that same index. That is, operation[i] has op_agora_data[i].
+    repeated common.v3.AgoraData op_agora_data = 7 [(validate.rules).repeated = {
+        max_items: 100
+    }];
 }
 
 message Cursor {
