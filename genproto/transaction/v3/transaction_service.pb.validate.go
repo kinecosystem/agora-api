@@ -223,25 +223,25 @@ var _ interface {
 	ErrorName() string
 } = GetHistoryResponseValidationError{}
 
-// Validate checks the field values on SubmitSendRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *SubmitSendRequest) Validate() error {
+// Validate checks the field values on SubmitTransactionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *SubmitTransactionRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if l := len(m.GetTransactionXdr()); l < 1 || l > 10240 {
-		return SubmitSendRequestValidationError{
+		return SubmitTransactionRequestValidationError{
 			field:  "TransactionXdr",
 			reason: "value length must be between 1 and 10240 bytes, inclusive",
 		}
 	}
 
-	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetInvoiceList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SubmitSendRequestValidationError{
-				field:  "Invoice",
+			return SubmitTransactionRequestValidationError{
+				field:  "InvoiceList",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -251,9 +251,9 @@ func (m *SubmitSendRequest) Validate() error {
 	return nil
 }
 
-// SubmitSendRequestValidationError is the validation error returned by
-// SubmitSendRequest.Validate if the designated constraints aren't met.
-type SubmitSendRequestValidationError struct {
+// SubmitTransactionRequestValidationError is the validation error returned by
+// SubmitTransactionRequest.Validate if the designated constraints aren't met.
+type SubmitTransactionRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -261,24 +261,24 @@ type SubmitSendRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e SubmitSendRequestValidationError) Field() string { return e.field }
+func (e SubmitTransactionRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SubmitSendRequestValidationError) Reason() string { return e.reason }
+func (e SubmitTransactionRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SubmitSendRequestValidationError) Cause() error { return e.cause }
+func (e SubmitTransactionRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SubmitSendRequestValidationError) Key() bool { return e.key }
+func (e SubmitTransactionRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SubmitSendRequestValidationError) ErrorName() string {
-	return "SubmitSendRequestValidationError"
+func (e SubmitTransactionRequestValidationError) ErrorName() string {
+	return "SubmitTransactionRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SubmitSendRequestValidationError) Error() string {
+func (e SubmitTransactionRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -290,14 +290,14 @@ func (e SubmitSendRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSubmitSendRequest.%s: %s%s",
+		"invalid %sSubmitTransactionRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SubmitSendRequestValidationError{}
+var _ error = SubmitTransactionRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -305,21 +305,36 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SubmitSendRequestValidationError{}
+} = SubmitTransactionRequestValidationError{}
 
-// Validate checks the field values on SubmitSendResponse with the rules
+// Validate checks the field values on SubmitTransactionResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *SubmitSendResponse) Validate() error {
+func (m *SubmitTransactionResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	// no validation rules for Result
 
+	for idx, item := range m.GetInvoiceErrors() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SubmitTransactionResponseValidationError{
+					field:  fmt.Sprintf("InvoiceErrors[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if v, ok := interface{}(m.GetHash()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SubmitSendResponseValidationError{
+			return SubmitTransactionResponseValidationError{
 				field:  "Hash",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -330,7 +345,7 @@ func (m *SubmitSendResponse) Validate() error {
 	// no validation rules for Ledger
 
 	if l := len(m.GetResultXdr()); l < 0 || l > 10240 {
-		return SubmitSendResponseValidationError{
+		return SubmitTransactionResponseValidationError{
 			field:  "ResultXdr",
 			reason: "value length must be between 0 and 10240 bytes, inclusive",
 		}
@@ -339,9 +354,9 @@ func (m *SubmitSendResponse) Validate() error {
 	return nil
 }
 
-// SubmitSendResponseValidationError is the validation error returned by
-// SubmitSendResponse.Validate if the designated constraints aren't met.
-type SubmitSendResponseValidationError struct {
+// SubmitTransactionResponseValidationError is the validation error returned by
+// SubmitTransactionResponse.Validate if the designated constraints aren't met.
+type SubmitTransactionResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -349,24 +364,24 @@ type SubmitSendResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SubmitSendResponseValidationError) Field() string { return e.field }
+func (e SubmitTransactionResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SubmitSendResponseValidationError) Reason() string { return e.reason }
+func (e SubmitTransactionResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SubmitSendResponseValidationError) Cause() error { return e.cause }
+func (e SubmitTransactionResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SubmitSendResponseValidationError) Key() bool { return e.key }
+func (e SubmitTransactionResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SubmitSendResponseValidationError) ErrorName() string {
-	return "SubmitSendResponseValidationError"
+func (e SubmitTransactionResponseValidationError) ErrorName() string {
+	return "SubmitTransactionResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SubmitSendResponseValidationError) Error() string {
+func (e SubmitTransactionResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -378,14 +393,14 @@ func (e SubmitSendResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSubmitSendResponse.%s: %s%s",
+		"invalid %sSubmitTransactionResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SubmitSendResponseValidationError{}
+var _ error = SubmitTransactionResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -393,7 +408,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SubmitSendResponseValidationError{}
+} = SubmitTransactionResponseValidationError{}
 
 // Validate checks the field values on GetTransactionRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -619,14 +634,33 @@ func (m *HistoryItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetAgoraData()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return HistoryItemValidationError{
-				field:  "AgoraData",
-				reason: "embedded message failed validation",
-				cause:  err,
+	if len(m.GetForeignKey()) > 256 {
+		return HistoryItemValidationError{
+			field:  "ForeignKey",
+			reason: "value length must be at most 256 bytes",
+		}
+	}
+
+	if len(m.GetOpAgoraData()) > 100 {
+		return HistoryItemValidationError{
+			field:  "OpAgoraData",
+			reason: "value must contain no more than 100 item(s)",
+		}
+	}
+
+	for idx, item := range m.GetOpAgoraData() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return HistoryItemValidationError{
+					field:  fmt.Sprintf("OpAgoraData[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
 	}
 
 	return nil
@@ -756,3 +790,97 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CursorValidationError{}
+
+// Validate checks the field values on SubmitTransactionResponse_InvoiceError
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *SubmitTransactionResponse_InvoiceError) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetOpIndex() > 100 {
+		return SubmitTransactionResponse_InvoiceErrorValidationError{
+			field:  "OpIndex",
+			reason: "value must be less than or equal to 100",
+		}
+	}
+
+	if m.GetInvoice() == nil {
+		return SubmitTransactionResponse_InvoiceErrorValidationError{
+			field:  "Invoice",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SubmitTransactionResponse_InvoiceErrorValidationError{
+				field:  "Invoice",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Reason
+
+	return nil
+}
+
+// SubmitTransactionResponse_InvoiceErrorValidationError is the validation
+// error returned by SubmitTransactionResponse_InvoiceError.Validate if the
+// designated constraints aren't met.
+type SubmitTransactionResponse_InvoiceErrorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) ErrorName() string {
+	return "SubmitTransactionResponse_InvoiceErrorValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SubmitTransactionResponse_InvoiceErrorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSubmitTransactionResponse_InvoiceError.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SubmitTransactionResponse_InvoiceErrorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SubmitTransactionResponse_InvoiceErrorValidationError{}

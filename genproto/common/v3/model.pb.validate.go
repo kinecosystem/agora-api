@@ -355,16 +355,7 @@ func (m *AgoraData) Validate() error {
 		}
 	}
 
-	// no validation rules for TransactionType
-
 	// no validation rules for TotalAmount
-
-	if len(m.GetForeignKey()) > 256 {
-		return AgoraDataValidationError{
-			field:  "ForeignKey",
-			reason: "value length must be at most 256 bytes",
-		}
-	}
 
 	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -534,23 +525,6 @@ func (m *Invoice) Validate() error {
 
 	}
 
-	if m.GetNonce() == nil {
-		return InvoiceValidationError{
-			field:  "Nonce",
-			reason: "value is required",
-		}
-	}
-
-	if v, ok := interface{}(m.GetNonce()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return InvoiceValidationError{
-				field:  "Nonce",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	return nil
 }
 
@@ -608,28 +582,42 @@ var _ interface {
 	ErrorName() string
 } = InvoiceValidationError{}
 
-// Validate checks the field values on Nonce with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Nonce) Validate() error {
+// Validate checks the field values on InvoiceList with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *InvoiceList) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	if m.GetGenerationTime() == nil {
-		return NonceValidationError{
-			field:  "GenerationTime",
-			reason: "value is required",
+	if l := len(m.GetInvoices()); l < 1 || l > 100 {
+		return InvoiceListValidationError{
+			field:  "Invoices",
+			reason: "value must contain between 1 and 100 items, inclusive",
 		}
 	}
 
-	// no validation rules for Value
+	for idx, item := range m.GetInvoices() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return InvoiceListValidationError{
+					field:  fmt.Sprintf("Invoices[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	return nil
 }
 
-// NonceValidationError is the validation error returned by Nonce.Validate if
-// the designated constraints aren't met.
-type NonceValidationError struct {
+// InvoiceListValidationError is the validation error returned by
+// InvoiceList.Validate if the designated constraints aren't met.
+type InvoiceListValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -637,22 +625,22 @@ type NonceValidationError struct {
 }
 
 // Field function returns field value.
-func (e NonceValidationError) Field() string { return e.field }
+func (e InvoiceListValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e NonceValidationError) Reason() string { return e.reason }
+func (e InvoiceListValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e NonceValidationError) Cause() error { return e.cause }
+func (e InvoiceListValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e NonceValidationError) Key() bool { return e.key }
+func (e InvoiceListValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e NonceValidationError) ErrorName() string { return "NonceValidationError" }
+func (e InvoiceListValidationError) ErrorName() string { return "InvoiceListValidationError" }
 
 // Error satisfies the builtin error interface
-func (e NonceValidationError) Error() string {
+func (e InvoiceListValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -664,14 +652,14 @@ func (e NonceValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sNonce.%s: %s%s",
+		"invalid %sInvoiceList.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = NonceValidationError{}
+var _ error = InvoiceListValidationError{}
 
 var _ interface {
 	Field() string
@@ -679,7 +667,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = NonceValidationError{}
+} = InvoiceListValidationError{}
 
 // Validate checks the field values on Invoice_LineItem with the rules defined
 // in the proto definition for this message. If any rules are violated, an
