@@ -1,4 +1,4 @@
-module github.com/kinecosystem/kin-api
+module github.com/kinecosystem/kin-api-internal
 
 go 1.13
 
