@@ -128,7 +128,7 @@ bintray {
         userOrg = 'kinecosystem'
         licenses = ['Kin Ecosystem SDK License']
         websiteUrl = "https://github.com/kinecosystem/kin-api-internal"
-        iisueTrackerUrl = "https://github.com/kinecosystem/kin-api-internal/issues"
+        issueTrackerUrl = "https://github.com/kinecosystem/kin-api-internal/issues"
         vcsUrl = 'https://github.com/kinecosystem/kin-api-internal.git'
         version {
             name = this.version
