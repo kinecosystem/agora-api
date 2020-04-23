@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kin.offer.v3;
 
-option go_package = "github.com/kinecosystem/kin-api/genproto/offer/v3;offer";
+option go_package = "github.com/kinecosystem/kin-api-internal/genproto/offer/v3;offer";
 option java_package = "org.kin.gen.offer.v3";
 
 service Offer {
