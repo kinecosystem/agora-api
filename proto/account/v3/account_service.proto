@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kin.account.v3;
 
-option go_package = "github.com/kinecosystem/kin-api/genproto/account/v3;account";
+option go_package = "github.com/kinecosystem/kin-api-internal/genproto/account/v3;account";
 option java_package = "org.kin.gen.account.v3";
 
 import "validate/validate.proto";
