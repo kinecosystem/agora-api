@@ -182,13 +182,14 @@ func (m *AgoraDataUrl) GetValue() string {
 }
 
 type AgoraData struct {
-	// A renderable title related to the transaction.
+	// A renderable title related to the transaction operation.
 	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	// A renderable description related to the transaction.
+	// A renderable description related to the transaction operation.
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	// The total amount, in quarks, of the 'item(s)' the transaction
-	// was related to. This should be the same as the transaction
-	// amount. If there is a mismatch, then the client mis-used or
+	// The total amount, in quarks, of the 'item(s)' the transaction operation
+	// was related to. This shuold be the same as the transaction operation amount.
+	//
+	// If there is a mismatch, then the client mis-used or
 	// abused the memo system, likely by circumventing the Agora
 	// services.
 	TotalAmount int64 `protobuf:"varint,3,opt,name=total_amount,json=totalAmount,proto3" json:"total_amount,omitempty"`
