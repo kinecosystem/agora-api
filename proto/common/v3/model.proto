@@ -40,20 +40,21 @@ message AgoraDataUrl {
 }
 
 message AgoraData {
-    // A renderable title related to the transaction.
+    // A renderable title related to the transaction operation.
     string title = 1 [(validate.rules).string = {
         min_len: 1
         max_len: 256
     }];
-    // A renderable description related to the transaction.
+    // A renderable description related to the transaction operation.
     string description = 2 [(validate.rules).string = {
         min_len: 1
         max_len: 1024
     }];
 
-    // The total amount, in quarks, of the 'item(s)' the transaction
-    // was related to. This should be the same as the transaction
-    // amount. If there is a mismatch, then the client mis-used or
+    // The total amount, in quarks, of the 'item(s)' the transaction operation
+    // was related to. This shuold be the same as the transaction operation amount.
+    //
+    // If there is a mismatch, then the client mis-used or
     // abused the memo system, likely by circumventing the Agora
     // services.
     int64 total_amount = 3;
