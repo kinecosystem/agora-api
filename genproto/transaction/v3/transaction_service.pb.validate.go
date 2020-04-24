@@ -634,13 +634,6 @@ func (m *HistoryItem) Validate() error {
 		}
 	}
 
-	if len(m.GetForeignKey()) > 256 {
-		return HistoryItemValidationError{
-			field:  "ForeignKey",
-			reason: "value length must be at most 256 bytes",
-		}
-	}
-
 	if len(m.GetOpAgoraData()) > 100 {
 		return HistoryItemValidationError{
 			field:  "OpAgoraData",
