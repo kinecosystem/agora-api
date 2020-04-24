@@ -200,16 +200,12 @@ message HistoryItem {
     // with the transaction hash as a parameter.
     common.v3.AgoraDataUrl agora_data_url = 5;
 
-    bytes foreign_key = 6 [(validate.rules).bytes = {
-        max_len: 256
-    }];
-
     // If the service was able to resolve, or manages, the off-chain chain
     // data associated with the memo, op_agora_data will be populated.
     //
     // Each item in the list corresponds to the operation in the transaction
     // with that same index. That is, operation[i] has op_agora_data[i].
-    repeated common.v3.AgoraData op_agora_data = 7 [(validate.rules).repeated = {
+    repeated common.v3.AgoraData op_agora_data = 6 [(validate.rules).repeated = {
         max_items: 100
     }];
 }
