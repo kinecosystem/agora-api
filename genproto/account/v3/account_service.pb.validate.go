@@ -147,16 +147,6 @@ func (m *CreateAccountRequest) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetAppMapping()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateAccountRequestValidationError{
-				field:  "AppMapping",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	return nil
 }
 
@@ -457,87 +447,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAccountInfoResponseValidationError{}
-
-// Validate checks the field values on CreateAccountRequest_AppUserMapping with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
-func (m *CreateAccountRequest_AppUserMapping) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if !_CreateAccountRequest_AppUserMapping_AppId_Pattern.MatchString(m.GetAppId()) {
-		return CreateAccountRequest_AppUserMappingValidationError{
-			field:  "AppId",
-			reason: "value does not match regex pattern \"^[a-zA-Z0-9]{3,4}$\"",
-		}
-	}
-
-	if l := utf8.RuneCountInString(m.GetAppAccountId()); l < 1 || l > 256 {
-		return CreateAccountRequest_AppUserMappingValidationError{
-			field:  "AppAccountId",
-			reason: "value length must be between 1 and 256 runes, inclusive",
-		}
-	}
-
-	return nil
-}
-
-// CreateAccountRequest_AppUserMappingValidationError is the validation error
-// returned by CreateAccountRequest_AppUserMapping.Validate if the designated
-// constraints aren't met.
-type CreateAccountRequest_AppUserMappingValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e CreateAccountRequest_AppUserMappingValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e CreateAccountRequest_AppUserMappingValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e CreateAccountRequest_AppUserMappingValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e CreateAccountRequest_AppUserMappingValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e CreateAccountRequest_AppUserMappingValidationError) ErrorName() string {
-	return "CreateAccountRequest_AppUserMappingValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e CreateAccountRequest_AppUserMappingValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCreateAccountRequest_AppUserMapping.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = CreateAccountRequest_AppUserMappingValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = CreateAccountRequest_AppUserMappingValidationError{}
-
-var _CreateAccountRequest_AppUserMapping_AppId_Pattern = regexp.MustCompile("^[a-zA-Z0-9]{3,4}$")
