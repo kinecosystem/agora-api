@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Agora Webhooks
+  description: |
+    Spec for webhooks called by the Agora services. The paths are examples only - each
+    app can configure their own.
+  version: 1.0.0
+
+paths:
+  /sign_transaction:
+    post:
+      summary: |
+        A webhook for Agora services to submit transactions for signing. Each app is responsible for validating the
+        transaction contents prior to signing and returning the transaction. Developers should expect that any
+        transaction payload returned in a 200 response will be submitted to Horizon.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignTransactionRequestBody"
+      responses:
+        '200':
+          description: "Must contain the transaction payload, signed by the service."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignTransactionSuccessResponse"
+        '400':
+          description: "Indicates that the request was malformed or contained invalid arguments."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignTransactionBadRequestResponse"
+        '403':
+          description: "Indicates that the service refused to sign the transaction."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignTransactionForbiddenResponse"
+        '404':
+          description: "Indicates that one or more resources referenced in the request could not be found."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignTransactionNotFoundResponse"
+
+components:
+  schemas:
+    # Shared schemas
+    AccountID:
+      description: "A Kin account ID."
+      type: string
+    TransactionXDR:
+      description: "A base64-encoded transaction XDR."
+      type: string
+      format: byte
+    InvoiceList:
+      description: |
+        A list of invoices related to a transaction. Each invoice corresponds to an operation in the transaction.
+      type: object
+      required:
+        - invoices
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Invoice"
+    InvoiceListHash:
+      description: |
+        The SHA-224 hash of the protobuf form of an invoice list. Used as the foreign key in a transaction memo to
+        indicate that the transaction was for a specific invoice list.
+      type: string
+      format: byte
+    Invoice:
+      description: "Contains data related to what a transaction operation is for."
+      type: object
+      required:
+        - line_items
+      properties:
+        line_items:
+          type: array
+          items:
+            $ref: "#/components/schemas/LineItem"
+    LineItem:
+      description: "A single line item in an invoice."
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        amount:
+          description: "The amount of this line item, in quarks."
+          type: integer
+        sku:
+          description: "The app SKU related to this line item, if applicable."
+          type: string
+          format: byte
+
+    # Sign Transaction Webhook schemas
+    SignTransactionRequestBody:
+      description: |
+        The body of a a sign transaction request. Contains a transaction payload that should be verified prior to
+        signing. If an invoice list is present, it contains data regarding what the transaction is for.
+      type: object
+      required:
+        - transaction_xdr
+      properties:
+        transaction_xdr:
+          $ref: "#/components/schemas/TransactionXDR"
+        invoice_list:
+          $ref: "#/components/schemas/InvoiceList"
+        invoice_list_hash:
+          $ref: "#/components/schemas/InvoiceListHash"
+
+    SignTransactionSuccessResponse:
+      description: |
+        The expected response for a successful sign transaction request. Contains the signed transaction payload, which
+        will be submitted by the requesting Agora service.
+      type: object
+      required:
+        - transaction_xdr
+      properties:
+        transaction_xdr:
+          $ref: "#/components/schemas/TransactionXDR"
+    SignTransactionBadRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "'transaction_xdr' was invalid"
+    SignTransactionForbiddenResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "the operation at index 0 has the wrong source account"
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              operation_index:
+                description: "the index of the operation the error pertains to"
+                type: integer
+              reason:
+                type: string
+                enum:
+                  - wrong_destination
+                  - already_paid
+                description: |
+                  * `wrong_destination`: the destination account was incorrect
+                  * `already_paid`: the user has already paid for the submitted invoice
+    SignTransactionNotFoundResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "SKU 'SKU#1' could not be found"
