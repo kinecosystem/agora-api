@@ -13,6 +13,15 @@ paths:
         A webhook for Agora services to submit transactions for signing. Each app is responsible for validating the
         transaction contents prior to signing and returning the transaction. Developers should expect that any
         transaction payload returned in a 200 response will be submitted to Horizon.
+      parameters:
+        - in: header
+          name: X-App-User-ID
+          schema:
+            type: string
+        - in: header
+          name: X-App-User-Token
+          schema:
+            type: string
       requestBody:
         required: true
         content:
