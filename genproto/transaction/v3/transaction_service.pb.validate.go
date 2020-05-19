@@ -624,36 +624,14 @@ func (m *HistoryItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetAgoraDataUrl()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetInvoiceList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return HistoryItemValidationError{
-				field:  "AgoraDataUrl",
+				field:  "InvoiceList",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
-	}
-
-	if len(m.GetOpAgoraData()) > 100 {
-		return HistoryItemValidationError{
-			field:  "OpAgoraData",
-			reason: "value must contain no more than 100 item(s)",
-		}
-	}
-
-	for idx, item := range m.GetOpAgoraData() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return HistoryItemValidationError{
-					field:  fmt.Sprintf("OpAgoraData[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	return nil

@@ -32,38 +32,6 @@ message BigDecimal {
     }];
 }
 
-message AgoraDataUrl {
-    string value = 1 [(validate.rules).string = {
-        min_len: 1
-        max_len: 2048 // URL Maximum size
-    }];
-}
-
-message AgoraData {
-    // A renderable title related to the transaction operation.
-    string title = 1 [(validate.rules).string = {
-        min_len: 1
-        max_len: 256
-    }];
-    // A renderable description related to the transaction operation.
-    string description = 2 [(validate.rules).string = {
-        min_len: 1
-        max_len: 1024
-    }];
-
-    // The total amount, in quarks, of the 'item(s)' the transaction operation
-    // was related to. This shuold be the same as the transaction operation amount.
-    //
-    // If there is a mismatch, then the client mis-used or
-    // abused the memo system, likely by circumventing the Agora
-    // services.
-    int64 total_amount = 3;
-
-    // The invoice related to the transaction, if the service was
-    // able to resolve one using the foreign key.
-    Invoice invoice = 4;
-}
-
 message InvoiceHash {
     // The SHA-224 hash of the invoice.
     bytes value = 1 [(validate.rules).bytes = {

@@ -192,22 +192,9 @@ message HistoryItem {
     // The cursor position of this item.
     Cursor cursor = 4;
 
-    // If the transaction contained a valid Agora generated memo, then
-    // agora_data_url will be present. Clients may use this URL to obtain
-    // off-chain data.
-    //
-    // todo: standardize agora_data_url protocol / spec. likely just a GET
-    // with the transaction hash as a parameter.
-    common.v3.AgoraDataUrl agora_data_url = 5;
-
-    // If the service was able to resolve, or manages, the off-chain chain
-    // data associated with the memo, op_agora_data will be populated.
-    //
-    // Each item in the list corresponds to the operation in the transaction
-    // with that same index. That is, operation[i] has op_agora_data[i].
-    repeated common.v3.AgoraData op_agora_data = 6 [(validate.rules).repeated = {
-        max_items: 100
-    }];
+    // If an invoice list was submitted with the transaction, and the transaction
+    // was submitted via this instance of the service, this field will be set.
+    common.v3.InvoiceList invoice_list = 5;
 }
 
 message Cursor {
