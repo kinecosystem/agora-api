@@ -1,4 +1,4 @@
-module github.com/kinecosystem/kin-api-internal
+module github.com/kinecosystem/agora-api
 
 go 1.13
 
