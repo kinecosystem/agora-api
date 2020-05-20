@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package kin.account.v3;
+package kin.agora.account.v3;
 
-option go_package = "github.com/kinecosystem/kin-api-internal/genproto/account/v3;account";
-option java_package = "org.kin.gen.account.v3";
+option go_package = "github.com/kinecosystem/agora-api/genproto/account/v3;account";
+option java_package = "org.kin.agora.gen.account.v3";
 
 import "validate/validate.proto";
 import "common/v3/model.proto";

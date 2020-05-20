@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package kin.metrics.v3;
+package kin.agora.metrics.v3;
 
-option go_package = "github.com/kinecosystem/kin-api-internal/genproto/metrics/v3;metrics";
-option java_package = "org.kin.gen.metrics.v3";
+option go_package = "github.com/kinecosystem/agora-api/genproto/metrics/v3;metrics";
+option java_package = "org.kin.agora.gen.metrics.v3";
 
 service Ingestion {
     rpc Submit(SubmitRequest) returns (SubmitResponse);

@@ -5,7 +5,7 @@ apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 
 version = '0.5.0'
-group = 'org.kin.gen'
+group = 'org.kin.agora.gen'
 
 buildscript {
     repositories {
@@ -72,7 +72,7 @@ protobuf {
 
 jar {
     manifest {
-        attributes('kin-api': project.name,
+        attributes('agora-api': project.name,
                 'Version': project.version)
     }
 }
@@ -123,13 +123,13 @@ bintray {
     publications = ['mavenJava']
 
     pkg {
-        repo = 'kin-api-internal'
-        name = 'org.kin.gen'
+        repo = 'agora-api'
+        name = 'org.kin.agora.gen'
         userOrg = 'kinecosystem'
         licenses = ['Kin Ecosystem SDK License']
-        websiteUrl = "https://github.com/kinecosystem/kin-api-internal"
-        issueTrackerUrl = "https://github.com/kinecosystem/kin-api-internal/issues"
-        vcsUrl = 'https://github.com/kinecosystem/kin-api-internal.git'
+        websiteUrl = "https://github.com/kinecosystem/agora-api"
+        issueTrackerUrl = "https://github.com/kinecosystem/agora-api/issues"
+        vcsUrl = 'https://github.com/kinecosystem/agora-api.git'
         version {
             name = this.version
             vcsTag = String.format('v%s', version)
