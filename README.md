@@ -1,3 +1,3 @@
-# Kin API
+# Agora API
 
-The collection of APIs and models that various services use to interact with each other.
+The collection of APIs and models that can be used to interact with the Agora services.
