@@ -63,7 +63,7 @@ message GetHistoryResponse {
 
 message SubmitTransactionRequest {
     // The raw XDR bytes (not base64 encoded) of the transaction envelope.
-    bytes transaction_xdr = 1 [(validate.rules).bytes = {
+    bytes envelope_xdr = 1 [(validate.rules).bytes = {
         min_len: 1
         max_len: 10240
     }];
