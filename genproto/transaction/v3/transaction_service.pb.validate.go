@@ -231,9 +231,9 @@ func (m *SubmitTransactionRequest) Validate() error {
 		return nil
 	}
 
-	if l := len(m.GetTransactionXdr()); l < 1 || l > 10240 {
+	if l := len(m.GetEnvelopeXdr()); l < 1 || l > 10240 {
 		return SubmitTransactionRequestValidationError{
-			field:  "TransactionXdr",
+			field:  "EnvelopeXdr",
 			reason: "value length must be between 1 and 10240 bytes, inclusive",
 		}
 	}
