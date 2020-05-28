@@ -124,6 +124,10 @@ message SubmitTransactionResponse {
             // This is only applicable when the memo transaction type
             // is SPEND.
             ALREADY_PAID = 1;
+
+            // The destination in the operation corresponding to this invoice
+            // is incorrect.
+            WRONG_DESTINATION = 2;
         }
     }
 
