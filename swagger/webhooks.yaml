@@ -103,7 +103,7 @@ components:
         message:
           type: string
           example: "the operation at index 0 has the wrong source account"
-        errors:
+        invoice_errors:
           type: array
           items:
             type: object
@@ -114,11 +114,11 @@ components:
               reason:
                 type: string
                 enum:
-                  - wrong_destination
                   - already_paid
+                  - wrong_destination
                 description: |
-                  * `wrong_destination`: the destination account was incorrect
                   * `already_paid`: the user has already paid for the submitted invoice
+                  * `wrong_destination`: the destination account was incorrect
     SignTransactionNotFoundResponse:
       type: object
       properties:
