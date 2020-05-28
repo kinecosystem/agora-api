@@ -12,7 +12,7 @@ paths:
       summary: |
         A webhook for Agora services to submit transactions for signing. Each app is responsible for validating the
         transaction contents prior to signing and returning the transaction. Developers should expect that any
-        transaction payload returned in a 200 response will be submitted to Horizon.
+        transaction envelope payload returned in a 200 response will be submitted to Horizon.
       parameters:
         - in: header
           name: X-App-User-ID
@@ -57,57 +57,15 @@ paths:
 components:
   schemas:
     # Shared schemas
-    AccountID:
-      description: "A Kin account ID."
-      type: string
-    TransactionXDR:
-      description: "A base64-encoded transaction XDR."
+    TransactionEnvelopeXDR:
+      description: "A base64-encoded transaction envelope XDR."
       type: string
       format: byte
     InvoiceList:
       description: |
-        A list of invoices related to a transaction. Each invoice corresponds to an operation in the transaction.
-      type: object
-      required:
-        - invoices
-      properties:
-        invoices:
-          type: array
-          items:
-            $ref: "#/components/schemas/Invoice"
-    InvoiceListHash:
-      description: |
-        The SHA-224 hash of the protobuf form of an invoice list. Used as the foreign key in a transaction memo to
-        indicate that the transaction was for a specific invoice list.
+        A base64-encoded protobuf InvoiceList related to a transaction. Each invoice corresponds to an operation in the transaction.
       type: string
       format: byte
-    Invoice:
-      description: "Contains data related to what a transaction operation is for."
-      type: object
-      required:
-        - line_items
-      properties:
-        line_items:
-          type: array
-          items:
-            $ref: "#/components/schemas/LineItem"
-    LineItem:
-      description: "A single line item in an invoice."
-      type: object
-      required:
-        - title
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        amount:
-          description: "The amount of this line item, in quarks."
-          type: integer
-        sku:
-          description: "The app SKU related to this line item, if applicable."
-          type: string
-          format: byte
 
     # Sign Transaction Webhook schemas
     SignTransactionRequestBody:
@@ -116,31 +74,29 @@ components:
         signing. If an invoice list is present, it contains data regarding what the transaction is for.
       type: object
       required:
-        - transaction_xdr
+        - envelope_xdr
       properties:
-        transaction_xdr:
-          $ref: "#/components/schemas/TransactionXDR"
+        envelope_xdr:
+          $ref: "#/components/schemas/TransactionEnvelopeXDR"
         invoice_list:
           $ref: "#/components/schemas/InvoiceList"
-        invoice_list_hash:
-          $ref: "#/components/schemas/InvoiceListHash"
 
     SignTransactionSuccessResponse:
       description: |
-        The expected response for a successful sign transaction request. Contains the signed transaction payload, which
+        The expected response for a successful sign transaction request. Contains the signed transaction envelope, which
         will be submitted by the requesting Agora service.
       type: object
       required:
-        - transaction_xdr
+        - envelope_xdr
       properties:
-        transaction_xdr:
-          $ref: "#/components/schemas/TransactionXDR"
+        envelope_xdr:
+          $ref: "#/components/schemas/TransactionEnvelopeXDR"
     SignTransactionBadRequestResponse:
       type: object
       properties:
         message:
           type: string
-          example: "'transaction_xdr' was invalid"
+          example: "'envelope_xdr' was invalid"
     SignTransactionForbiddenResponse:
       type: object
       properties:
