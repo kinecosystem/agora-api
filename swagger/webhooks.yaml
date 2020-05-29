@@ -47,12 +47,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SignTransactionForbiddenResponse"
-        '404':
-          description: "Indicates that one or more resources referenced in the request could not be found."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SignTransactionNotFoundResponse"
 
 components:
   schemas:
@@ -116,12 +110,8 @@ components:
                 enum:
                   - already_paid
                   - wrong_destination
+                  - sku_not_found
                 description: |
                   * `already_paid`: the user has already paid for the submitted invoice
                   * `wrong_destination`: the destination account was incorrect
-    SignTransactionNotFoundResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: "SKU 'SKU#1' could not be found"
+                  * `sku_not_found`: one or more skus in the invoice was not found

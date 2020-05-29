@@ -128,6 +128,9 @@ message SubmitTransactionResponse {
             // The destination in the operation corresponding to this invoice
             // is incorrect.
             WRONG_DESTINATION = 2;
+
+            // One or more SKUs in the invoice was not found.
+            SKU_NOT_FOUND = 3;
         }
     }
 
