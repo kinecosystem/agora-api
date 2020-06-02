@@ -447,3 +447,421 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAccountInfoResponseValidationError{}
+
+// Validate checks the field values on GetEventsRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *GetEventsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetAccountId() == nil {
+		return GetEventsRequestValidationError{
+			field:  "AccountId",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetAccountId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetEventsRequestValidationError{
+				field:  "AccountId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// GetEventsRequestValidationError is the validation error returned by
+// GetEventsRequest.Validate if the designated constraints aren't met.
+type GetEventsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetEventsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetEventsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetEventsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetEventsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetEventsRequestValidationError) ErrorName() string { return "GetEventsRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetEventsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetEventsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetEventsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetEventsRequestValidationError{}
+
+// Validate checks the field values on Events with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Events) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Result
+
+	if len(m.GetEvents()) > 128 {
+		return EventsValidationError{
+			field:  "Events",
+			reason: "value must contain no more than 128 item(s)",
+		}
+	}
+
+	for idx, item := range m.GetEvents() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventsValidationError{
+					field:  fmt.Sprintf("Events[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// EventsValidationError is the validation error returned by Events.Validate if
+// the designated constraints aren't met.
+type EventsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EventsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EventsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EventsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EventsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EventsValidationError) ErrorName() string { return "EventsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EventsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEvents.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EventsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EventsValidationError{}
+
+// Validate checks the field values on Event with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Event) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	switch m.Type.(type) {
+
+	case *Event_AccountUpdateEvent:
+
+		if v, ok := interface{}(m.GetAccountUpdateEvent()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "AccountUpdateEvent",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Event_TransactionEvent:
+
+		if v, ok := interface{}(m.GetTransactionEvent()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "TransactionEvent",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// EventValidationError is the validation error returned by Event.Validate if
+// the designated constraints aren't met.
+type EventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EventValidationError) ErrorName() string { return "EventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EventValidationError{}
+
+// Validate checks the field values on AccountUpdateEvent with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AccountUpdateEvent) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetAccountInfo() == nil {
+		return AccountUpdateEventValidationError{
+			field:  "AccountInfo",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetAccountInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AccountUpdateEventValidationError{
+				field:  "AccountInfo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// AccountUpdateEventValidationError is the validation error returned by
+// AccountUpdateEvent.Validate if the designated constraints aren't met.
+type AccountUpdateEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AccountUpdateEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AccountUpdateEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AccountUpdateEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AccountUpdateEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AccountUpdateEventValidationError) ErrorName() string {
+	return "AccountUpdateEventValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AccountUpdateEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAccountUpdateEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AccountUpdateEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AccountUpdateEventValidationError{}
+
+// Validate checks the field values on TransactionEvent with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *TransactionEvent) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if l := len(m.GetEnvelopeXdr()); l < 1 || l > 10240 {
+		return TransactionEventValidationError{
+			field:  "EnvelopeXdr",
+			reason: "value length must be between 1 and 10240 bytes, inclusive",
+		}
+	}
+
+	return nil
+}
+
+// TransactionEventValidationError is the validation error returned by
+// TransactionEvent.Validate if the designated constraints aren't met.
+type TransactionEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TransactionEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TransactionEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TransactionEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TransactionEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TransactionEventValidationError) ErrorName() string { return "TransactionEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TransactionEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTransactionEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TransactionEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TransactionEventValidationError{}
