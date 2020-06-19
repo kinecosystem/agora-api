@@ -809,6 +809,13 @@ func (m *TransactionEvent) Validate() error {
 		}
 	}
 
+	if l := len(m.GetResultXdr()); l < 0 || l > 10240 {
+		return TransactionEventValidationError{
+			field:  "ResultXdr",
+			reason: "value length must be between 0 and 10240 bytes, inclusive",
+		}
+	}
+
 	return nil
 }
 
