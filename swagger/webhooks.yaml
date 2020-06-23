@@ -7,10 +7,21 @@ info:
   version: 1.0.0
 
 paths:
+  /events:
+    post:
+      summary: |
+        A webhook for the Agora service to deliver blockchain events related to the app.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventsRequestBody"
+
   /sign_transaction:
     post:
       summary: |
-        A webhook for Agora services to submit transactions for signing. Each app is responsible for validating the
+        A webhook for the Agora service to submit transactions for signing. Each app is responsible for validating the
         transaction contents prior to signing and returning the transaction. Developers should expect that any
         transaction envelope payload returned in a 200 response will be submitted to Horizon.
       parameters:
@@ -55,11 +66,59 @@ components:
       description: "A base64-encoded transaction envelope XDR."
       type: string
       format: byte
+    ResultXDR:
+      description: "A base64-encoded transaction result XDR."
+      type: string
+      format: byte
+
     InvoiceList:
       description: |
         A base64-encoded protobuf InvoiceList related to a transaction. Each invoice corresponds to an operation in the transaction.
       type: string
       format: byte
+
+    Event:
+      description: |
+        An event container for a specific type of event triggered by a blockchain operation.
+      type: object
+      properties:
+        transaction_event:
+          $ref: "#/components/schemas/TransactionEvent"
+
+    TransactionEvent:
+      description: |
+        An event indicating a transaction has completed (either succesfully or unsuccesfully).
+      type: object
+      required:
+        - kin_version
+        - tx_hash
+      properties:
+        kin_version:
+          type: integer
+        tx_hash:
+          type: string
+          format: byte
+        invoice_list:
+          $ref: "#/components/schemas/InvoiceList"
+        stellar_data:
+          $ref: "#/components/schemas/StellarData"
+
+    StellarData:
+      description: "Stellar specific data related to a transaction."
+      type: object
+      required:
+        - result_xdr
+        - transaction_xdr
+      properties:
+        result_xdr:
+          $ref: "#/components/schemas/ResultXDR"
+        envelope_xdr:
+          $ref: "#/components/schemas/TransactionEnvelopeXDR"
+
+    EventsRequestBody:
+      type: array
+      items:
+        $ref: "#/components/schemas/Event"
 
     # Sign Transaction Webhook schemas
     SignTransactionRequestBody:
@@ -68,8 +127,11 @@ components:
         signing. If an invoice list is present, it contains data regarding what the transaction is for.
       type: object
       required:
+        - kin_version
         - envelope_xdr
       properties:
+        kin_version:
+          type: integer
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
         invoice_list:
