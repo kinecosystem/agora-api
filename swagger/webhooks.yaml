@@ -17,6 +17,9 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/EventsRequestBody"
+      responses:
+        '200':
+          description: Empty ok response.
 
   /sign_transaction:
     post:
@@ -62,6 +65,9 @@ paths:
 components:
   schemas:
     # Shared schemas
+    KinVersion:
+      type: integer
+      format: integer
     TransactionEnvelopeXDR:
       description: "A base64-encoded transaction envelope XDR."
       type: string
@@ -70,7 +76,6 @@ components:
       description: "A base64-encoded transaction result XDR."
       type: string
       format: byte
-
     InvoiceList:
       description: |
         A base64-encoded protobuf InvoiceList related to a transaction. Each invoice corresponds to an operation in the transaction.
@@ -87,14 +92,14 @@ components:
 
     TransactionEvent:
       description: |
-        An event indicating a transaction has completed (either succesfully or unsuccesfully).
+        An event indicating a transaction has completed (either succesfully or unsuccessfully).
       type: object
       required:
         - kin_version
         - tx_hash
       properties:
         kin_version:
-          type: integer
+          $ref: "#/components/schemas/KinVersion"
         tx_hash:
           type: string
           format: byte
@@ -104,7 +109,7 @@ components:
           $ref: "#/components/schemas/StellarData"
 
     StellarData:
-      description: "Stellar specific data related to a transaction."
+      description: "Stellar-specific data related to a transaction."
       type: object
       required:
         - result_xdr
@@ -131,7 +136,7 @@ components:
         - envelope_xdr
       properties:
         kin_version:
-          type: integer
+          $ref: "#/components/schemas/KinVersion"
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
         invoice_list:
