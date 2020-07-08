@@ -94,7 +94,7 @@ message SubmitTransactionResponse {
         // issues with the transaction, such as sequence number,
         // or some other chain specific errors. The detail of
         // the error is present in the result xdr.
-        INTERNAL_ERROR = 1;
+        FAILED = 1;
 
         // Indicates there was an error with one or more of the
         // supplied invoices.
