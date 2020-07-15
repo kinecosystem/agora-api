@@ -96,11 +96,15 @@ message SubmitTransactionResponse {
         // the error is present in the result xdr.
         FAILED = 1;
 
+        // Indicates that the configured webhook for this transaction
+        // rejected the transaction without a specified reason.
+        REJECTED = 2;
+
         // Indicates there was an error with one or more of the
         // supplied invoices.
         //
         // See: invoice_errors.
-        INVOICE_ERROR = 2;
+        INVOICE_ERROR = 3;
     }
 
     // Present when result = INVOICE_ERROR.
