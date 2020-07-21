@@ -1,0 +1,15 @@
+{
+  "name": "agora-api",
+  "version": "0.17.0",
+  "description": "Agora API",
+  "repository": "git@github.com:kinecosystem/agora-api.git",
+  "author": "Kik Engineering <engineering@kik.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/google-protobuf": "^3.7.2",
+    "google-protobuf": "^4.0.0-rc.2",
+    "grpc": "^1.24.3",
+    "grpc-tools": "^1.9.1",
+    "grpc_tools_node_protoc_ts": "^4.1.0"
+  }
+}
