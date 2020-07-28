@@ -161,9 +161,6 @@ components:
     SignTransactionForbiddenResponse:
       type: object
       properties:
-        message:
-          type: string
-          example: "the operation at index 0 has the wrong source account"
         invoice_errors:
           type: array
           items:
