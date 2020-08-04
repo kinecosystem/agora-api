@@ -87,7 +87,7 @@ createAccount: {
     responseSerialize: serialize_kin_agora_account_v3_CreateAccountResponse,
     responseDeserialize: deserialize_kin_agora_account_v3_CreateAccountResponse,
   },
-  // GetAccountInfo returns the balance of a specified account.
+  // GetAccountInfo returns the information of a specified account.
 getAccountInfo: {
     path: '/kin.agora.account.v3.Account/GetAccountInfo',
     requestStream: false,
