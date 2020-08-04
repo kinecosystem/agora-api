@@ -60,12 +60,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SignTransactionSuccessResponse"
-        '400':
-          description: "Indicates that the request was malformed or contained invalid arguments."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SignTransactionBadRequestResponse"
         '403':
           description: "Indicates that the service refused to sign the transaction."
           content:
@@ -163,12 +157,6 @@ components:
       properties:
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
-    SignTransactionBadRequestResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: "'envelope_xdr' was invalid"
     SignTransactionForbiddenResponse:
       type: object
       properties:
