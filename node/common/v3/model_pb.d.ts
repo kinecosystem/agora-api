@@ -51,27 +51,6 @@ export namespace TransactionHash {
     }
 }
 
-export class BigDecimal extends jspb.Message { 
-    getValue(): string;
-    setValue(value: string): BigDecimal;
-
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): BigDecimal.AsObject;
-    static toObject(includeInstance: boolean, msg: BigDecimal): BigDecimal.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: BigDecimal, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): BigDecimal;
-    static deserializeBinaryFromReader(message: BigDecimal, reader: jspb.BinaryReader): BigDecimal;
-}
-
-export namespace BigDecimal {
-    export type AsObject = {
-        value: string,
-    }
-}
-
 export class InvoiceHash extends jspb.Message { 
     getValue(): Uint8Array | string;
     getValue_asU8(): Uint8Array;
