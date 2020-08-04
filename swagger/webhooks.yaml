@@ -11,6 +11,12 @@ paths:
     post:
       summary: |
         A webhook for the Agora service to deliver blockchain events related to the app.
+      parameters:
+        - in: header
+          name: X-Agora-HMAC-SHA-256
+          schema:
+            type: string
+            format: byte
       requestBody:
         required: true
         content:
@@ -29,11 +35,16 @@ paths:
         transaction envelope payload returned in a 200 response will be submitted to Horizon.
       parameters:
         - in: header
+          name: X-Agora-HMAC-SHA-256
+          schema:
+            type: string
+            format: byte
+        - in: header
           name: X-App-User-ID
           schema:
             type: string
         - in: header
-          name: X-App-User-Token
+          name: X-App-User-Passkey
           schema:
             type: string
       requestBody:
