@@ -675,7 +675,7 @@ type AccountClient interface {
 	// CreateAccount creates an account using a seed account configured
 	// by the service.
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
-	// GetAccountInfo returns the balance of a specified account.
+	// GetAccountInfo returns the information of a specified account.
 	GetAccountInfo(ctx context.Context, in *GetAccountInfoRequest, opts ...grpc.CallOption) (*GetAccountInfoResponse, error)
 	// GetEvents returns a stream of events related to the specified account.
 	//
@@ -746,7 +746,7 @@ type AccountServer interface {
 	// CreateAccount creates an account using a seed account configured
 	// by the service.
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
-	// GetAccountInfo returns the balance of a specified account.
+	// GetAccountInfo returns the information of a specified account.
 	GetAccountInfo(context.Context, *GetAccountInfoRequest) (*GetAccountInfoResponse, error)
 	// GetEvents returns a stream of events related to the specified account.
 	//

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\033org.kin.agora.gen.common.v3ZDgithub.com/kinecosystem/agora-api/genproto/common/v3;common\242\002\013APBCommonV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"S\n\nBigDecimal\x12\x45\n\x05value\x18\x01 \x01(\tB6\xfa\x42\x33r12/^(?:[1-9][0-9]{0,14}|0)(?:\\.[0-9]{0,11}[1-9])?$\"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbb\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1am\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\x42q\n\x1borg.kin.agora.gen.common.v3ZDgithub.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
+  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbb\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1am\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\x42q\n\x1borg.kin.agora.gen.common.v3ZDgithub.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -91,38 +91,6 @@ _TRANSACTIONHASH = _descriptor.Descriptor(
 )
 
 
-_BIGDECIMAL = _descriptor.Descriptor(
-  name='BigDecimal',
-  full_name='kin.agora.common.v3.BigDecimal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='value', full_name='kin.agora.common.v3.BigDecimal.value', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\372B3r12/^(?:[1-9][0-9]{0,14}|0)(?:\\.[0-9]{0,11}[1-9])?$', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=179,
-  serialized_end=262,
-)
-
-
 _INVOICEHASH = _descriptor.Descriptor(
   name='InvoiceHash',
   full_name='kin.agora.common.v3.InvoiceHash',
@@ -150,8 +118,8 @@ _INVOICEHASH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=264,
-  serialized_end=303,
+  serialized_start=179,
+  serialized_end=218,
 )
 
 
@@ -203,8 +171,8 @@ _INVOICE_LINEITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=384,
-  serialized_end=493,
+  serialized_start=299,
+  serialized_end=408,
 )
 
 _INVOICE = _descriptor.Descriptor(
@@ -234,8 +202,8 @@ _INVOICE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=306,
-  serialized_end=493,
+  serialized_start=221,
+  serialized_end=408,
 )
 
 
@@ -266,8 +234,8 @@ _INVOICELIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=495,
-  serialized_end=568,
+  serialized_start=410,
+  serialized_end=483,
 )
 
 _INVOICE_LINEITEM.containing_type = _INVOICE
@@ -275,7 +243,6 @@ _INVOICE.fields_by_name['items'].message_type = _INVOICE_LINEITEM
 _INVOICELIST.fields_by_name['invoices'].message_type = _INVOICE
 DESCRIPTOR.message_types_by_name['StellarAccountId'] = _STELLARACCOUNTID
 DESCRIPTOR.message_types_by_name['TransactionHash'] = _TRANSACTIONHASH
-DESCRIPTOR.message_types_by_name['BigDecimal'] = _BIGDECIMAL
 DESCRIPTOR.message_types_by_name['InvoiceHash'] = _INVOICEHASH
 DESCRIPTOR.message_types_by_name['Invoice'] = _INVOICE
 DESCRIPTOR.message_types_by_name['InvoiceList'] = _INVOICELIST
@@ -294,13 +261,6 @@ TransactionHash = _reflection.GeneratedProtocolMessageType('TransactionHash', (_
   # @@protoc_insertion_point(class_scope:kin.agora.common.v3.TransactionHash)
   })
 _sym_db.RegisterMessage(TransactionHash)
-
-BigDecimal = _reflection.GeneratedProtocolMessageType('BigDecimal', (_message.Message,), {
-  'DESCRIPTOR' : _BIGDECIMAL,
-  '__module__' : 'common.v3.model_pb2'
-  # @@protoc_insertion_point(class_scope:kin.agora.common.v3.BigDecimal)
-  })
-_sym_db.RegisterMessage(BigDecimal)
 
 InvoiceHash = _reflection.GeneratedProtocolMessageType('InvoiceHash', (_message.Message,), {
   'DESCRIPTOR' : _INVOICEHASH,
@@ -335,7 +295,6 @@ _sym_db.RegisterMessage(InvoiceList)
 DESCRIPTOR._options = None
 _STELLARACCOUNTID.fields_by_name['value']._options = None
 _TRANSACTIONHASH.fields_by_name['value']._options = None
-_BIGDECIMAL.fields_by_name['value']._options = None
 _INVOICEHASH.fields_by_name['value']._options = None
 _INVOICE_LINEITEM.fields_by_name['title']._options = None
 _INVOICE_LINEITEM.fields_by_name['description']._options = None
