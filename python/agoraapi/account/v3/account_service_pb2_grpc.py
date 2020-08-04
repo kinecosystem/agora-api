@@ -43,7 +43,7 @@ class AccountServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetAccountInfo(self, request, context):
-        """GetAccountInfo returns the balance of a specified account.
+        """GetAccountInfo returns the information of a specified account.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
