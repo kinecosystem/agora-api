@@ -40,7 +40,7 @@
 
 **AppIdx**: App Index (16 bits)
 
-    This field refers to the App in which the transcation
+    This field refers to the App in which the transaction
     that the memo was emboddied in was related to. The
     string representation for the corresponding App Index
     can be looked up via a central service. 16 bits allows
@@ -89,4 +89,3 @@
 | 29     | RESERVED |
 | 30     | RESERVED |
 | 31     | RESERVED |
-| 32     | RESERVED |
