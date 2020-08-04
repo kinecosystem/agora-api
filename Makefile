@@ -2,7 +2,7 @@ USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 
 .PHONY: generate
-generate: gengo gennode
+generate: gengo genpython gennode
 
 .PHONY: build-images
 build-images:
