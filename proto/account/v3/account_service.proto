@@ -14,7 +14,7 @@ service Account {
     // by the service.
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
 
-    // GetAccountInfo returns the balance of a specified account.
+    // GetAccountInfo returns the information of a specified account.
     rpc GetAccountInfo(GetAccountInfoRequest) returns (GetAccountInfoResponse);
 
     // GetEvents returns a stream of events related to the specified account.
