@@ -54,7 +54,8 @@ func (CreateAccountResponse_Result) EnumDescriptor() ([]byte, []int) {
 type GetAccountInfoResponse_Result int32
 
 const (
-	GetAccountInfoResponse_OK        GetAccountInfoResponse_Result = 0
+	GetAccountInfoResponse_OK GetAccountInfoResponse_Result = 0
+	// The specified account could not be found.
 	GetAccountInfoResponse_NOT_FOUND GetAccountInfoResponse_Result = 1
 )
 
@@ -671,8 +672,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AccountClient interface {
-	// CreateAccount creates an account using a seed account configured
-	// by the service.
+	// CreateAccount creates an account using a the service's configured seed
+	// account.
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
 	// GetAccountInfo returns the information of a specified account.
 	GetAccountInfo(ctx context.Context, in *GetAccountInfoRequest, opts ...grpc.CallOption) (*GetAccountInfoResponse, error)
@@ -742,8 +743,8 @@ func (x *accountGetEventsClient) Recv() (*Events, error) {
 
 // AccountServer is the server API for Account service.
 type AccountServer interface {
-	// CreateAccount creates an account using a seed account configured
-	// by the service.
+	// CreateAccount creates an account using a the service's configured seed
+	// account.
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
 	// GetAccountInfo returns the information of a specified account.
 	GetAccountInfo(context.Context, *GetAccountInfoRequest) (*GetAccountInfoResponse, error)

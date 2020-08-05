@@ -1,5 +1,6 @@
-# Memo Encoding
+# Kin Binary Memo Format
 
+This outlines the encoding required for a transaction memo to conform to the binary memo format expected by Kin.  
 
 ```
  0               1               2               3

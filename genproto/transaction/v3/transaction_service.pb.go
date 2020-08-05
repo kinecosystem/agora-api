@@ -32,7 +32,7 @@ const (
 	// ASC direction returns all history items in
 	// ascending (based on chain order) from the cursor.
 	GetHistoryRequest_ASC GetHistoryRequest_Direction = 0
-	// SESC direction returns all history items in
+	// DESC direction returns all history items in
 	// descending (based on chain order) from _before_ the cursor.
 	GetHistoryRequest_DESC GetHistoryRequest_Direction = 1
 )
@@ -88,7 +88,7 @@ const (
 	// to the underlying chain. Clients should retry with
 	// a rebuilt transaction in case there is temporal
 	// issues with the transaction, such as sequence number,
-	// or some other chain specific errors. The detail of
+	// or some other chain-specific errors. The detail of
 	// the error is present in the result xdr.
 	SubmitTransactionResponse_FAILED SubmitTransactionResponse_Result = 1
 	// Indicates that the configured webhook for this transaction
@@ -297,7 +297,7 @@ func (m *GetHistoryResponse) GetItems() []*HistoryItem {
 }
 
 type SubmitTransactionRequest struct {
-	// The raw XDR bytes (not base64 encoded) of the transaction envelope.
+	// The raw XDR bytes (not base64-encoded) of the transaction envelope.
 	EnvelopeXdr []byte `protobuf:"bytes,1,opt,name=envelope_xdr,json=envelopeXdr,proto3" json:"envelope_xdr,omitempty"`
 	// An optional invoice list associating each operation with an invoice.
 	//
@@ -535,7 +535,7 @@ type GetTransactionResponse struct {
 	// The state of the transaction. The states are the same as
 	// SubmitTransaction, with the exception of UNKNOWN, which indicates
 	// that the system is not yet aware of the transaction. This
-	// cano occur if the transaction is still pending, or has been
+	// can occur if the transaction is still pending, or has been
 	// dropped.
 	//
 	// If the transaction state is UNKNOWN for an extended period of
@@ -817,17 +817,21 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TransactionClient interface {
 	// GetHistory returns the transaction history for an account,
-	// with additional off-chain data if available.
+	// with additional off-chain invoice data, if available.
 	GetHistory(ctx context.Context, in *GetHistoryRequest, opts ...grpc.CallOption) (*GetHistoryResponse, error)
-	// SubmitTransaction submits a transaction, which _may_ be whitelisted.
+	// SubmitTransaction submits a transaction.
 	//
-	// If the memo does not conform to the 'memo standard' (todo: name),
+	// If the memo does not conform to the Kin binary memo format,
 	// the transaction is not eligible for whitelisting.
-	SubmitTransaction(ctx context.Context, in *SubmitTransactionRequest, opts ...grpc.CallOption) (*SubmitTransactionResponse, error)
-	// GetTransaction blocks until the specified transaction is resolved,
-	// or until the RPC is cancelled by client / server, or fails.
 	//
-	// A transaction is resolved if it has succeeded for failed.
+	// If the memo _does_ conform to the Kin binary memo format,
+	// the transaction may be whitelisted depending on app
+	// configuration.
+	//
+	// See: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+	SubmitTransaction(ctx context.Context, in *SubmitTransactionRequest, opts ...grpc.CallOption) (*SubmitTransactionResponse, error)
+	// GetTransaction returns a transaction and additional off-chain
+	// invoice data, if available.
 	GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error)
 }
 
@@ -869,17 +873,21 @@ func (c *transactionClient) GetTransaction(ctx context.Context, in *GetTransacti
 // TransactionServer is the server API for Transaction service.
 type TransactionServer interface {
 	// GetHistory returns the transaction history for an account,
-	// with additional off-chain data if available.
+	// with additional off-chain invoice data, if available.
 	GetHistory(context.Context, *GetHistoryRequest) (*GetHistoryResponse, error)
-	// SubmitTransaction submits a transaction, which _may_ be whitelisted.
+	// SubmitTransaction submits a transaction.
 	//
-	// If the memo does not conform to the 'memo standard' (todo: name),
+	// If the memo does not conform to the Kin binary memo format,
 	// the transaction is not eligible for whitelisting.
-	SubmitTransaction(context.Context, *SubmitTransactionRequest) (*SubmitTransactionResponse, error)
-	// GetTransaction blocks until the specified transaction is resolved,
-	// or until the RPC is cancelled by client / server, or fails.
 	//
-	// A transaction is resolved if it has succeeded for failed.
+	// If the memo _does_ conform to the Kin binary memo format,
+	// the transaction may be whitelisted depending on app
+	// configuration.
+	//
+	// See: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+	SubmitTransaction(context.Context, *SubmitTransactionRequest) (*SubmitTransactionResponse, error)
+	// GetTransaction returns a transaction and additional off-chain
+	// invoice data, if available.
 	GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error)
 }
 

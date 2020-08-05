@@ -36,27 +36,31 @@ class TransactionServicer(object):
 
     def GetHistory(self, request, context):
         """GetHistory returns the transaction history for an account,
-        with additional off-chain data if available.
+        with additional off-chain invoice data, if available.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SubmitTransaction(self, request, context):
-        """SubmitTransaction submits a transaction, which _may_ be whitelisted.
+        """SubmitTransaction submits a transaction.
 
-        If the memo does not conform to the 'memo standard' (todo: name),
+        If the memo does not conform to the Kin binary memo format,
         the transaction is not eligible for whitelisting.
+
+        If the memo _does_ conform to the Kin binary memo format,
+        the transaction may be whitelisted depending on app
+        configuration.
+
+        See: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetTransaction(self, request, context):
-        """GetTransaction blocks until the specified transaction is resolved,
-        or until the RPC is cancelled by client / server, or fails.
-
-        A transaction is resolved if it has succeeded for failed.
+        """GetTransaction returns a transaction and additional off-chain
+        invoice data, if available.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

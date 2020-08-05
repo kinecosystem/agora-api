@@ -75,7 +75,7 @@ function deserialize_kin_agora_transaction_v3_SubmitTransactionResponse(buffer_a
 
 var TransactionService = exports.TransactionService = {
   // GetHistory returns the transaction history for an account,
-// with additional off-chain data if available.
+// with additional off-chain invoice data, if available.
 getHistory: {
     path: '/kin.agora.transaction.v3.Transaction/GetHistory',
     requestStream: false,
@@ -87,10 +87,16 @@ getHistory: {
     responseSerialize: serialize_kin_agora_transaction_v3_GetHistoryResponse,
     responseDeserialize: deserialize_kin_agora_transaction_v3_GetHistoryResponse,
   },
-  // SubmitTransaction submits a transaction, which _may_ be whitelisted.
+  // SubmitTransaction submits a transaction.
 //
-// If the memo does not conform to the 'memo standard' (todo: name),
+// If the memo does not conform to the Kin binary memo format,
 // the transaction is not eligible for whitelisting.
+//
+// If the memo _does_ conform to the Kin binary memo format,
+// the transaction may be whitelisted depending on app
+// configuration.
+//
+// See: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
 submitTransaction: {
     path: '/kin.agora.transaction.v3.Transaction/SubmitTransaction',
     requestStream: false,
@@ -102,10 +108,8 @@ submitTransaction: {
     responseSerialize: serialize_kin_agora_transaction_v3_SubmitTransactionResponse,
     responseDeserialize: deserialize_kin_agora_transaction_v3_SubmitTransactionResponse,
   },
-  // GetTransaction blocks until the specified transaction is resolved,
-// or until the RPC is cancelled by client / server, or fails.
-//
-// A transaction is resolved if it has succeeded for failed.
+  // GetTransaction returns a transaction and additional off-chain
+// invoice data, if available.
 getTransaction: {
     path: '/kin.agora.transaction.v3.Transaction/GetTransaction',
     requestStream: false,

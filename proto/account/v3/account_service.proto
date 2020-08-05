@@ -10,8 +10,8 @@ import "validate/validate.proto";
 import "common/v3/model.proto";
 
 service Account {
-    // CreateAccount creates an account using a seed account configured
-    // by the service.
+    // CreateAccount creates an account using a the service's configured seed
+    // account.
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
 
     // GetAccountInfo returns the information of a specified account.
@@ -57,6 +57,8 @@ message GetAccountInfoResponse {
     Result result = 1;
     enum Result {
         OK = 0;
+
+        // The specified account could not be found.
         NOT_FOUND = 1;
     }
 

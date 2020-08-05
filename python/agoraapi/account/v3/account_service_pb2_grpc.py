@@ -35,8 +35,8 @@ class AccountServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CreateAccount(self, request, context):
-        """CreateAccount creates an account using a seed account configured
-        by the service.
+        """CreateAccount creates an account using a the service's configured seed
+        account.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
