@@ -74,8 +74,8 @@ function deserialize_kin_agora_account_v3_GetEventsRequest(buffer_arg) {
 
 
 var AccountService = exports.AccountService = {
-  // CreateAccount creates an account using a seed account configured
-// by the service.
+  // CreateAccount creates an account using a the service's configured seed
+// account.
 createAccount: {
     path: '/kin.agora.account.v3.Account/CreateAccount',
     requestStream: false,
