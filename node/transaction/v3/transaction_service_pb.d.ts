@@ -264,7 +264,6 @@ export namespace GetTransactionResponse {
     export enum State {
     UNKNOWN = 0,
     SUCCESS = 1,
-    FAILED = 2,
     }
 
 }

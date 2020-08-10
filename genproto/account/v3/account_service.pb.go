@@ -543,8 +543,8 @@ func (m *AccountUpdateEvent) GetAccountInfo() *AccountInfo {
 	return nil
 }
 
-// An event that gets sent when a transaction related to an account has been submitted to the blockchain.
-// Both successful and failed transactions will trigger this event.
+// An event that gets sent when a transaction related to an account has been
+// successfully submitted to the blockchain.
 type TransactionEvent struct {
 	// The transaction envelope XDR.
 	EnvelopeXdr []byte `protobuf:"bytes,1,opt,name=envelope_xdr,json=envelopeXdr,proto3" json:"envelope_xdr,omitempty"`
