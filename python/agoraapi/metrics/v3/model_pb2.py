@@ -17,9 +17,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='metrics/v3/model.proto',
   package='kin.agora.metrics.v3',
   syntax='proto3',
-  serialized_options=b'\n\034org.kin.agora.gen.metrics.v3Z=github.com/kinecosystem/agora-api/genproto/metrics/v3;metrics\242\002\014APBMetricsV3',
+  serialized_options=b'\n\034org.kin.agora.gen.metrics.v3ZFgithub.com/kinecosystem/agora-api/genproto/metrics/v3;metrics\242\002\014APBMetricsV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16metrics/v3/model.proto\x12\x14kin.agora.metrics.v3Bl\n\x1corg.kin.agora.gen.metrics.v3Z=github.com/kinecosystem/agora-api/genproto/metrics/v3;metrics\xa2\x02\x0c\x41PBMetricsV3b\x06proto3'
+  serialized_pb=b'\n\x16metrics/v3/model.proto\x12\x14kin.agora.metrics.v3Bu\n\x1corg.kin.agora.gen.metrics.v3ZFgithub.com/kinecosystem/agora-api/genproto/metrics/v3;metrics\xa2\x02\x0c\x41PBMetricsV3b\x06proto3'
 )
 
 

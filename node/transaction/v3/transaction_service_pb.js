@@ -1712,8 +1712,7 @@ proto.kin.agora.transaction.v3.GetTransactionResponse.serializeBinaryToWriter = 
  */
 proto.kin.agora.transaction.v3.GetTransactionResponse.State = {
   UNKNOWN: 0,
-  SUCCESS: 1,
-  FAILED: 2
+  SUCCESS: 1
 };
 
 /**

@@ -162,22 +162,17 @@ message GetTransactionRequest {
 message GetTransactionResponse {
     // The state of the transaction. The states are the same as
     // SubmitTransaction, with the exception of UNKNOWN, which indicates
-    // that the system is not yet aware of the transaction. This
-    // can occur if the transaction is still pending, or has been
-    // dropped.
+    // that the system does not have a record of the transaction. This
+    // can occur if the transaction is still pending or if it has failed.
     //
     // If the transaction state is UNKNOWN for an extended period of
     // time, it is likely that it was dropped. As a result, clients
     // should limit the total times GetTransaction is called for a
     // an UNKNOWN transaction.
-    //
-    // If the transaction state is FAILED, the failure reason will
-    // be enclosed in the HistoryItem's result XDR.
     State state = 1;
     enum State {
         UNKNOWN = 0;
         SUCCESS = 1;
-        FAILED  = 2;
     }
 
     // Non-zero when state == State::SUCCESS
