@@ -1,2 +1,5 @@
 .DS_Store
+.idea
 node_modules/
+python/agoraapi.egg-info
+python/dist
