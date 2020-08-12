@@ -10,7 +10,7 @@ setup(
     author_email='engineering@kik.com',
     url='https://github.com/kinecosystem/agora-api',
     license='MIT',
-    packages=find_packages(include=["agora", "agora.*"]),
+    packages=find_packages(include=["agoraapi", "agoraapi.*"]),
     long_description=open("../README.md").read(),
     long_description_content_type="text/markdown",
     classifiers=[
