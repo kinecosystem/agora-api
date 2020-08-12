@@ -146,7 +146,7 @@ message SubmitTransactionResponse {
     // The ledger in which the submitted transaction was included in.
     //
     // Non-zero on success.
-    int64 ledger = 4;
+    int64 ledger = 4 [jstype = JS_STRING];
 
     // The transaction result XDR, if a transaction was submitted.
     bytes result_xdr = 5 [(validate.rules).bytes = {
@@ -176,7 +176,7 @@ message GetTransactionResponse {
     }
 
     // Non-zero when state == State::SUCCESS
-    int64 ledger = 2;
+    int64 ledger = 2 [jstype = JS_STRING];
 
     // Present when state != State::UNKNOWN
     HistoryItem item = 3;

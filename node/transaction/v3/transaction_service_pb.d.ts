@@ -127,8 +127,8 @@ export class SubmitTransactionResponse extends jspb.Message {
     getHash(): common_v3_model_pb.TransactionHash | undefined;
     setHash(value?: common_v3_model_pb.TransactionHash): SubmitTransactionResponse;
 
-    getLedger(): number;
-    setLedger(value: number): SubmitTransactionResponse;
+    getLedger(): string;
+    setLedger(value: string): SubmitTransactionResponse;
 
     getResultXdr(): Uint8Array | string;
     getResultXdr_asU8(): Uint8Array;
@@ -151,7 +151,7 @@ export namespace SubmitTransactionResponse {
         result: SubmitTransactionResponse.Result,
         invoiceErrorsList: Array<SubmitTransactionResponse.InvoiceError.AsObject>,
         hash?: common_v3_model_pb.TransactionHash.AsObject,
-        ledger: number,
+        ledger: string,
         resultXdr: Uint8Array | string,
     }
 
@@ -234,8 +234,8 @@ export class GetTransactionResponse extends jspb.Message {
     getState(): GetTransactionResponse.State;
     setState(value: GetTransactionResponse.State): GetTransactionResponse;
 
-    getLedger(): number;
-    setLedger(value: number): GetTransactionResponse;
+    getLedger(): string;
+    setLedger(value: string): GetTransactionResponse;
 
 
     hasItem(): boolean;
@@ -257,7 +257,7 @@ export class GetTransactionResponse extends jspb.Message {
 export namespace GetTransactionResponse {
     export type AsObject = {
         state: GetTransactionResponse.State,
-        ledger: number,
+        ledger: string,
         item?: HistoryItem.AsObject,
     }
 

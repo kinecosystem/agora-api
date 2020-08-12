@@ -27,10 +27,10 @@ message AccountInfo {
     common.v3.StellarAccountId account_id = 1 [(validate.rules).message.required = true];
 
     // The last known sequence number of the account.
-    int64 sequence_number = 2;
+    int64 sequence_number = 2 [jstype = JS_STRING];
 
     // The last known balance, in quarks, of the account.
-    int64 balance = 3;
+    int64 balance = 3 [jstype = JS_STRING];
 }
 
 message CreateAccountRequest {

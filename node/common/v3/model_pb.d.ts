@@ -104,8 +104,8 @@ export namespace Invoice {
         getDescription(): string;
         setDescription(value: string): LineItem;
 
-        getAmount(): number;
-        setAmount(value: number): LineItem;
+        getAmount(): string;
+        setAmount(value: string): LineItem;
 
         getSku(): Uint8Array | string;
         getSku_asU8(): Uint8Array;
@@ -127,7 +127,7 @@ export namespace Invoice {
         export type AsObject = {
             title: string,
             description: string,
-            amount: number,
+            amount: string,
             sku: Uint8Array | string,
         }
     }

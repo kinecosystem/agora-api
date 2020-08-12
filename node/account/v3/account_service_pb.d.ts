@@ -15,11 +15,11 @@ export class AccountInfo extends jspb.Message {
     getAccountId(): common_v3_model_pb.StellarAccountId | undefined;
     setAccountId(value?: common_v3_model_pb.StellarAccountId): AccountInfo;
 
-    getSequenceNumber(): number;
-    setSequenceNumber(value: number): AccountInfo;
+    getSequenceNumber(): string;
+    setSequenceNumber(value: string): AccountInfo;
 
-    getBalance(): number;
-    setBalance(value: number): AccountInfo;
+    getBalance(): string;
+    setBalance(value: string): AccountInfo;
 
 
     serializeBinary(): Uint8Array;
@@ -35,8 +35,8 @@ export class AccountInfo extends jspb.Message {
 export namespace AccountInfo {
     export type AsObject = {
         accountId?: common_v3_model_pb.StellarAccountId.AsObject,
-        sequenceNumber: number,
-        balance: number,
+        sequenceNumber: string,
+        balance: string,
     }
 }
 

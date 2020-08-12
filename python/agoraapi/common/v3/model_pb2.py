@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\033org.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\242\002\013APBCommonV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbb\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1am\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\x42h\n\x1borg.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
+  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbf\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1aq\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x12\n\x06\x61mount\x18\x03 \x01(\x03\x42\x02\x30\x01\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\x42h\n\x1borg.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
@@ -151,7 +151,7 @@ _INVOICE_LINEITEM = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'0\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='sku', full_name='kin.agora.common.v3.Invoice.LineItem.sku', index=3,
       number=4, type=12, cpp_type=9, label=1,
@@ -172,7 +172,7 @@ _INVOICE_LINEITEM = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=299,
-  serialized_end=408,
+  serialized_end=412,
 )
 
 _INVOICE = _descriptor.Descriptor(
@@ -203,7 +203,7 @@ _INVOICE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=221,
-  serialized_end=408,
+  serialized_end=412,
 )
 
 
@@ -234,8 +234,8 @@ _INVOICELIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=410,
-  serialized_end=483,
+  serialized_start=414,
+  serialized_end=487,
 )
 
 _INVOICE_LINEITEM.containing_type = _INVOICE
@@ -298,6 +298,7 @@ _TRANSACTIONHASH.fields_by_name['value']._options = None
 _INVOICEHASH.fields_by_name['value']._options = None
 _INVOICE_LINEITEM.fields_by_name['title']._options = None
 _INVOICE_LINEITEM.fields_by_name['description']._options = None
+_INVOICE_LINEITEM.fields_by_name['amount']._options = None
 _INVOICE_LINEITEM.fields_by_name['sku']._options = None
 _INVOICE.fields_by_name['items']._options = None
 _INVOICELIST.fields_by_name['invoices']._options = None

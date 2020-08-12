@@ -273,8 +273,8 @@ proto.kin.agora.account.v3.AccountInfo.prototype.toObject = function(opt_include
 proto.kin.agora.account.v3.AccountInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
     accountId: (f = msg.getAccountId()) && common_v3_model_pb.StellarAccountId.toObject(includeInstance, f),
-    sequenceNumber: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    balance: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    sequenceNumber: jspb.Message.getFieldWithDefault(msg, 2, "0"),
+    balance: jspb.Message.getFieldWithDefault(msg, 3, "0")
   };
 
   if (includeInstance) {
@@ -317,11 +317,11 @@ proto.kin.agora.account.v3.AccountInfo.deserializeBinaryFromReader = function(ms
       msg.setAccountId(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {string} */ (reader.readInt64String());
       msg.setSequenceNumber(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {string} */ (reader.readInt64String());
       msg.setBalance(value);
       break;
     default:
@@ -362,15 +362,15 @@ proto.kin.agora.account.v3.AccountInfo.serializeBinaryToWriter = function(messag
     );
   }
   f = message.getSequenceNumber();
-  if (f !== 0) {
-    writer.writeInt64(
+  if (parseInt(f, 10) !== 0) {
+    writer.writeInt64String(
       2,
       f
     );
   }
   f = message.getBalance();
-  if (f !== 0) {
-    writer.writeInt64(
+  if (parseInt(f, 10) !== 0) {
+    writer.writeInt64String(
       3,
       f
     );
@@ -417,37 +417,37 @@ proto.kin.agora.account.v3.AccountInfo.prototype.hasAccountId = function() {
 
 /**
  * optional int64 sequence_number = 2;
- * @return {number}
+ * @return {string}
  */
 proto.kin.agora.account.v3.AccountInfo.prototype.getSequenceNumber = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, "0"));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.kin.agora.account.v3.AccountInfo} returns this
  */
 proto.kin.agora.account.v3.AccountInfo.prototype.setSequenceNumber = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3StringIntField(this, 2, value);
 };
 
 
 /**
  * optional int64 balance = 3;
- * @return {number}
+ * @return {string}
  */
 proto.kin.agora.account.v3.AccountInfo.prototype.getBalance = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, "0"));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.kin.agora.account.v3.AccountInfo} returns this
  */
 proto.kin.agora.account.v3.AccountInfo.prototype.setBalance = function(value) {
-  return jspb.Message.setProto3IntField(this, 3, value);
+  return jspb.Message.setProto3StringIntField(this, 3, value);
 };
 
 

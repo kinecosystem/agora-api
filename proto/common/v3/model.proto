@@ -51,7 +51,7 @@ message Invoice {
         }];
 
         // The amount in quarks.
-        int64 amount = 3;
+        int64 amount = 3 [jstype = JS_STRING];
 
         // The app SKU related to this line item, if applicable.
         bytes sku = 4 [(validate.rules).bytes = {

@@ -740,7 +740,7 @@ proto.kin.agora.common.v3.Invoice.LineItem.toObject = function(includeInstance, 
   var f, obj = {
     title: jspb.Message.getFieldWithDefault(msg, 1, ""),
     description: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    amount: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    amount: jspb.Message.getFieldWithDefault(msg, 3, "0"),
     sku: msg.getSku_asB64()
   };
 
@@ -787,7 +787,7 @@ proto.kin.agora.common.v3.Invoice.LineItem.deserializeBinaryFromReader = functio
       msg.setDescription(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {string} */ (reader.readInt64String());
       msg.setAmount(value);
       break;
     case 4:
@@ -838,8 +838,8 @@ proto.kin.agora.common.v3.Invoice.LineItem.serializeBinaryToWriter = function(me
     );
   }
   f = message.getAmount();
-  if (f !== 0) {
-    writer.writeInt64(
+  if (parseInt(f, 10) !== 0) {
+    writer.writeInt64String(
       3,
       f
     );
@@ -892,19 +892,19 @@ proto.kin.agora.common.v3.Invoice.LineItem.prototype.setDescription = function(v
 
 /**
  * optional int64 amount = 3;
- * @return {number}
+ * @return {string}
  */
 proto.kin.agora.common.v3.Invoice.LineItem.prototype.getAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, "0"));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.kin.agora.common.v3.Invoice.LineItem} returns this
  */
 proto.kin.agora.common.v3.Invoice.LineItem.prototype.setAmount = function(value) {
-  return jspb.Message.setProto3IntField(this, 3, value);
+  return jspb.Message.setProto3StringIntField(this, 3, value);
 };
 
 

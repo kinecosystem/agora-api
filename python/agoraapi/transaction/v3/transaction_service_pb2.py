@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n org.kin.agora.gen.transaction.v3ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v3;transaction\242\002\020APBTransactionV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n(transaction/v3/transaction_service.proto\x12\x18kin.agora.transaction.v3\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\"\xf4\x01\n\x11GetHistoryRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v3.Cursor\x12H\n\tdirection\x18\x03 \x01(\x0e\x32\x35.kin.agora.transaction.v3.GetHistoryRequest.Direction\"\x1e\n\tDirection\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\"\xbd\x01\n\x12GetHistoryResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.transaction.v3.GetHistoryResponse.Result\x12\x41\n\x05items\x18\x02 \x03(\x0b\x32%.kin.agora.transaction.v3.HistoryItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x00\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"t\n\x18SubmitTransactionRequest\x12 \n\x0c\x65nvelope_xdr\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x36\n\x0cinvoice_list\x18\x02 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\"\xf5\x04\n\x19SubmitTransactionResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.kin.agora.transaction.v3.SubmitTransactionResponse.Result\x12X\n\x0einvoice_errors\x18\x02 \x03(\x0b\x32@.kin.agora.transaction.v3.SubmitTransactionResponse.InvoiceError\x12\x32\n\x04hash\x18\x03 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHash\x12\x0e\n\x06ledger\x18\x04 \x01(\x03\x12\x1e\n\nresult_xdr\x18\x05 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x00\x18\x80P\x1a\x8e\x02\n\x0cInvoiceError\x12\x19\n\x08op_index\x18\x01 \x01(\rB\x07\xfa\x42\x04*\x02\x18\x64\x12\x37\n\x07invoice\x18\x02 \x01(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12W\n\x06reason\x18\x03 \x01(\x0e\x32G.kin.agora.transaction.v3.SubmitTransactionResponse.InvoiceError.Reason\"Q\n\x06Reason\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x10\n\x0c\x41LREADY_PAID\x10\x01\x12\x15\n\x11WRONG_DESTINATION\x10\x02\x12\x11\n\rSKU_NOT_FOUND\x10\x03\"=\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x46\x41ILED\x10\x01\x12\x0c\n\x08REJECTED\x10\x02\x12\x11\n\rINVOICE_ERROR\x10\x03\"a\n\x15GetTransactionRequest\x12H\n\x10transaction_hash\x18\x01 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xc7\x01\n\x16GetTransactionResponse\x12\x45\n\x05state\x18\x01 \x01(\x0e\x32\x36.kin.agora.transaction.v3.GetTransactionResponse.State\x12\x0e\n\x06ledger\x18\x02 \x01(\x03\x12\x33\n\x04item\x18\x03 \x01(\x0b\x32%.kin.agora.transaction.v3.HistoryItem\"!\n\x05State\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\"\xf7\x01\n\x0bHistoryItem\x12<\n\x04hash\x18\x01 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1e\n\nresult_xdr\x18\x02 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12 \n\x0c\x65nvelope_xdr\x18\x03 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x30\n\x06\x63ursor\x18\x04 \x01(\x0b\x32 .kin.agora.transaction.v3.Cursor\x12\x36\n\x0cinvoice_list\x18\x05 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\"#\n\x06\x43ursor\x12\x19\n\x05value\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80\x01\x32\xe9\x02\n\x0bTransaction\x12g\n\nGetHistory\x12+.kin.agora.transaction.v3.GetHistoryRequest\x1a,.kin.agora.transaction.v3.GetHistoryResponse\x12|\n\x11SubmitTransaction\x12\x32.kin.agora.transaction.v3.SubmitTransactionRequest\x1a\x33.kin.agora.transaction.v3.SubmitTransactionResponse\x12s\n\x0eGetTransaction\x12/.kin.agora.transaction.v3.GetTransactionRequest\x1a\x30.kin.agora.transaction.v3.GetTransactionResponseB|\n org.kin.agora.gen.transaction.v3ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v3;transaction\xa2\x02\x10\x41PBTransactionV3b\x06proto3'
+  serialized_pb=b'\n(transaction/v3/transaction_service.proto\x12\x18kin.agora.transaction.v3\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\"\xf4\x01\n\x11GetHistoryRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v3.Cursor\x12H\n\tdirection\x18\x03 \x01(\x0e\x32\x35.kin.agora.transaction.v3.GetHistoryRequest.Direction\"\x1e\n\tDirection\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\"\xbd\x01\n\x12GetHistoryResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.transaction.v3.GetHistoryResponse.Result\x12\x41\n\x05items\x18\x02 \x03(\x0b\x32%.kin.agora.transaction.v3.HistoryItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x00\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"t\n\x18SubmitTransactionRequest\x12 \n\x0c\x65nvelope_xdr\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x36\n\x0cinvoice_list\x18\x02 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\"\xf9\x04\n\x19SubmitTransactionResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.kin.agora.transaction.v3.SubmitTransactionResponse.Result\x12X\n\x0einvoice_errors\x18\x02 \x03(\x0b\x32@.kin.agora.transaction.v3.SubmitTransactionResponse.InvoiceError\x12\x32\n\x04hash\x18\x03 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHash\x12\x12\n\x06ledger\x18\x04 \x01(\x03\x42\x02\x30\x01\x12\x1e\n\nresult_xdr\x18\x05 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x00\x18\x80P\x1a\x8e\x02\n\x0cInvoiceError\x12\x19\n\x08op_index\x18\x01 \x01(\rB\x07\xfa\x42\x04*\x02\x18\x64\x12\x37\n\x07invoice\x18\x02 \x01(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12W\n\x06reason\x18\x03 \x01(\x0e\x32G.kin.agora.transaction.v3.SubmitTransactionResponse.InvoiceError.Reason\"Q\n\x06Reason\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x10\n\x0c\x41LREADY_PAID\x10\x01\x12\x15\n\x11WRONG_DESTINATION\x10\x02\x12\x11\n\rSKU_NOT_FOUND\x10\x03\"=\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x46\x41ILED\x10\x01\x12\x0c\n\x08REJECTED\x10\x02\x12\x11\n\rINVOICE_ERROR\x10\x03\"a\n\x15GetTransactionRequest\x12H\n\x10transaction_hash\x18\x01 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xcb\x01\n\x16GetTransactionResponse\x12\x45\n\x05state\x18\x01 \x01(\x0e\x32\x36.kin.agora.transaction.v3.GetTransactionResponse.State\x12\x12\n\x06ledger\x18\x02 \x01(\x03\x42\x02\x30\x01\x12\x33\n\x04item\x18\x03 \x01(\x0b\x32%.kin.agora.transaction.v3.HistoryItem\"!\n\x05State\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\"\xf7\x01\n\x0bHistoryItem\x12<\n\x04hash\x18\x01 \x01(\x0b\x32$.kin.agora.common.v3.TransactionHashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1e\n\nresult_xdr\x18\x02 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12 \n\x0c\x65nvelope_xdr\x18\x03 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x30\n\x06\x63ursor\x18\x04 \x01(\x0b\x32 .kin.agora.transaction.v3.Cursor\x12\x36\n\x0cinvoice_list\x18\x05 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\"#\n\x06\x43ursor\x12\x19\n\x05value\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80\x01\x32\xe9\x02\n\x0bTransaction\x12g\n\nGetHistory\x12+.kin.agora.transaction.v3.GetHistoryRequest\x1a,.kin.agora.transaction.v3.GetHistoryResponse\x12|\n\x11SubmitTransaction\x12\x32.kin.agora.transaction.v3.SubmitTransactionRequest\x1a\x33.kin.agora.transaction.v3.SubmitTransactionResponse\x12s\n\x0eGetTransaction\x12/.kin.agora.transaction.v3.GetTransactionRequest\x1a\x30.kin.agora.transaction.v3.GetTransactionResponseB|\n org.kin.agora.gen.transaction.v3ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v3;transaction\xa2\x02\x10\x41PBTransactionV3b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,common_dot_v3_dot_model__pb2.DESCRIPTOR,])
 
@@ -107,8 +107,8 @@ _SUBMITTRANSACTIONRESPONSE_INVOICEERROR_REASON = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1161,
-  serialized_end=1242,
+  serialized_start=1165,
+  serialized_end=1246,
 )
 _sym_db.RegisterEnumDescriptor(_SUBMITTRANSACTIONRESPONSE_INVOICEERROR_REASON)
 
@@ -142,8 +142,8 @@ _SUBMITTRANSACTIONRESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1244,
-  serialized_end=1305,
+  serialized_start=1248,
+  serialized_end=1309,
 )
 _sym_db.RegisterEnumDescriptor(_SUBMITTRANSACTIONRESPONSE_RESULT)
 
@@ -167,8 +167,8 @@ _GETTRANSACTIONRESPONSE_STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1573,
-  serialized_end=1606,
+  serialized_start=1581,
+  serialized_end=1614,
 )
 _sym_db.RegisterEnumDescriptor(_GETTRANSACTIONRESPONSE_STATE)
 
@@ -341,8 +341,8 @@ _SUBMITTRANSACTIONRESPONSE_INVOICEERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=972,
-  serialized_end=1242,
+  serialized_start=976,
+  serialized_end=1246,
 )
 
 _SUBMITTRANSACTIONRESPONSE = _descriptor.Descriptor(
@@ -380,7 +380,7 @@ _SUBMITTRANSACTIONRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'0\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='result_xdr', full_name='kin.agora.transaction.v3.SubmitTransactionResponse.result_xdr', index=4,
       number=5, type=12, cpp_type=9, label=1,
@@ -402,7 +402,7 @@ _SUBMITTRANSACTIONRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=676,
-  serialized_end=1305,
+  serialized_end=1309,
 )
 
 
@@ -433,8 +433,8 @@ _GETTRANSACTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1307,
-  serialized_end=1404,
+  serialized_start=1311,
+  serialized_end=1408,
 )
 
 
@@ -459,7 +459,7 @@ _GETTRANSACTIONRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'0\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='item', full_name='kin.agora.transaction.v3.GetTransactionResponse.item', index=2,
       number=3, type=11, cpp_type=10, label=1,
@@ -480,8 +480,8 @@ _GETTRANSACTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1407,
-  serialized_end=1606,
+  serialized_start=1411,
+  serialized_end=1614,
 )
 
 
@@ -540,8 +540,8 @@ _HISTORYITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1609,
-  serialized_end=1856,
+  serialized_start=1617,
+  serialized_end=1864,
 )
 
 
@@ -572,8 +572,8 @@ _CURSOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1858,
-  serialized_end=1893,
+  serialized_start=1866,
+  serialized_end=1901,
 )
 
 _GETHISTORYREQUEST.fields_by_name['account_id'].message_type = common_dot_v3_dot_model__pb2._STELLARACCOUNTID
@@ -680,8 +680,10 @@ _GETHISTORYRESPONSE.fields_by_name['items']._options = None
 _SUBMITTRANSACTIONREQUEST.fields_by_name['envelope_xdr']._options = None
 _SUBMITTRANSACTIONRESPONSE_INVOICEERROR.fields_by_name['op_index']._options = None
 _SUBMITTRANSACTIONRESPONSE_INVOICEERROR.fields_by_name['invoice']._options = None
+_SUBMITTRANSACTIONRESPONSE.fields_by_name['ledger']._options = None
 _SUBMITTRANSACTIONRESPONSE.fields_by_name['result_xdr']._options = None
 _GETTRANSACTIONREQUEST.fields_by_name['transaction_hash']._options = None
+_GETTRANSACTIONRESPONSE.fields_by_name['ledger']._options = None
 _HISTORYITEM.fields_by_name['hash']._options = None
 _HISTORYITEM.fields_by_name['result_xdr']._options = None
 _HISTORYITEM.fields_by_name['envelope_xdr']._options = None
@@ -694,8 +696,8 @@ _TRANSACTION = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1896,
-  serialized_end=2257,
+  serialized_start=1904,
+  serialized_end=2265,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetHistory',

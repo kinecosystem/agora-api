@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\034org.kin.agora.gen.account.v3Z=github.com/kinecosystem/agora-api/genproto/account/v3;account\242\002\014APBAccountV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n account/v3/account_service.proto\x12\x14kin.agora.account.v3\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\"|\n\x0b\x41\x63\x63ountInfo\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x17\n\x0fsequence_number\x18\x02 \x01(\x03\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x03\"[\n\x14\x43reateAccountRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xb2\x01\n\x15\x43reateAccountResponse\x12\x42\n\x06result\x18\x01 \x01(\x0e\x32\x32.kin.agora.account.v3.CreateAccountResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfo\"\x1c\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x45XISTS\x10\x01\"\\\n\x15GetAccountInfoRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xb7\x01\n\x16GetAccountInfoResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.account.v3.GetAccountInfoResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfo\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"W\n\x10GetEventsRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x96\x01\n\x06\x45vents\x12\x33\n\x06result\x18\x01 \x01(\x0e\x32#.kin.agora.account.v3.Events.Result\x12\x36\n\x06\x65vents\x18\x02 \x03(\x0b\x32\x1b.kin.agora.account.v3.EventB\t\xfa\x42\x06\x92\x01\x03\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\x9e\x01\n\x05\x45vent\x12H\n\x14\x61\x63\x63ount_update_event\x18\x01 \x01(\x0b\x32(.kin.agora.account.v3.AccountUpdateEventH\x00\x12\x43\n\x11transaction_event\x18\x02 \x01(\x0b\x32&.kin.agora.account.v3.TransactionEventH\x00\x42\x06\n\x04type\"W\n\x12\x41\x63\x63ountUpdateEvent\x12\x41\n\x0c\x61\x63\x63ount_info\x18\x01 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"T\n\x10TransactionEvent\x12 \n\x0c\x65nvelope_xdr\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x1e\n\nresult_xdr\x18\x02 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x00\x18\x80P2\xb5\x02\n\x07\x41\x63\x63ount\x12h\n\rCreateAccount\x12*.kin.agora.account.v3.CreateAccountRequest\x1a+.kin.agora.account.v3.CreateAccountResponse\x12k\n\x0eGetAccountInfo\x12+.kin.agora.account.v3.GetAccountInfoRequest\x1a,.kin.agora.account.v3.GetAccountInfoResponse\x12S\n\tGetEvents\x12&.kin.agora.account.v3.GetEventsRequest\x1a\x1c.kin.agora.account.v3.Events0\x01\x42l\n\x1corg.kin.agora.gen.account.v3Z=github.com/kinecosystem/agora-api/genproto/account/v3;account\xa2\x02\x0c\x41PBAccountV3b\x06proto3'
+  serialized_pb=b'\n account/v3/account_service.proto\x12\x14kin.agora.account.v3\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\"\x84\x01\n\x0b\x41\x63\x63ountInfo\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1b\n\x0fsequence_number\x18\x02 \x01(\x03\x42\x02\x30\x01\x12\x13\n\x07\x62\x61lance\x18\x03 \x01(\x03\x42\x02\x30\x01\"[\n\x14\x43reateAccountRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xb2\x01\n\x15\x43reateAccountResponse\x12\x42\n\x06result\x18\x01 \x01(\x0e\x32\x32.kin.agora.account.v3.CreateAccountResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfo\"\x1c\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x45XISTS\x10\x01\"\\\n\x15GetAccountInfoRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\xb7\x01\n\x16GetAccountInfoResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.account.v3.GetAccountInfoResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfo\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"W\n\x10GetEventsRequest\x12\x43\n\naccount_id\x18\x01 \x01(\x0b\x32%.kin.agora.common.v3.StellarAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x96\x01\n\x06\x45vents\x12\x33\n\x06result\x18\x01 \x01(\x0e\x32#.kin.agora.account.v3.Events.Result\x12\x36\n\x06\x65vents\x18\x02 \x03(\x0b\x32\x1b.kin.agora.account.v3.EventB\t\xfa\x42\x06\x92\x01\x03\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\x9e\x01\n\x05\x45vent\x12H\n\x14\x61\x63\x63ount_update_event\x18\x01 \x01(\x0b\x32(.kin.agora.account.v3.AccountUpdateEventH\x00\x12\x43\n\x11transaction_event\x18\x02 \x01(\x0b\x32&.kin.agora.account.v3.TransactionEventH\x00\x42\x06\n\x04type\"W\n\x12\x41\x63\x63ountUpdateEvent\x12\x41\n\x0c\x61\x63\x63ount_info\x18\x01 \x01(\x0b\x32!.kin.agora.account.v3.AccountInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"T\n\x10TransactionEvent\x12 \n\x0c\x65nvelope_xdr\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80P\x12\x1e\n\nresult_xdr\x18\x02 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x00\x18\x80P2\xb5\x02\n\x07\x41\x63\x63ount\x12h\n\rCreateAccount\x12*.kin.agora.account.v3.CreateAccountRequest\x1a+.kin.agora.account.v3.CreateAccountResponse\x12k\n\x0eGetAccountInfo\x12+.kin.agora.account.v3.GetAccountInfoRequest\x1a,.kin.agora.account.v3.GetAccountInfoResponse\x12S\n\tGetEvents\x12&.kin.agora.account.v3.GetEventsRequest\x1a\x1c.kin.agora.account.v3.Events0\x01\x42l\n\x1corg.kin.agora.gen.account.v3Z=github.com/kinecosystem/agora-api/genproto/account/v3;account\xa2\x02\x0c\x41PBAccountV3b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,common_dot_v3_dot_model__pb2.DESCRIPTOR,])
 
@@ -47,8 +47,8 @@ _CREATEACCOUNTRESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=476,
-  serialized_end=504,
+  serialized_start=485,
+  serialized_end=513,
 )
 _sym_db.RegisterEnumDescriptor(_CREATEACCOUNTRESPONSE_RESULT)
 
@@ -72,8 +72,8 @@ _GETACCOUNTINFORESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=753,
-  serialized_end=784,
+  serialized_start=762,
+  serialized_end=793,
 )
 _sym_db.RegisterEnumDescriptor(_GETACCOUNTINFORESPONSE_RESULT)
 
@@ -97,8 +97,8 @@ _EVENTS_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=753,
-  serialized_end=784,
+  serialized_start=762,
+  serialized_end=793,
 )
 _sym_db.RegisterEnumDescriptor(_EVENTS_RESULT)
 
@@ -124,14 +124,14 @@ _ACCOUNTINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'0\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='balance', full_name='kin.agora.account.v3.AccountInfo.balance', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'0\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -144,8 +144,8 @@ _ACCOUNTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=106,
-  serialized_end=230,
+  serialized_start=107,
+  serialized_end=239,
 )
 
 
@@ -176,8 +176,8 @@ _CREATEACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=232,
-  serialized_end=323,
+  serialized_start=241,
+  serialized_end=332,
 )
 
 
@@ -216,8 +216,8 @@ _CREATEACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=326,
-  serialized_end=504,
+  serialized_start=335,
+  serialized_end=513,
 )
 
 
@@ -248,8 +248,8 @@ _GETACCOUNTINFOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=506,
-  serialized_end=598,
+  serialized_start=515,
+  serialized_end=607,
 )
 
 
@@ -288,8 +288,8 @@ _GETACCOUNTINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=601,
-  serialized_end=784,
+  serialized_start=610,
+  serialized_end=793,
 )
 
 
@@ -320,8 +320,8 @@ _GETEVENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=786,
-  serialized_end=873,
+  serialized_start=795,
+  serialized_end=882,
 )
 
 
@@ -360,8 +360,8 @@ _EVENTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=876,
-  serialized_end=1026,
+  serialized_start=885,
+  serialized_end=1035,
 )
 
 
@@ -404,8 +404,8 @@ _EVENT = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1029,
-  serialized_end=1187,
+  serialized_start=1038,
+  serialized_end=1196,
 )
 
 
@@ -436,8 +436,8 @@ _ACCOUNTUPDATEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1189,
-  serialized_end=1276,
+  serialized_start=1198,
+  serialized_end=1285,
 )
 
 
@@ -475,8 +475,8 @@ _TRANSACTIONEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1278,
-  serialized_end=1362,
+  serialized_start=1287,
+  serialized_end=1371,
 )
 
 _ACCOUNTINFO.fields_by_name['account_id'].message_type = common_dot_v3_dot_model__pb2._STELLARACCOUNTID
@@ -586,6 +586,8 @@ _sym_db.RegisterMessage(TransactionEvent)
 
 DESCRIPTOR._options = None
 _ACCOUNTINFO.fields_by_name['account_id']._options = None
+_ACCOUNTINFO.fields_by_name['sequence_number']._options = None
+_ACCOUNTINFO.fields_by_name['balance']._options = None
 _CREATEACCOUNTREQUEST.fields_by_name['account_id']._options = None
 _GETACCOUNTINFOREQUEST.fields_by_name['account_id']._options = None
 _GETEVENTSREQUEST.fields_by_name['account_id']._options = None
@@ -601,8 +603,8 @@ _ACCOUNT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1365,
-  serialized_end=1674,
+  serialized_start=1374,
+  serialized_end=1683,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateAccount',

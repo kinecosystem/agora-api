@@ -905,7 +905,7 @@ proto.kin.agora.transaction.v3.SubmitTransactionResponse.toObject = function(inc
     invoiceErrorsList: jspb.Message.toObjectList(msg.getInvoiceErrorsList(),
     proto.kin.agora.transaction.v3.SubmitTransactionResponse.InvoiceError.toObject, includeInstance),
     hash: (f = msg.getHash()) && common_v3_model_pb.TransactionHash.toObject(includeInstance, f),
-    ledger: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    ledger: jspb.Message.getFieldWithDefault(msg, 4, "0"),
     resultXdr: msg.getResultXdr_asB64()
   };
 
@@ -958,7 +958,7 @@ proto.kin.agora.transaction.v3.SubmitTransactionResponse.deserializeBinaryFromRe
       msg.setHash(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {string} */ (reader.readInt64String());
       msg.setLedger(value);
       break;
     case 5:
@@ -1018,8 +1018,8 @@ proto.kin.agora.transaction.v3.SubmitTransactionResponse.serializeBinaryToWriter
     );
   }
   f = message.getLedger();
-  if (f !== 0) {
-    writer.writeInt64(
+  if (parseInt(f, 10) !== 0) {
+    writer.writeInt64String(
       4,
       f
     );
@@ -1360,19 +1360,19 @@ proto.kin.agora.transaction.v3.SubmitTransactionResponse.prototype.hasHash = fun
 
 /**
  * optional int64 ledger = 4;
- * @return {number}
+ * @return {string}
  */
 proto.kin.agora.transaction.v3.SubmitTransactionResponse.prototype.getLedger = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, "0"));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.kin.agora.transaction.v3.SubmitTransactionResponse} returns this
  */
 proto.kin.agora.transaction.v3.SubmitTransactionResponse.prototype.setLedger = function(value) {
-  return jspb.Message.setProto3IntField(this, 4, value);
+  return jspb.Message.setProto3StringIntField(this, 4, value);
 };
 
 
@@ -1602,7 +1602,7 @@ proto.kin.agora.transaction.v3.GetTransactionResponse.prototype.toObject = funct
 proto.kin.agora.transaction.v3.GetTransactionResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     state: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    ledger: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    ledger: jspb.Message.getFieldWithDefault(msg, 2, "0"),
     item: (f = msg.getItem()) && proto.kin.agora.transaction.v3.HistoryItem.toObject(includeInstance, f)
   };
 
@@ -1645,7 +1645,7 @@ proto.kin.agora.transaction.v3.GetTransactionResponse.deserializeBinaryFromReade
       msg.setState(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {string} */ (reader.readInt64String());
       msg.setLedger(value);
       break;
     case 3:
@@ -1690,8 +1690,8 @@ proto.kin.agora.transaction.v3.GetTransactionResponse.serializeBinaryToWriter = 
     );
   }
   f = message.getLedger();
-  if (f !== 0) {
-    writer.writeInt64(
+  if (parseInt(f, 10) !== 0) {
+    writer.writeInt64String(
       2,
       f
     );
@@ -1735,19 +1735,19 @@ proto.kin.agora.transaction.v3.GetTransactionResponse.prototype.setState = funct
 
 /**
  * optional int64 ledger = 2;
- * @return {number}
+ * @return {string}
  */
 proto.kin.agora.transaction.v3.GetTransactionResponse.prototype.getLedger = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, "0"));
 };
 
 
 /**
- * @param {number} value
+ * @param {string} value
  * @return {!proto.kin.agora.transaction.v3.GetTransactionResponse} returns this
  */
 proto.kin.agora.transaction.v3.GetTransactionResponse.prototype.setLedger = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3StringIntField(this, 2, value);
 };
 
 
