@@ -4,7 +4,7 @@ apply plugin: "maven"
 apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 
-version = '0.5.0'
+version = '0.19.0'
 group = 'org.kin.agora.gen'
 
 buildscript {
@@ -125,10 +125,11 @@ bintray {
         repo = 'agora-api'
         name = 'org.kin.agora.gen'
         userOrg = 'kinecosystem'
-        licenses = ['Kin Ecosystem SDK License']
+        licenses = ['MIT']
         websiteUrl = "https://github.com/kinecosystem/agora-api"
         issueTrackerUrl = "https://github.com/kinecosystem/agora-api/issues"
         vcsUrl = 'https://github.com/kinecosystem/agora-api.git'
+        publish = true
         version {
             name = this.version
             vcsTag = String.format('v%s', version)
