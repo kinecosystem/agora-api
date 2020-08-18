@@ -123,7 +123,7 @@ bintray {
 
     pkg {
         repo = 'agora-api'
-        name = 'org.kin.agora.gen'
+        name = 'agora-api'
         userOrg = 'kinecosystem'
         licenses = ['MIT']
         websiteUrl = "https://github.com/kinecosystem/agora-api"
