@@ -58,7 +58,7 @@ This outlines the encoding required for a transaction memo to conform to the bin
 
 | Value  | Type     |
 | -----  |:--------:|
-| 0      | UNKNOWN  |
+| 0      | NONE  |
 | 1      | EARN     |
 | 2      | SPEND    |
 | 3      | P2P      |
