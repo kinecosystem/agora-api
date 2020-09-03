@@ -117,9 +117,9 @@ export class SubmitTransactionResponse extends jspb.Message {
     setResult(value: SubmitTransactionResponse.Result): SubmitTransactionResponse;
 
     clearInvoiceErrorsList(): void;
-    getInvoiceErrorsList(): Array<SubmitTransactionResponse.InvoiceError>;
-    setInvoiceErrorsList(value: Array<SubmitTransactionResponse.InvoiceError>): SubmitTransactionResponse;
-    addInvoiceErrors(value?: SubmitTransactionResponse.InvoiceError, index?: number): SubmitTransactionResponse.InvoiceError;
+    getInvoiceErrorsList(): Array<common_v3_model_pb.InvoiceError>;
+    setInvoiceErrorsList(value: Array<common_v3_model_pb.InvoiceError>): SubmitTransactionResponse;
+    addInvoiceErrors(value?: common_v3_model_pb.InvoiceError, index?: number): common_v3_model_pb.InvoiceError;
 
 
     hasHash(): boolean;
@@ -149,53 +149,11 @@ export class SubmitTransactionResponse extends jspb.Message {
 export namespace SubmitTransactionResponse {
     export type AsObject = {
         result: SubmitTransactionResponse.Result,
-        invoiceErrorsList: Array<SubmitTransactionResponse.InvoiceError.AsObject>,
+        invoiceErrorsList: Array<common_v3_model_pb.InvoiceError.AsObject>,
         hash?: common_v3_model_pb.TransactionHash.AsObject,
         ledger: string,
         resultXdr: Uint8Array | string,
     }
-
-
-    export class InvoiceError extends jspb.Message { 
-        getOpIndex(): number;
-        setOpIndex(value: number): InvoiceError;
-
-
-        hasInvoice(): boolean;
-        clearInvoice(): void;
-        getInvoice(): common_v3_model_pb.Invoice | undefined;
-        setInvoice(value?: common_v3_model_pb.Invoice): InvoiceError;
-
-        getReason(): SubmitTransactionResponse.InvoiceError.Reason;
-        setReason(value: SubmitTransactionResponse.InvoiceError.Reason): InvoiceError;
-
-
-        serializeBinary(): Uint8Array;
-        toObject(includeInstance?: boolean): InvoiceError.AsObject;
-        static toObject(includeInstance: boolean, msg: InvoiceError): InvoiceError.AsObject;
-        static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-        static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-        static serializeBinaryToWriter(message: InvoiceError, writer: jspb.BinaryWriter): void;
-        static deserializeBinary(bytes: Uint8Array): InvoiceError;
-        static deserializeBinaryFromReader(message: InvoiceError, reader: jspb.BinaryReader): InvoiceError;
-    }
-
-    export namespace InvoiceError {
-        export type AsObject = {
-            opIndex: number,
-            invoice?: common_v3_model_pb.Invoice.AsObject,
-            reason: SubmitTransactionResponse.InvoiceError.Reason,
-        }
-
-        export enum Reason {
-    UNKNOWN = 0,
-    ALREADY_PAID = 1,
-    WRONG_DESTINATION = 2,
-    SKU_NOT_FOUND = 3,
-        }
-
-    }
-
 
     export enum Result {
     OK = 0,

@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package kin.agora.common.v4;
+
+option go_package = "github.com/kinecosystem/agora-api/genproto/common/v4;common";
+option java_package = "org.kin.agora.gen.common.v4";
+option objc_class_prefix = "APBCommonV4";
+
+import "validate/validate.proto";
+
+message SolanaAccountId {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
+    }];
+}
+
+message TransactionId {
+    // Value is either a 32-byte transaction hash, or a 64-byte transaction signature.
+    // Values that are neither 32 nor 64 bytes are considered invalid.
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 64
+    }];
+}
+
+message Blockhash {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 32
+        max_len: 32
+    }];
+}
+
+message TransactionSignature {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 64
+        max_len: 64
+    }];
+}
+
+message Transaction {
+    // Maximum size taken from: https://github.com/solana-labs/solana/blob/39b3ac6a8d29e14faa1de73d8b46d390ad41797b/sdk/src/packet.rs#L9-L13
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 1232
+    }];
+}
+
+message TransactionError {
+    Reason reason = 1;
+    enum Reason {
+        NONE = 0;
+        // The error could not be mapped by the service.
+        //
+        // In this situation, the error may be propagated out
+        // of band (i.e. via error status), or be looked up using
+        // low level RPCs.
+        UNKNOWN = 1;
+        // The transaction was missing a required signature.
+        UNAUTHORIZED = 2;
+        // Corresponds to an invalid sequence number in stellar,
+        // or a bad / expired blockhash in solana.
+        BAD_NONCE = 3;
+        // Source did not have sufficient kin.
+        INSUFFICIENT_FUNDS = 4;
+        // Indicates one of the accounts in the transaction is
+        // invalid. Some possible reasons are be:
+        //
+        //   1. Account does not exist
+        //   2. Account exists, but is not a token account
+        //   3. Account exists, but is for the wrong token.
+        INVALID_ACCOUNT = 5;
+    }
+
+    // If the transaction failed due to an instruction, the
+    // instruction_index will be >= 0, corresponding to the
+    // instruction that failed the transaction.
+    //
+    // Otherwise, the instruction_index will be negative.
+    int32 instruction_index = 2;
+
+    // Raw is the raw error returned from the underlying RPC
+    // mechanisms with Solana. There are no stability guarantees
+    // for the contents of this field.
+    bytes raw = 3 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 10240
+    }];
+}
+
+message StellarTransaction {
+    // Contains the transaction result from when the transaction was submitted
+    bytes result_xdr = 1 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 10240
+    }];
+
+    // Contains the transaction envelope for the transaction.
+    bytes envelope_xdr = 2 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 10240
+    }];
+}
+
+// Reference: https://docs.solana.com/apps/jsonrpc-api#configuring-state-commitment
+enum Commitment {
+    // The node will query its most recent bank.
+    RECENT = 0;
+    // The node will query the most recent bank having reached 1 confirmation.
+    SINGLE = 1;
+    // The node will query the most recent bank having reached `MAX_LOCKOUT_HISTORY`
+    // confirmations on 'this' node.
+    ROOT = 2;
+    // The node will query the most recent bank confirmed by the clsuter as having
+    // reached `MAX_LOCKOUT_HISTORY`.
+    MAX = 3;
+}

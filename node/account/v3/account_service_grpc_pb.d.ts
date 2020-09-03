@@ -16,7 +16,7 @@ interface IAccountService extends grpc.ServiceDefinition<grpc.UntypedServiceImpl
 }
 
 interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v3_account_service_pb.CreateAccountRequest, account_v3_account_service_pb.CreateAccountResponse> {
-    path: "/kin.agora.account.v3.Account/CreateAccount";
+    path: string; // "/kin.agora.account.v3.Account/CreateAccount"
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v3_account_service_pb.CreateAccountRequest>;
@@ -25,7 +25,7 @@ interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v
     responseDeserialize: grpc.deserialize<account_v3_account_service_pb.CreateAccountResponse>;
 }
 interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_v3_account_service_pb.GetAccountInfoRequest, account_v3_account_service_pb.GetAccountInfoResponse> {
-    path: "/kin.agora.account.v3.Account/GetAccountInfo";
+    path: string; // "/kin.agora.account.v3.Account/GetAccountInfo"
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v3_account_service_pb.GetAccountInfoRequest>;
@@ -34,7 +34,7 @@ interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_
     responseDeserialize: grpc.deserialize<account_v3_account_service_pb.GetAccountInfoResponse>;
 }
 interface IAccountService_IGetEvents extends grpc.MethodDefinition<account_v3_account_service_pb.GetEventsRequest, account_v3_account_service_pb.Events> {
-    path: "/kin.agora.account.v3.Account/GetEvents";
+    path: string; // "/kin.agora.account.v3.Account/GetEvents"
     requestStream: false;
     responseStream: true;
     requestSerialize: grpc.serialize<account_v3_account_service_pb.GetEventsRequest>;

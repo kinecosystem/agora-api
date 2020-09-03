@@ -1,6 +1,8 @@
 USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 
+.NOTPARALLEL:
+
 .PHONY: generate
 generate: gengo genpython gennode
 

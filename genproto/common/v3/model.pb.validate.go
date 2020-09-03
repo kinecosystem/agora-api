@@ -434,6 +434,97 @@ var _ interface {
 	ErrorName() string
 } = InvoiceListValidationError{}
 
+// Validate checks the field values on InvoiceError with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *InvoiceError) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetOpIndex() > 100 {
+		return InvoiceErrorValidationError{
+			field:  "OpIndex",
+			reason: "value must be less than or equal to 100",
+		}
+	}
+
+	if m.GetInvoice() == nil {
+		return InvoiceErrorValidationError{
+			field:  "Invoice",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetInvoice()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InvoiceErrorValidationError{
+				field:  "Invoice",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Reason
+
+	return nil
+}
+
+// InvoiceErrorValidationError is the validation error returned by
+// InvoiceError.Validate if the designated constraints aren't met.
+type InvoiceErrorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InvoiceErrorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InvoiceErrorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InvoiceErrorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InvoiceErrorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InvoiceErrorValidationError) ErrorName() string { return "InvoiceErrorValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InvoiceErrorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvoiceError.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InvoiceErrorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InvoiceErrorValidationError{}
+
 // Validate checks the field values on Invoice_LineItem with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.

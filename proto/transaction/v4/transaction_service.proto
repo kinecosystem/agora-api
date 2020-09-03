@@ -1,0 +1,268 @@
+syntax = "proto3";
+
+package kin.agora.transaction.v4;
+
+option go_package = "github.com/kinecosystem/agora-api/genproto/transaction/v4;transaction";
+option java_package = "org.kin.agora.gen.transaction.v4";
+option objc_class_prefix = "APBTransactionV4";
+
+import "validate/validate.proto";
+import "common/v3/model.proto";
+import "common/v4/model.proto";
+
+service Transaction {
+    // GetServiceConfig returns the service and token parameters for the token.
+    rpc GetServiceConfig(GetServiceConfigRequest) returns (GetServiceConfigResponse);
+
+    // GetMiniumumKinVersion returns the minimum Kin version that is supported.
+    //
+    // This version will _never_ decrease in non-test scenarios, as it indicates
+    // a global migration has occured.
+    rpc GetMiniumumKinVersion(GetMiniumumKinVersionRequest) returns (GetMiniumumKinVersionResponse);
+
+    // GetRecentBlockhash returns a recent block hash from the underlying network,
+    // which should be used when crafting transactions. If a transaction fails with
+    // DuplicateSignature or InvalidNonce, it is recommended that a new block hash
+    // is retrieved.
+    //
+    // Block hashes are expected to be valid for ~2 minutes.
+    rpc GetRecentBlockhash(GetRecentBlockhashRequest) returns (GetRecentBlockhashResponse);
+
+    // GetMinimumBalanceForRentExemption returns the minimum amount of lamports that
+    // must be in an account for it not to be garbage collected.
+    rpc GetMinimumBalanceForRentExemption(GetMinimumBalanceForRentExemptionRequest) returns (GetMinimumBalanceForRentExemptionResponse);
+
+    // GetHistory returns the transaction history for an account,
+    // with additional off-chain invoice data, if available.
+    rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
+
+    // SubmitTransaction submits a transaction.
+    //
+    // The transaction may include a single Memo[1] instruction.
+    // If a memo instruction is specified, it must be at position 0
+    // in the instruction array.
+    //
+    // If an invoice is provided, the Memo instruction must contain a
+    // Kin Binary memo[2], encoded as base64.
+    //
+    // [1]: https://spl.solana.com/memo
+    // [2]: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+    rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
+
+    // GetTransaction returns a transaction and additional off-chain invoice data, if available.
+    rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+}
+
+message GetServiceConfigRequest {
+}
+message GetServiceConfigResponse {
+    // The public key of the account that the service will use to sign transactions for funding.
+    // If not specified, the service is _not_ configured to fund transactions.
+    common.v4.SolanaAccountId subsidizer_account = 1;
+
+    // note: after release these values cannot change, and will be static per environment.
+    common.v4.SolanaAccountId token_program = 2 [(validate.rules).message.required = true];
+    common.v4.SolanaAccountId token = 3 [(validate.rules).message.required = true];
+}
+
+message GetMiniumumKinVersionRequest {
+}
+message GetMiniumumKinVersionResponse {
+    uint32 version = 1;
+}
+
+message GetRecentBlockhashRequest {
+}
+message GetRecentBlockhashResponse {
+    common.v4.Blockhash blockhash = 1 [(validate.rules).message.required = true];
+}
+
+message GetMinimumBalanceForRentExemptionRequest {
+    uint64 size = 1;
+}
+
+message GetMinimumBalanceForRentExemptionResponse {
+    uint64 lamports = 1;
+}
+
+
+message GetHistoryRequest {
+    // Account to get history for.
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // An optional history cursor indicating where in
+    // the history to 'resume' from.
+    Cursor cursor = 2;
+
+    // The order in which to return history items from
+    // the cursor.
+    Direction direction = 3;
+    enum Direction {
+        // ASC direction returns all history items in
+        // ascending (based on chain order) from the cursor.
+        ASC  = 0;
+
+        // DESC direction returns all history items in
+        // descending (based on chain order) from _before_ the cursor.
+        DESC = 1;
+    }
+}
+
+message GetHistoryResponse {
+    Result result = 1;
+    enum Result {
+        OK        = 0;
+        NOT_FOUND = 1;
+    }
+
+    repeated HistoryItem items = 2 [(validate.rules).repeated = {
+        min_items: 0
+        max_items: 128
+    }];
+}
+
+message SubmitTransactionRequest {
+    common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
+
+    // An optional invoice list associating each operation with an invoice.
+    //
+    // If an invoice list is included, it is expected that the foreign key in
+    // the transaction memo is the SHA-224 hash of the serialized invoice list.
+    //
+    // The invoice list will be included in webhook calls for the application the
+    // transaction pertains to (as specified by the memo app index).
+    //
+    // The submitted invoice data will only be available for retrieval from the service it
+    // was submitted to and not directly from the blockchain nor any other deployments of
+    // the service.
+    common.v3.InvoiceList invoice_list = 2;
+
+    common.v4.Commitment commitment = 3;
+}
+
+message SubmitTransactionResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+
+        // There was an issue with submitting the transaction
+        // to the underlying chain. Clients should retry with
+        // a rebuilt transaction in case there are temporal
+        // issues with the transaction, such as sequence number,
+        // or some other chain-specific errors. The detail of
+        // the error is present in the result xdr.
+        FAILED = 1;
+
+        // Indicates that the configured webhook for this transaction
+        // rejected the transaction without a specified reason.
+        REJECTED = 2;
+
+        // Indicates there was an error with one or more of the
+        // supplied invoices.
+        //
+        // See: invoice_errors.
+        INVOICE_ERROR = 3;
+
+        // Payer required indicates that the submitted transaction does not contain
+        // a signature at for the transaction funder account (the account at the 0th index).
+        //
+        // This can occur if the service does not have a subsdizier configured, or if
+        // the service refuses to subsidize this specific transaction. The latter
+        // case can occur during rate limiting situations. In this case, the client
+        // may either retry at a later time, or attempt to fund the transaction some
+        // other way.
+        PAYER_REQUIRED = 4;
+    }
+
+    // The signature of the transaction.
+    common.v4.TransactionSignature signature = 2;
+
+    // Present when result = FAILED.
+    common.v4.TransactionError transaction_error = 3;
+
+    // Present when result = INVOICE_ERROR.
+    repeated common.v3.InvoiceError invoice_errors = 4;
+}
+
+message GetTransactionRequest {
+    common.v4.TransactionId transaction_id = 1 [(validate.rules).message.required = true];
+
+    common.v4.Commitment commitment = 2;
+}
+
+message GetTransactionResponse {
+    // The state of the transaction. The states are the same as
+    // SubmitTransaction, with the exception of UNKNOWN, which indicates
+    // that the system does not have a record of the transaction. This
+    // can occur if the transaction is still pending or if it has failed.
+    //
+    // If the transaction state is UNKNOWN for an extended period of
+    // time, it is likely that it was dropped. As a result, clients
+    // should limit the total times GetTransaction is called for a
+    // an UNKNOWN transaction.
+    State state = 1;
+    enum State {
+        UNKNOWN = 0;
+        SUCCESS = 1;
+        FAILED  = 2;
+        PENDING = 3;
+    }
+
+    // Non-zero when state == State::SUCCESS
+    uint64 slot = 2 [jstype = JS_STRING];
+
+    // The number of confirmations for the transaction.
+    // The value is irrelevant when state != State::PENDING.
+    uint32 confirmations = 3;
+
+    // Present when state == State::SUCCESS.
+    // May or may not be present in other cases.
+    HistoryItem item = 4;
+}
+
+message HistoryItem {
+    common.v4.TransactionId transaction_id = 1 [(validate.rules).message.required = true];
+
+    // The cursor position of this item.
+    Cursor cursor = 2;
+
+    // The raw transaction primitive for the transaction.
+    oneof raw_transaction {
+        common.v4.Transaction solana_transaction = 3;
+        common.v4.StellarTransaction stellar_transaction = 4;
+    }
+
+    // Present if the transaction failed.
+    common.v4.TransactionError transaction_error = 5;
+
+    // The set of payments contained in the raw_transaction.
+    //
+    // Payment is an abstract view over a StellarPayment or
+    // a Solana transfer. In the Stellar case, the Stellar
+    // accounts will be mapped to a SolanaAccountId.
+    //
+    // Note: A transaction _may_ not contain any transfers, in
+    // which case `payments` will be empty.
+    repeated Payment payments = 6;
+    message Payment {
+        common.v4.SolanaAccountId source = 1 [(validate.rules).message.required = true];
+        common.v4.SolanaAccountId destination = 2 [(validate.rules).message.required = true];
+
+        // Amount in quarks
+        int64 amount = 3;
+
+        // The index of the transfer within the transaction.
+        uint32 index = 4;
+    }
+
+    // If an invoice list was submitted with the transaction, and the transaction
+    // was submitted via this instance of the service, this field will be set.
+    common.v3.InvoiceList invoice_list = 7;
+}
+
+message Cursor {
+    bytes value = 1 [(validate.rules).bytes = {
+        min_len: 1
+        max_len: 128
+    }];
+}

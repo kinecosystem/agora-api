@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package kin.agora.account.v4;
+
+option go_package = "github.com/kinecosystem/agora-api/genproto/account/v4;account";
+option java_package = "org.kin.agora.gen.account.v4";
+option objc_class_prefix = "APBAccountV4";
+
+import "validate/validate.proto";
+import "common/v4/model.proto";
+
+service Account {
+    // CreateAccount creates a kin token account.
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+
+    // GetAccountInfo returns the information of a specified account.
+    rpc GetAccountInfo(GetAccountInfoRequest) returns (GetAccountInfoResponse);
+
+    // ResolveTokenAccounts resolves a set of Token Accounts owned by the specified account ID.
+    rpc ResolveTokenAccounts(ResolveTokenAccountsRequest) returns (ResolveTokenAccountsResponse);
+
+    // GetEvents returns a stream of events related to the specified account.
+    //
+    // Note: Only events occurring after stream initiation will be returned.
+    rpc GetEvents(GetEventsRequest) returns (stream Events);
+}
+
+message AccountInfo {
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // The last known balance, in quarks, of the account.
+    int64 balance = 2 [jstype = JS_STRING];
+}
+
+message CreateAccountRequest {
+    // Transaction should contain the following instructions:
+    //
+    //   1. SystemProgram::CreateAccount()
+    //   2. SplTokenProgram::InitializeAccount()
+    //   3. SplTokenProgram::SetAuthority()
+    //
+    // (3) only needs to be set if the service is subsidizing the
+    // account creation. In that case, a SetAuthority() instruction
+    // should be included that sets the CloseAuthority of the account
+    // to the subsidizer. This is to prevent farming of Sol by creating
+    // accounts. It should be noted that an account can only be closed
+    // if there is zero kin in the account.
+    //
+    // If the parameters are not for the Kin token, or there are
+    // any other instructions, InvalidArgument will be returned.
+    common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
+
+    common.v4.Commitment commitment = 2;
+}
+
+message CreateAccountResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+        EXISTS = 1;
+        // Indicates that the service will not subsidize the transaction, and that
+        // the caller should fund the transaction themselves.
+        PAYER_REQUIRED = 2;
+    }
+
+    // Present iff the account was created or already existed.
+    AccountInfo account_info = 2;
+}
+
+message GetAccountInfoRequest {
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    common.v4.Commitment commitment = 2;
+}
+
+message GetAccountInfoResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+
+        // The specified account could not be found.
+        NOT_FOUND = 1;
+    }
+
+    // Present iff result == Result::OK
+    AccountInfo account_info = 2;
+}
+
+message ResolveTokenAccountsRequest {
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+}
+message ResolveTokenAccountsResponse {
+    // Zero or more accounts that are owned by the provided account id.
+    //
+    // If the provided account is also a token account, it will be first in the list.
+    // Otherwise, the list order should not be depended on, as there is no reliable way
+    // to sort accounts based on creation time.
+    repeated common.v4.SolanaAccountId token_accounts = 1;
+}
+
+message GetEventsRequest {
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+}
+
+message Events {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+
+        // The specified account could not be found.
+        NOT_FOUND = 1;
+    }
+
+    repeated Event events = 2 [(validate.rules).repeated = {
+        max_items: 128
+    }];
+}
+
+message Event {
+    oneof type {
+        AccountUpdateEvent account_update_event = 1;
+        TransactionEvent transaction_event = 2;
+    }
+}
+
+// An event that gets sent when an account's information has changed.
+message AccountUpdateEvent {
+    // The account information most recently obtained by the service.
+    AccountInfo account_info = 1 [(validate.rules).message.required = true];
+}
+
+// An event that gets sent when a transaction related to an account has been
+// successfully submitted to the blockchain.
+message TransactionEvent {
+    common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
+
+    common.v4.TransactionError transaction_error = 2;
+}

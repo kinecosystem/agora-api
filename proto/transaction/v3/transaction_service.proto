@@ -112,32 +112,7 @@ message SubmitTransactionResponse {
     }
 
     // Present when result = INVOICE_ERROR.
-    repeated InvoiceError invoice_errors = 2;
-    message InvoiceError {
-        // The operation index the invoice corresponds to.
-        uint32 op_index = 1 [(validate.rules).uint32.lte = 100];
-
-        // The invoice that was submitted.
-        common.v3.Invoice invoice = 2 [(validate.rules).message.required = true];
-
-        Reason reason = 3;
-        enum Reason {
-            UNKNOWN = 0;
-
-            // The provided invoice has already been paid for.
-            //
-            // This is only applicable when the memo transaction type
-            // is SPEND.
-            ALREADY_PAID = 1;
-
-            // The destination in the operation corresponding to this invoice
-            // is incorrect.
-            WRONG_DESTINATION = 2;
-
-            // One or more SKUs in the invoice was not found.
-            SKU_NOT_FOUND = 3;
-        }
-    }
+    repeated common.v3.InvoiceError invoice_errors = 2;
 
     // The hash of the transaction, if it was submitted.
     // May be used for other RPCs.

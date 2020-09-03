@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package kin.agora.airdrop.v4;
+
+option go_package = "github.com/kinecosystem/agora-api/genproto/airdrop/v4;airdrop";
+option java_package = "org.kin.agora.gen.airdrop.v4";
+option objc_class_prefix = "APBAirdropV4";
+
+import "validate/validate.proto";
+import "common/v4/model.proto";
+
+// Airdrop service sends Kin to accounts for free. It is only available on development networks.
+service Airdrop {
+    // RequestAirdrop requests an air drop of kin to the target account.
+    rpc RequestAirdrop(RequestAirdropRequest) returns (RequestAirdropResponse);
+}
+
+message RequestAirdropRequest {
+    common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    uint64 quarks = 2 [(validate.rules).uint64.gt = 1];
+
+    common.v4.Commitment commitment = 3;
+}
+
+message RequestAirdropResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+        // The target account does not exist.
+        NOT_FOUND = 1;
+        // The airdrop service does not have enough kin.
+        INSUFFICIENT_KIN = 2;
+    }
+
+    // The signature of the transaction, if result == Result::OK.
+    common.v4.TransactionSignature signature = 2;
+}

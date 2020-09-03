@@ -156,3 +156,43 @@ export namespace InvoiceList {
         invoicesList: Array<Invoice.AsObject>,
     }
 }
+
+export class InvoiceError extends jspb.Message { 
+    getOpIndex(): number;
+    setOpIndex(value: number): InvoiceError;
+
+
+    hasInvoice(): boolean;
+    clearInvoice(): void;
+    getInvoice(): Invoice | undefined;
+    setInvoice(value?: Invoice): InvoiceError;
+
+    getReason(): InvoiceError.Reason;
+    setReason(value: InvoiceError.Reason): InvoiceError;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): InvoiceError.AsObject;
+    static toObject(includeInstance: boolean, msg: InvoiceError): InvoiceError.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: InvoiceError, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): InvoiceError;
+    static deserializeBinaryFromReader(message: InvoiceError, reader: jspb.BinaryReader): InvoiceError;
+}
+
+export namespace InvoiceError {
+    export type AsObject = {
+        opIndex: number,
+        invoice?: Invoice.AsObject,
+        reason: InvoiceError.Reason,
+    }
+
+    export enum Reason {
+    UNKNOWN = 0,
+    ALREADY_PAID = 1,
+    WRONG_DESTINATION = 2,
+    SKU_NOT_FOUND = 3,
+    }
+
+}

@@ -20,11 +20,46 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\033org.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\242\002\013APBCommonV3',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbf\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1aq\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x12\n\x06\x61mount\x18\x03 \x01(\x03\x42\x02\x30\x01\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\x42h\n\x1borg.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
+  serialized_pb=b'\n\x15\x63ommon/v3/model.proto\x12\x13kin.agora.common.v3\x1a\x17validate/validate.proto\"=\n\x10StellarAccountId\x12)\n\x05value\x18\x01 \x01(\tB\x1a\xfa\x42\x17r\x15 8(82\x0f^G[a-zA-Z0-9]*$\"+\n\x0fTransactionHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10 \x18 \"\'\n\x0bInvoiceHash\x12\x18\n\x05value\x18\x01 \x01(\x0c\x42\t\xfa\x42\x06z\x04\x10\x1c\x18\x1c\"\xbf\x01\n\x07Invoice\x12\x41\n\x05items\x18\x01 \x03(\x0b\x32%.kin.agora.common.v3.Invoice.LineItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x01\x10\x80\x08\x1aq\n\x08LineItem\x12\x19\n\x05title\x18\x01 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\x80\x01\x12\x1f\n\x0b\x64\x65scription\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x00\x18\x80\x02\x12\x12\n\x06\x61mount\x18\x03 \x01(\x03\x42\x02\x30\x01\x12\x15\n\x03sku\x18\x04 \x01(\x0c\x42\x08\xfa\x42\x05z\x03\x18\x80\x01\"I\n\x0bInvoiceList\x12:\n\x08invoices\x18\x01 \x03(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\n\xfa\x42\x07\x92\x01\x04\x08\x01\x10\x64\"\xef\x01\n\x0cInvoiceError\x12\x19\n\x08op_index\x18\x01 \x01(\rB\x07\xfa\x42\x04*\x02\x18\x64\x12\x37\n\x07invoice\x18\x02 \x01(\x0b\x32\x1c.kin.agora.common.v3.InvoiceB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x38\n\x06reason\x18\x03 \x01(\x0e\x32(.kin.agora.common.v3.InvoiceError.Reason\"Q\n\x06Reason\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x10\n\x0c\x41LREADY_PAID\x10\x01\x12\x15\n\x11WRONG_DESTINATION\x10\x02\x12\x11\n\rSKU_NOT_FOUND\x10\x03\x42h\n\x1borg.kin.agora.gen.common.v3Z;github.com/kinecosystem/agora-api/genproto/common/v3;common\xa2\x02\x0b\x41PBCommonV3b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,])
 
 
+
+_INVOICEERROR_REASON = _descriptor.EnumDescriptor(
+  name='Reason',
+  full_name='kin.agora.common.v3.InvoiceError.Reason',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='ALREADY_PAID', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='WRONG_DESTINATION', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='SKU_NOT_FOUND', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=648,
+  serialized_end=729,
+)
+_sym_db.RegisterEnumDescriptor(_INVOICEERROR_REASON)
 
 
 _STELLARACCOUNTID = _descriptor.Descriptor(
@@ -238,14 +273,65 @@ _INVOICELIST = _descriptor.Descriptor(
   serialized_end=487,
 )
 
+
+_INVOICEERROR = _descriptor.Descriptor(
+  name='InvoiceError',
+  full_name='kin.agora.common.v3.InvoiceError',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='op_index', full_name='kin.agora.common.v3.InvoiceError.op_index', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\372B\004*\002\030d', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='invoice', full_name='kin.agora.common.v3.InvoiceError.invoice', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\372B\005\212\001\002\020\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='reason', full_name='kin.agora.common.v3.InvoiceError.reason', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _INVOICEERROR_REASON,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=490,
+  serialized_end=729,
+)
+
 _INVOICE_LINEITEM.containing_type = _INVOICE
 _INVOICE.fields_by_name['items'].message_type = _INVOICE_LINEITEM
 _INVOICELIST.fields_by_name['invoices'].message_type = _INVOICE
+_INVOICEERROR.fields_by_name['invoice'].message_type = _INVOICE
+_INVOICEERROR.fields_by_name['reason'].enum_type = _INVOICEERROR_REASON
+_INVOICEERROR_REASON.containing_type = _INVOICEERROR
 DESCRIPTOR.message_types_by_name['StellarAccountId'] = _STELLARACCOUNTID
 DESCRIPTOR.message_types_by_name['TransactionHash'] = _TRANSACTIONHASH
 DESCRIPTOR.message_types_by_name['InvoiceHash'] = _INVOICEHASH
 DESCRIPTOR.message_types_by_name['Invoice'] = _INVOICE
 DESCRIPTOR.message_types_by_name['InvoiceList'] = _INVOICELIST
+DESCRIPTOR.message_types_by_name['InvoiceError'] = _INVOICEERROR
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StellarAccountId = _reflection.GeneratedProtocolMessageType('StellarAccountId', (_message.Message,), {
@@ -291,6 +377,13 @@ InvoiceList = _reflection.GeneratedProtocolMessageType('InvoiceList', (_message.
   })
 _sym_db.RegisterMessage(InvoiceList)
 
+InvoiceError = _reflection.GeneratedProtocolMessageType('InvoiceError', (_message.Message,), {
+  'DESCRIPTOR' : _INVOICEERROR,
+  '__module__' : 'common.v3.model_pb2'
+  # @@protoc_insertion_point(class_scope:kin.agora.common.v3.InvoiceError)
+  })
+_sym_db.RegisterMessage(InvoiceError)
+
 
 DESCRIPTOR._options = None
 _STELLARACCOUNTID.fields_by_name['value']._options = None
@@ -302,4 +395,6 @@ _INVOICE_LINEITEM.fields_by_name['amount']._options = None
 _INVOICE_LINEITEM.fields_by_name['sku']._options = None
 _INVOICE.fields_by_name['items']._options = None
 _INVOICELIST.fields_by_name['invoices']._options = None
+_INVOICEERROR.fields_by_name['op_index']._options = None
+_INVOICEERROR.fields_by_name['invoice']._options = None
 # @@protoc_insertion_point(module_scope)
