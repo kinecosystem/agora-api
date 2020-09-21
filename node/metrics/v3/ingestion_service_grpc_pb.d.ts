@@ -12,7 +12,7 @@ interface IIngestionService extends grpc.ServiceDefinition<grpc.UntypedServiceIm
 }
 
 interface IIngestionService_ISubmit extends grpc.MethodDefinition<metrics_v3_ingestion_service_pb.SubmitRequest, metrics_v3_ingestion_service_pb.SubmitResponse> {
-    path: string; // "/kin.agora.metrics.v3.Ingestion/Submit"
+    path: "/kin.agora.metrics.v3.Ingestion/Submit";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<metrics_v3_ingestion_service_pb.SubmitRequest>;

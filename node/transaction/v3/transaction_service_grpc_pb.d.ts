@@ -16,7 +16,7 @@ interface ITransactionService extends grpc.ServiceDefinition<grpc.UntypedService
 }
 
 interface ITransactionService_IGetHistory extends grpc.MethodDefinition<transaction_v3_transaction_service_pb.GetHistoryRequest, transaction_v3_transaction_service_pb.GetHistoryResponse> {
-    path: string; // "/kin.agora.transaction.v3.Transaction/GetHistory"
+    path: "/kin.agora.transaction.v3.Transaction/GetHistory";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v3_transaction_service_pb.GetHistoryRequest>;
@@ -25,7 +25,7 @@ interface ITransactionService_IGetHistory extends grpc.MethodDefinition<transact
     responseDeserialize: grpc.deserialize<transaction_v3_transaction_service_pb.GetHistoryResponse>;
 }
 interface ITransactionService_ISubmitTransaction extends grpc.MethodDefinition<transaction_v3_transaction_service_pb.SubmitTransactionRequest, transaction_v3_transaction_service_pb.SubmitTransactionResponse> {
-    path: string; // "/kin.agora.transaction.v3.Transaction/SubmitTransaction"
+    path: "/kin.agora.transaction.v3.Transaction/SubmitTransaction";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v3_transaction_service_pb.SubmitTransactionRequest>;
@@ -34,7 +34,7 @@ interface ITransactionService_ISubmitTransaction extends grpc.MethodDefinition<t
     responseDeserialize: grpc.deserialize<transaction_v3_transaction_service_pb.SubmitTransactionResponse>;
 }
 interface ITransactionService_IGetTransaction extends grpc.MethodDefinition<transaction_v3_transaction_service_pb.GetTransactionRequest, transaction_v3_transaction_service_pb.GetTransactionResponse> {
-    path: string; // "/kin.agora.transaction.v3.Transaction/GetTransaction"
+    path: "/kin.agora.transaction.v3.Transaction/GetTransaction";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v3_transaction_service_pb.GetTransactionRequest>;
