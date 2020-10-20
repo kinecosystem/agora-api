@@ -4,7 +4,7 @@ apply plugin: "maven"
 apply plugin: "maven-publish"
 apply plugin: "com.jfrog.bintray"
 
-version = '0.23.0'
+version = '0.24.0'
 group = 'org.kin.agora.gen'
 
 buildscript {
@@ -13,7 +13,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.14'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
     }
 }
@@ -25,12 +25,22 @@ repositories {
     }
 }
 
-def grpcVersion = "1.18.0"
-def validateVersion = "0.2.0"
+task removeProtoValidation(type: Exec) {
+    workingDir "${projectDir}"
+    commandLine './remove_proto_validation.sh'
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'extractIncludeProto') {
+        task.dependsOn removeProtoValidation
+    }
+}
+
+def grpcVersion = "1.33.1"
+def protocVersion = "3.12.0"
 dependencies {
-    compile "io.grpc:grpc-protobuf:${grpcVersion}"
-    compile "io.grpc:grpc-stub:${grpcVersion}"
-    compile "io.envoyproxy.protoc-gen-validate:pgv-java-stub:${validateVersion}"
+    implementation "io.grpc:grpc-protobuf-lite:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
 }
 
 def generatedSrcRoot = file("${buildDir}/generated/source/proto/main/java/")
@@ -49,21 +59,24 @@ compileJava {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.5.1-1"
+        artifact = "com.google.protobuf:protoc:${protocVersion}"
     }
     plugins {
         grpc {
             artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
         }
-        javapgv {
-            artifact = "io.envoyproxy.protoc-gen-validate:protoc-gen-validate:0.1.0"
-        }
     }
     generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
         all()*.plugins {
-            grpc {}
-            javapgv {
-                option "lang=java"
+            grpc {
+                option 'lite'
             }
         }
     }
