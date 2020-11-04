@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name='agora-api',
-    version='0.20.0',
+    version='0.21.0',
     description='Agora API for Python',
     author='Kik Engineering',
     author_email='engineering@kik.com',

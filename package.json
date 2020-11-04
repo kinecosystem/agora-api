@@ -1,6 +1,6 @@
 {
   "name": "@kinecosystem/agora-api",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "Agora API",
   "repository": "git@github.com:kinecosystem/agora-api.git",
   "author": "Kik Engineering <engineering@kik.com>",
