@@ -2331,10 +2331,11 @@ proto.kin.agora.transaction.v4.SubmitTransactionResponse.serializeBinaryToWriter
  */
 proto.kin.agora.transaction.v4.SubmitTransactionResponse.Result = {
   OK: 0,
-  FAILED: 1,
-  REJECTED: 2,
-  INVOICE_ERROR: 3,
-  PAYER_REQUIRED: 4
+  ALREADY_SUBMITTED: 1,
+  FAILED: 2,
+  REJECTED: 3,
+  INVOICE_ERROR: 4,
+  PAYER_REQUIRED: 5
 };
 
 /**

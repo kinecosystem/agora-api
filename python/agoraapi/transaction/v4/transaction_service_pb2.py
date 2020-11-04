@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n org.kin.agora.gen.transaction.v4ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v4;transaction\242\002\020APBTransactionV4',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n(transaction/v4/transaction_service.proto\x12\x18kin.agora.transaction.v4\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\x1a\x15\x63ommon/v4/model.proto\"\x19\n\x17GetServiceConfigRequest\"\xe2\x01\n\x18GetServiceConfigResponse\x12@\n\x12subsidizer_account\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\x12\x45\n\rtoken_program\x18\x02 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12=\n\x05token\x18\x03 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x1e\n\x1cGetMiniumumKinVersionRequest\"0\n\x1dGetMiniumumKinVersionResponse\x12\x0f\n\x07version\x18\x01 \x01(\r\"\x1b\n\x19GetRecentBlockhashRequest\"Y\n\x1aGetRecentBlockhashResponse\x12;\n\tblockhash\x18\x01 \x01(\x0b\x32\x1e.kin.agora.common.v4.BlockhashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"8\n(GetMinimumBalanceForRentExemptionRequest\x12\x0c\n\x04size\x18\x01 \x01(\x04\"=\n)GetMinimumBalanceForRentExemptionResponse\x12\x10\n\x08lamports\x18\x01 \x01(\x04\"\xf3\x01\n\x11GetHistoryRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v4.Cursor\x12H\n\tdirection\x18\x03 \x01(\x0e\x32\x35.kin.agora.transaction.v4.GetHistoryRequest.Direction\"\x1e\n\tDirection\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\"\xbd\x01\n\x12GetHistoryResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.transaction.v4.GetHistoryResponse.Result\x12\x41\n\x05items\x18\x02 \x03(\x0b\x32%.kin.agora.transaction.v4.HistoryItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x00\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\xc8\x01\n\x18SubmitTransactionRequest\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x36\n\x0cinvoice_list\x18\x02 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\x12\x33\n\ncommitment\x18\x03 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xf5\x02\n\x19SubmitTransactionResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.kin.agora.transaction.v4.SubmitTransactionResponse.Result\x12<\n\tsignature\x18\x02 \x01(\x0b\x32).kin.agora.common.v4.TransactionSignature\x12@\n\x11transaction_error\x18\x03 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError\x12\x39\n\x0einvoice_errors\x18\x04 \x03(\x0b\x32!.kin.agora.common.v3.InvoiceError\"Q\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x46\x41ILED\x10\x01\x12\x0c\n\x08REJECTED\x10\x02\x12\x11\n\rINVOICE_ERROR\x10\x03\x12\x12\n\x0ePAYER_REQUIRED\x10\x04\"\x92\x01\n\x15GetTransactionRequest\x12\x44\n\x0etransaction_id\x18\x01 \x01(\x0b\x32\".kin.agora.common.v4.TransactionIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xf9\x01\n\x16GetTransactionResponse\x12\x45\n\x05state\x18\x01 \x01(\x0e\x32\x36.kin.agora.transaction.v4.GetTransactionResponse.State\x12\x10\n\x04slot\x18\x02 \x01(\x04\x42\x02\x30\x01\x12\x15\n\rconfirmations\x18\x03 \x01(\r\x12\x33\n\x04item\x18\x04 \x01(\x0b\x32%.kin.agora.transaction.v4.HistoryItem\":\n\x05State\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\n\n\x06\x46\x41ILED\x10\x02\x12\x0b\n\x07PENDING\x10\x03\"\x8b\x05\n\x0bHistoryItem\x12\x44\n\x0etransaction_id\x18\x01 \x01(\x0b\x32\".kin.agora.common.v4.TransactionIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v4.Cursor\x12>\n\x12solana_transaction\x18\x03 \x01(\x0b\x32 .kin.agora.common.v4.TransactionH\x00\x12\x46\n\x13stellar_transaction\x18\x04 \x01(\x0b\x32\'.kin.agora.common.v4.StellarTransactionH\x00\x12@\n\x11transaction_error\x18\x05 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError\x12?\n\x08payments\x18\x06 \x03(\x0b\x32-.kin.agora.transaction.v4.HistoryItem.Payment\x12\x36\n\x0cinvoice_list\x18\x07 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\x1a\xad\x01\n\x07Payment\x12>\n\x06source\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x43\n\x0b\x64\x65stination\x18\x02 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\r\n\x05index\x18\x04 \x01(\rB\x11\n\x0fraw_transaction\"#\n\x06\x43ursor\x12\x19\n\x05value\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80\x01\x32\x9f\x07\n\x0bTransaction\x12y\n\x10GetServiceConfig\x12\x31.kin.agora.transaction.v4.GetServiceConfigRequest\x1a\x32.kin.agora.transaction.v4.GetServiceConfigResponse\x12\x88\x01\n\x15GetMiniumumKinVersion\x12\x36.kin.agora.transaction.v4.GetMiniumumKinVersionRequest\x1a\x37.kin.agora.transaction.v4.GetMiniumumKinVersionResponse\x12\x7f\n\x12GetRecentBlockhash\x12\x33.kin.agora.transaction.v4.GetRecentBlockhashRequest\x1a\x34.kin.agora.transaction.v4.GetRecentBlockhashResponse\x12\xac\x01\n!GetMinimumBalanceForRentExemption\x12\x42.kin.agora.transaction.v4.GetMinimumBalanceForRentExemptionRequest\x1a\x43.kin.agora.transaction.v4.GetMinimumBalanceForRentExemptionResponse\x12g\n\nGetHistory\x12+.kin.agora.transaction.v4.GetHistoryRequest\x1a,.kin.agora.transaction.v4.GetHistoryResponse\x12|\n\x11SubmitTransaction\x12\x32.kin.agora.transaction.v4.SubmitTransactionRequest\x1a\x33.kin.agora.transaction.v4.SubmitTransactionResponse\x12s\n\x0eGetTransaction\x12/.kin.agora.transaction.v4.GetTransactionRequest\x1a\x30.kin.agora.transaction.v4.GetTransactionResponseB|\n org.kin.agora.gen.transaction.v4ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v4;transaction\xa2\x02\x10\x41PBTransactionV4b\x06proto3'
+  serialized_pb=b'\n(transaction/v4/transaction_service.proto\x12\x18kin.agora.transaction.v4\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v3/model.proto\x1a\x15\x63ommon/v4/model.proto\"\x19\n\x17GetServiceConfigRequest\"\xe2\x01\n\x18GetServiceConfigResponse\x12@\n\x12subsidizer_account\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\x12\x45\n\rtoken_program\x18\x02 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12=\n\x05token\x18\x03 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x1e\n\x1cGetMiniumumKinVersionRequest\"0\n\x1dGetMiniumumKinVersionResponse\x12\x0f\n\x07version\x18\x01 \x01(\r\"\x1b\n\x19GetRecentBlockhashRequest\"Y\n\x1aGetRecentBlockhashResponse\x12;\n\tblockhash\x18\x01 \x01(\x0b\x32\x1e.kin.agora.common.v4.BlockhashB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"8\n(GetMinimumBalanceForRentExemptionRequest\x12\x0c\n\x04size\x18\x01 \x01(\x04\"=\n)GetMinimumBalanceForRentExemptionResponse\x12\x10\n\x08lamports\x18\x01 \x01(\x04\"\xf3\x01\n\x11GetHistoryRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v4.Cursor\x12H\n\tdirection\x18\x03 \x01(\x0e\x32\x35.kin.agora.transaction.v4.GetHistoryRequest.Direction\"\x1e\n\tDirection\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\"\xbd\x01\n\x12GetHistoryResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.transaction.v4.GetHistoryResponse.Result\x12\x41\n\x05items\x18\x02 \x03(\x0b\x32%.kin.agora.transaction.v4.HistoryItemB\x0b\xfa\x42\x08\x92\x01\x05\x08\x00\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\xc8\x01\n\x18SubmitTransactionRequest\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x36\n\x0cinvoice_list\x18\x02 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\x12\x33\n\ncommitment\x18\x03 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\x8c\x03\n\x19SubmitTransactionResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.kin.agora.transaction.v4.SubmitTransactionResponse.Result\x12<\n\tsignature\x18\x02 \x01(\x0b\x32).kin.agora.common.v4.TransactionSignature\x12@\n\x11transaction_error\x18\x03 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError\x12\x39\n\x0einvoice_errors\x18\x04 \x03(\x0b\x32!.kin.agora.common.v3.InvoiceError\"h\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\x15\n\x11\x41LREADY_SUBMITTED\x10\x01\x12\n\n\x06\x46\x41ILED\x10\x02\x12\x0c\n\x08REJECTED\x10\x03\x12\x11\n\rINVOICE_ERROR\x10\x04\x12\x12\n\x0ePAYER_REQUIRED\x10\x05\"\x92\x01\n\x15GetTransactionRequest\x12\x44\n\x0etransaction_id\x18\x01 \x01(\x0b\x32\".kin.agora.common.v4.TransactionIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xf9\x01\n\x16GetTransactionResponse\x12\x45\n\x05state\x18\x01 \x01(\x0e\x32\x36.kin.agora.transaction.v4.GetTransactionResponse.State\x12\x10\n\x04slot\x18\x02 \x01(\x04\x42\x02\x30\x01\x12\x15\n\rconfirmations\x18\x03 \x01(\r\x12\x33\n\x04item\x18\x04 \x01(\x0b\x32%.kin.agora.transaction.v4.HistoryItem\":\n\x05State\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\n\n\x06\x46\x41ILED\x10\x02\x12\x0b\n\x07PENDING\x10\x03\"\x8b\x05\n\x0bHistoryItem\x12\x44\n\x0etransaction_id\x18\x01 \x01(\x0b\x32\".kin.agora.common.v4.TransactionIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x30\n\x06\x63ursor\x18\x02 \x01(\x0b\x32 .kin.agora.transaction.v4.Cursor\x12>\n\x12solana_transaction\x18\x03 \x01(\x0b\x32 .kin.agora.common.v4.TransactionH\x00\x12\x46\n\x13stellar_transaction\x18\x04 \x01(\x0b\x32\'.kin.agora.common.v4.StellarTransactionH\x00\x12@\n\x11transaction_error\x18\x05 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError\x12?\n\x08payments\x18\x06 \x03(\x0b\x32-.kin.agora.transaction.v4.HistoryItem.Payment\x12\x36\n\x0cinvoice_list\x18\x07 \x01(\x0b\x32 .kin.agora.common.v3.InvoiceList\x1a\xad\x01\n\x07Payment\x12>\n\x06source\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x43\n\x0b\x64\x65stination\x18\x02 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\r\n\x05index\x18\x04 \x01(\rB\x11\n\x0fraw_transaction\"#\n\x06\x43ursor\x12\x19\n\x05value\x18\x01 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x01\x18\x80\x01\x32\x9f\x07\n\x0bTransaction\x12y\n\x10GetServiceConfig\x12\x31.kin.agora.transaction.v4.GetServiceConfigRequest\x1a\x32.kin.agora.transaction.v4.GetServiceConfigResponse\x12\x88\x01\n\x15GetMiniumumKinVersion\x12\x36.kin.agora.transaction.v4.GetMiniumumKinVersionRequest\x1a\x37.kin.agora.transaction.v4.GetMiniumumKinVersionResponse\x12\x7f\n\x12GetRecentBlockhash\x12\x33.kin.agora.transaction.v4.GetRecentBlockhashRequest\x1a\x34.kin.agora.transaction.v4.GetRecentBlockhashResponse\x12\xac\x01\n!GetMinimumBalanceForRentExemption\x12\x42.kin.agora.transaction.v4.GetMinimumBalanceForRentExemptionRequest\x1a\x43.kin.agora.transaction.v4.GetMinimumBalanceForRentExemptionResponse\x12g\n\nGetHistory\x12+.kin.agora.transaction.v4.GetHistoryRequest\x1a,.kin.agora.transaction.v4.GetHistoryResponse\x12|\n\x11SubmitTransaction\x12\x32.kin.agora.transaction.v4.SubmitTransactionRequest\x1a\x33.kin.agora.transaction.v4.SubmitTransactionResponse\x12s\n\x0eGetTransaction\x12/.kin.agora.transaction.v4.GetTransactionRequest\x1a\x30.kin.agora.transaction.v4.GetTransactionResponseB|\n org.kin.agora.gen.transaction.v4ZEgithub.com/kinecosystem/agora-api/genproto/transaction/v4;transaction\xa2\x02\x10\x41PBTransactionV4b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,common_dot_v3_dot_model__pb2.DESCRIPTOR,common_dot_v4_dot_model__pb2.DESCRIPTOR,])
 
@@ -91,22 +91,27 @@ _SUBMITTRANSACTIONRESPONSE_RESULT = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='FAILED', index=1, number=1,
+      name='ALREADY_SUBMITTED', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='REJECTED', index=2, number=2,
+      name='FAILED', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='INVOICE_ERROR', index=3, number=3,
+      name='REJECTED', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='PAYER_REQUIRED', index=4, number=4,
+      name='INVOICE_ERROR', index=4, number=4,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='PAYER_REQUIRED', index=5, number=5,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -114,7 +119,7 @@ _SUBMITTRANSACTIONRESPONSE_RESULT = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=1654,
-  serialized_end=1735,
+  serialized_end=1758,
 )
 _sym_db.RegisterEnumDescriptor(_SUBMITTRANSACTIONRESPONSE_RESULT)
 
@@ -148,8 +153,8 @@ _GETTRANSACTIONRESPONSE_STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2078,
-  serialized_end=2136,
+  serialized_start=2101,
+  serialized_end=2159,
 )
 _sym_db.RegisterEnumDescriptor(_GETTRANSACTIONRESPONSE_STATE)
 
@@ -586,7 +591,7 @@ _SUBMITTRANSACTIONRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1362,
-  serialized_end=1735,
+  serialized_end=1758,
 )
 
 
@@ -624,8 +629,8 @@ _GETTRANSACTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1738,
-  serialized_end=1884,
+  serialized_start=1761,
+  serialized_end=1907,
 )
 
 
@@ -678,8 +683,8 @@ _GETTRANSACTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1887,
-  serialized_end=2136,
+  serialized_start=1910,
+  serialized_end=2159,
 )
 
 
@@ -731,8 +736,8 @@ _HISTORYITEM_PAYMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2598,
-  serialized_end=2771,
+  serialized_start=2621,
+  serialized_end=2794,
 )
 
 _HISTORYITEM = _descriptor.Descriptor(
@@ -809,8 +814,8 @@ _HISTORYITEM = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2139,
-  serialized_end=2790,
+  serialized_start=2162,
+  serialized_end=2813,
 )
 
 
@@ -841,8 +846,8 @@ _CURSOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2792,
-  serialized_end=2827,
+  serialized_start=2815,
+  serialized_end=2850,
 )
 
 _GETSERVICECONFIGRESPONSE.fields_by_name['subsidizer_account'].message_type = common_dot_v4_dot_model__pb2._SOLANAACCOUNTID
@@ -1045,8 +1050,8 @@ _TRANSACTION = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2830,
-  serialized_end=3757,
+  serialized_start=2853,
+  serialized_end=3780,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetServiceConfig',
