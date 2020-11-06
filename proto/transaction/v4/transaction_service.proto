@@ -14,11 +14,11 @@ service Transaction {
     // GetServiceConfig returns the service and token parameters for the token.
     rpc GetServiceConfig(GetServiceConfigRequest) returns (GetServiceConfigResponse);
 
-    // GetMiniumumKinVersion returns the minimum Kin version that is supported.
+    // GetMinimumKinVersion returns the minimum Kin version that is supported.
     //
     // This version will _never_ decrease in non-test scenarios, as it indicates
     // a global migration has occured.
-    rpc GetMiniumumKinVersion(GetMiniumumKinVersionRequest) returns (GetMiniumumKinVersionResponse);
+    rpc GetMinimumKinVersion(GetMinimumKinVersionRequest) returns (GetMinimumKinVersionResponse);
 
     // GetRecentBlockhash returns a recent block hash from the underlying network,
     // which should be used when crafting transactions. If a transaction fails with
@@ -65,9 +65,9 @@ message GetServiceConfigResponse {
     common.v4.SolanaAccountId token = 3 [(validate.rules).message.required = true];
 }
 
-message GetMiniumumKinVersionRequest {
+message GetMinimumKinVersionRequest {
 }
-message GetMiniumumKinVersionResponse {
+message GetMinimumKinVersionResponse {
     uint32 version = 1;
 }
 

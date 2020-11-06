@@ -64,39 +64,39 @@ export namespace GetServiceConfigResponse {
     }
 }
 
-export class GetMiniumumKinVersionRequest extends jspb.Message { 
+export class GetMinimumKinVersionRequest extends jspb.Message { 
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): GetMiniumumKinVersionRequest.AsObject;
-    static toObject(includeInstance: boolean, msg: GetMiniumumKinVersionRequest): GetMiniumumKinVersionRequest.AsObject;
+    toObject(includeInstance?: boolean): GetMinimumKinVersionRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: GetMinimumKinVersionRequest): GetMinimumKinVersionRequest.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: GetMiniumumKinVersionRequest, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): GetMiniumumKinVersionRequest;
-    static deserializeBinaryFromReader(message: GetMiniumumKinVersionRequest, reader: jspb.BinaryReader): GetMiniumumKinVersionRequest;
+    static serializeBinaryToWriter(message: GetMinimumKinVersionRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetMinimumKinVersionRequest;
+    static deserializeBinaryFromReader(message: GetMinimumKinVersionRequest, reader: jspb.BinaryReader): GetMinimumKinVersionRequest;
 }
 
-export namespace GetMiniumumKinVersionRequest {
+export namespace GetMinimumKinVersionRequest {
     export type AsObject = {
     }
 }
 
-export class GetMiniumumKinVersionResponse extends jspb.Message { 
+export class GetMinimumKinVersionResponse extends jspb.Message { 
     getVersion(): number;
-    setVersion(value: number): GetMiniumumKinVersionResponse;
+    setVersion(value: number): GetMinimumKinVersionResponse;
 
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): GetMiniumumKinVersionResponse.AsObject;
-    static toObject(includeInstance: boolean, msg: GetMiniumumKinVersionResponse): GetMiniumumKinVersionResponse.AsObject;
+    toObject(includeInstance?: boolean): GetMinimumKinVersionResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: GetMinimumKinVersionResponse): GetMinimumKinVersionResponse.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: GetMiniumumKinVersionResponse, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): GetMiniumumKinVersionResponse;
-    static deserializeBinaryFromReader(message: GetMiniumumKinVersionResponse, reader: jspb.BinaryReader): GetMiniumumKinVersionResponse;
+    static serializeBinaryToWriter(message: GetMinimumKinVersionResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetMinimumKinVersionResponse;
+    static deserializeBinaryFromReader(message: GetMinimumKinVersionResponse, reader: jspb.BinaryReader): GetMinimumKinVersionResponse;
 }
 
-export namespace GetMiniumumKinVersionResponse {
+export namespace GetMinimumKinVersionResponse {
     export type AsObject = {
         version: number,
     }

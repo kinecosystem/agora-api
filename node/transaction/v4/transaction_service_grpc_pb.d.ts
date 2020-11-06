@@ -12,7 +12,7 @@ import * as common_v4_model_pb from "../../common/v4/model_pb";
 
 interface ITransactionService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     getServiceConfig: ITransactionService_IGetServiceConfig;
-    getMiniumumKinVersion: ITransactionService_IGetMiniumumKinVersion;
+    getMinimumKinVersion: ITransactionService_IGetMinimumKinVersion;
     getRecentBlockhash: ITransactionService_IGetRecentBlockhash;
     getMinimumBalanceForRentExemption: ITransactionService_IGetMinimumBalanceForRentExemption;
     getHistory: ITransactionService_IGetHistory;
@@ -29,14 +29,14 @@ interface ITransactionService_IGetServiceConfig extends grpc.MethodDefinition<tr
     responseSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetServiceConfigResponse>;
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetServiceConfigResponse>;
 }
-interface ITransactionService_IGetMiniumumKinVersion extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetMiniumumKinVersion"
+interface ITransactionService_IGetMinimumKinVersion extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse> {
+    path: string; // "/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion"
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest>;
-    requestDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest>;
-    responseSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse>;
-    responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse>;
+    requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest>;
+    requestDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest>;
+    responseSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse>;
+    responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse>;
 }
 interface ITransactionService_IGetRecentBlockhash extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, transaction_v4_transaction_service_pb.GetRecentBlockhashResponse> {
     path: string; // "/kin.agora.transaction.v4.Transaction/GetRecentBlockhash"
@@ -88,7 +88,7 @@ export const TransactionService: ITransactionService;
 
 export interface ITransactionServer {
     getServiceConfig: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetServiceConfigRequest, transaction_v4_transaction_service_pb.GetServiceConfigResponse>;
-    getMiniumumKinVersion: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse>;
+    getMinimumKinVersion: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse>;
     getRecentBlockhash: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, transaction_v4_transaction_service_pb.GetRecentBlockhashResponse>;
     getMinimumBalanceForRentExemption: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionRequest, transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionResponse>;
     getHistory: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetHistoryRequest, transaction_v4_transaction_service_pb.GetHistoryResponse>;
@@ -100,9 +100,9 @@ export interface ITransactionClient {
     getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
-    getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
-    getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
-    getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
     getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;
     getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;
     getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;
@@ -125,9 +125,9 @@ export class TransactionClient extends grpc.Client implements ITransactionClient
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
-    public getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
-    public getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
-    public getMiniumumKinVersion(request: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    public getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    public getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
+    public getMinimumKinVersion(request: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse) => void): grpc.ClientUnaryCall;
     public getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;
     public getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;
     public getRecentBlockhash(request: transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetRecentBlockhashResponse) => void): grpc.ClientUnaryCall;

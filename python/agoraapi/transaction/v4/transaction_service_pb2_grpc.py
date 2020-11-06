@@ -19,10 +19,10 @@ class TransactionStub(object):
                 request_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigRequest.SerializeToString,
                 response_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigResponse.FromString,
                 )
-        self.GetMiniumumKinVersion = channel.unary_unary(
-                '/kin.agora.transaction.v4.Transaction/GetMiniumumKinVersion',
-                request_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionRequest.SerializeToString,
-                response_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionResponse.FromString,
+        self.GetMinimumKinVersion = channel.unary_unary(
+                '/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion',
+                request_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionRequest.SerializeToString,
+                response_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionResponse.FromString,
                 )
         self.GetRecentBlockhash = channel.unary_unary(
                 '/kin.agora.transaction.v4.Transaction/GetRecentBlockhash',
@@ -61,8 +61,8 @@ class TransactionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetMiniumumKinVersion(self, request, context):
-        """GetMiniumumKinVersion returns the minimum Kin version that is supported.
+    def GetMinimumKinVersion(self, request, context):
+        """GetMinimumKinVersion returns the minimum Kin version that is supported.
 
         This version will _never_ decrease in non-test scenarios, as it indicates
         a global migration has occured.
@@ -131,10 +131,10 @@ def add_TransactionServicer_to_server(servicer, server):
                     request_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigRequest.FromString,
                     response_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigResponse.SerializeToString,
             ),
-            'GetMiniumumKinVersion': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetMiniumumKinVersion,
-                    request_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionRequest.FromString,
-                    response_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionResponse.SerializeToString,
+            'GetMinimumKinVersion': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetMinimumKinVersion,
+                    request_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionRequest.FromString,
+                    response_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionResponse.SerializeToString,
             ),
             'GetRecentBlockhash': grpc.unary_unary_rpc_method_handler(
                     servicer.GetRecentBlockhash,
@@ -188,7 +188,7 @@ class Transaction(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetMiniumumKinVersion(request,
+    def GetMinimumKinVersion(request,
             target,
             options=(),
             channel_credentials=None,
@@ -197,9 +197,9 @@ class Transaction(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/kin.agora.transaction.v4.Transaction/GetMiniumumKinVersion',
-            transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionRequest.SerializeToString,
-            transaction_dot_v4_dot_transaction__service__pb2.GetMiniumumKinVersionResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion',
+            transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionRequest.SerializeToString,
+            transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

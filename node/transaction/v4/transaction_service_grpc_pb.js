@@ -51,26 +51,26 @@ function deserialize_kin_agora_transaction_v4_GetMinimumBalanceForRentExemptionR
   return transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_kin_agora_transaction_v4_GetMiniumumKinVersionRequest(arg) {
-  if (!(arg instanceof transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest)) {
-    throw new Error('Expected argument of type kin.agora.transaction.v4.GetMiniumumKinVersionRequest');
+function serialize_kin_agora_transaction_v4_GetMinimumKinVersionRequest(arg) {
+  if (!(arg instanceof transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest)) {
+    throw new Error('Expected argument of type kin.agora.transaction.v4.GetMinimumKinVersionRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_kin_agora_transaction_v4_GetMiniumumKinVersionRequest(buffer_arg) {
-  return transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_kin_agora_transaction_v4_GetMinimumKinVersionRequest(buffer_arg) {
+  return transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_kin_agora_transaction_v4_GetMiniumumKinVersionResponse(arg) {
-  if (!(arg instanceof transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse)) {
-    throw new Error('Expected argument of type kin.agora.transaction.v4.GetMiniumumKinVersionResponse');
+function serialize_kin_agora_transaction_v4_GetMinimumKinVersionResponse(arg) {
+  if (!(arg instanceof transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse)) {
+    throw new Error('Expected argument of type kin.agora.transaction.v4.GetMinimumKinVersionResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_kin_agora_transaction_v4_GetMiniumumKinVersionResponse(buffer_arg) {
-  return transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_kin_agora_transaction_v4_GetMinimumKinVersionResponse(buffer_arg) {
+  return transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_kin_agora_transaction_v4_GetRecentBlockhashRequest(arg) {
@@ -175,20 +175,20 @@ getServiceConfig: {
     responseSerialize: serialize_kin_agora_transaction_v4_GetServiceConfigResponse,
     responseDeserialize: deserialize_kin_agora_transaction_v4_GetServiceConfigResponse,
   },
-  // GetMiniumumKinVersion returns the minimum Kin version that is supported.
+  // GetMinimumKinVersion returns the minimum Kin version that is supported.
 //
 // This version will _never_ decrease in non-test scenarios, as it indicates
 // a global migration has occured.
-getMiniumumKinVersion: {
-    path: '/kin.agora.transaction.v4.Transaction/GetMiniumumKinVersion',
+getMinimumKinVersion: {
+    path: '/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion',
     requestStream: false,
     responseStream: false,
-    requestType: transaction_v4_transaction_service_pb.GetMiniumumKinVersionRequest,
-    responseType: transaction_v4_transaction_service_pb.GetMiniumumKinVersionResponse,
-    requestSerialize: serialize_kin_agora_transaction_v4_GetMiniumumKinVersionRequest,
-    requestDeserialize: deserialize_kin_agora_transaction_v4_GetMiniumumKinVersionRequest,
-    responseSerialize: serialize_kin_agora_transaction_v4_GetMiniumumKinVersionResponse,
-    responseDeserialize: deserialize_kin_agora_transaction_v4_GetMiniumumKinVersionResponse,
+    requestType: transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest,
+    responseType: transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse,
+    requestSerialize: serialize_kin_agora_transaction_v4_GetMinimumKinVersionRequest,
+    requestDeserialize: deserialize_kin_agora_transaction_v4_GetMinimumKinVersionRequest,
+    responseSerialize: serialize_kin_agora_transaction_v4_GetMinimumKinVersionResponse,
+    responseDeserialize: deserialize_kin_agora_transaction_v4_GetMinimumKinVersionResponse,
   },
   // GetRecentBlockhash returns a recent block hash from the underlying network,
 // which should be used when crafting transactions. If a transaction fails with

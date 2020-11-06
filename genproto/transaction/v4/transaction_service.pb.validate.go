@@ -220,10 +220,10 @@ var _ interface {
 	ErrorName() string
 } = GetServiceConfigResponseValidationError{}
 
-// Validate checks the field values on GetMiniumumKinVersionRequest with the
+// Validate checks the field values on GetMinimumKinVersionRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetMiniumumKinVersionRequest) Validate() error {
+func (m *GetMinimumKinVersionRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -231,10 +231,10 @@ func (m *GetMiniumumKinVersionRequest) Validate() error {
 	return nil
 }
 
-// GetMiniumumKinVersionRequestValidationError is the validation error returned
-// by GetMiniumumKinVersionRequest.Validate if the designated constraints
+// GetMinimumKinVersionRequestValidationError is the validation error returned
+// by GetMinimumKinVersionRequest.Validate if the designated constraints
 // aren't met.
-type GetMiniumumKinVersionRequestValidationError struct {
+type GetMinimumKinVersionRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -242,24 +242,24 @@ type GetMiniumumKinVersionRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetMiniumumKinVersionRequestValidationError) Field() string { return e.field }
+func (e GetMinimumKinVersionRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetMiniumumKinVersionRequestValidationError) Reason() string { return e.reason }
+func (e GetMinimumKinVersionRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetMiniumumKinVersionRequestValidationError) Cause() error { return e.cause }
+func (e GetMinimumKinVersionRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetMiniumumKinVersionRequestValidationError) Key() bool { return e.key }
+func (e GetMinimumKinVersionRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetMiniumumKinVersionRequestValidationError) ErrorName() string {
-	return "GetMiniumumKinVersionRequestValidationError"
+func (e GetMinimumKinVersionRequestValidationError) ErrorName() string {
+	return "GetMinimumKinVersionRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetMiniumumKinVersionRequestValidationError) Error() string {
+func (e GetMinimumKinVersionRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -271,14 +271,14 @@ func (e GetMiniumumKinVersionRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetMiniumumKinVersionRequest.%s: %s%s",
+		"invalid %sGetMinimumKinVersionRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetMiniumumKinVersionRequestValidationError{}
+var _ error = GetMinimumKinVersionRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -286,12 +286,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetMiniumumKinVersionRequestValidationError{}
+} = GetMinimumKinVersionRequestValidationError{}
 
-// Validate checks the field values on GetMiniumumKinVersionResponse with the
+// Validate checks the field values on GetMinimumKinVersionResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetMiniumumKinVersionResponse) Validate() error {
+func (m *GetMinimumKinVersionResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -301,10 +301,10 @@ func (m *GetMiniumumKinVersionResponse) Validate() error {
 	return nil
 }
 
-// GetMiniumumKinVersionResponseValidationError is the validation error
-// returned by GetMiniumumKinVersionResponse.Validate if the designated
-// constraints aren't met.
-type GetMiniumumKinVersionResponseValidationError struct {
+// GetMinimumKinVersionResponseValidationError is the validation error returned
+// by GetMinimumKinVersionResponse.Validate if the designated constraints
+// aren't met.
+type GetMinimumKinVersionResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -312,24 +312,24 @@ type GetMiniumumKinVersionResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetMiniumumKinVersionResponseValidationError) Field() string { return e.field }
+func (e GetMinimumKinVersionResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetMiniumumKinVersionResponseValidationError) Reason() string { return e.reason }
+func (e GetMinimumKinVersionResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetMiniumumKinVersionResponseValidationError) Cause() error { return e.cause }
+func (e GetMinimumKinVersionResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetMiniumumKinVersionResponseValidationError) Key() bool { return e.key }
+func (e GetMinimumKinVersionResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetMiniumumKinVersionResponseValidationError) ErrorName() string {
-	return "GetMiniumumKinVersionResponseValidationError"
+func (e GetMinimumKinVersionResponseValidationError) ErrorName() string {
+	return "GetMinimumKinVersionResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetMiniumumKinVersionResponseValidationError) Error() string {
+func (e GetMinimumKinVersionResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -341,14 +341,14 @@ func (e GetMiniumumKinVersionResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetMiniumumKinVersionResponse.%s: %s%s",
+		"invalid %sGetMinimumKinVersionResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetMiniumumKinVersionResponseValidationError{}
+var _ error = GetMinimumKinVersionResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -356,7 +356,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetMiniumumKinVersionResponseValidationError{}
+} = GetMinimumKinVersionResponseValidationError{}
 
 // Validate checks the field values on GetRecentBlockhashRequest with the rules
 // defined in the proto definition for this message. If any rules are
