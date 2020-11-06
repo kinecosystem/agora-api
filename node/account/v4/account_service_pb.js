@@ -778,7 +778,8 @@ proto.kin.agora.account.v4.CreateAccountResponse.serializeBinaryToWriter = funct
 proto.kin.agora.account.v4.CreateAccountResponse.Result = {
   OK: 0,
   EXISTS: 1,
-  PAYER_REQUIRED: 2
+  PAYER_REQUIRED: 2,
+  BAD_NONCE: 3
 };
 
 /**

@@ -95,6 +95,7 @@ export namespace CreateAccountResponse {
     OK = 0,
     EXISTS = 1,
     PAYER_REQUIRED = 2,
+    BAD_NONCE = 3,
     }
 
 }

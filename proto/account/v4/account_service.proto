@@ -61,6 +61,9 @@ message CreateAccountResponse {
         // Indicates that the service will not subsidize the transaction, and that
         // the caller should fund the transaction themselves.
         PAYER_REQUIRED = 2;
+        // Indicates the nonce/blockhash used in the transaction is invalid, and should
+        // be refetched
+        BAD_NONCE = 3;
     }
 
     // Present iff the account was created or already existed.
