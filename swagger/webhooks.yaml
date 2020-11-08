@@ -81,6 +81,10 @@ components:
       description: "A base64-encoded transaction result XDR."
       type: string
       format: byte
+    SolanaTransaction:
+      description: "A base64-encoded solana transaction payload"
+      type: string
+      format: byte
     InvoiceList:
       description: |
         A base64-encoded protobuf InvoiceList related to a transaction. Each invoice corresponds to an operation in the transaction.
@@ -101,17 +105,24 @@ components:
       type: object
       required:
         - kin_version
-        - tx_hash
       properties:
         kin_version:
           $ref: "#/components/schemas/KinVersion"
+        # Deprecated(use tx_id instead): contains stellar transaction hash
         tx_hash:
+          description: "[Deprecated] Stellar transaction hash"
+          type: string
+          format: byte
+        tx_id:
+          description: "The identifier for the transaction. Either a Stellar transaction hash or Solana signature"
           type: string
           format: byte
         invoice_list:
           $ref: "#/components/schemas/InvoiceList"
         stellar_data:
           $ref: "#/components/schemas/StellarData"
+        solana_data:
+          $ref: "#/components/schemas/SolanaData"
 
     StellarData:
       description: "Stellar-specific data related to a transaction."
@@ -124,6 +135,26 @@ components:
           $ref: "#/components/schemas/ResultXDR"
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
+
+    SolanaData:
+      description: "Solana-specific data related to a transaction."
+      type: object
+      required:
+        - transaction
+      properties:
+        transaction:
+          $ref: "#/components/schemas/SolanaTransaction"
+        transaction_error:
+          type: string
+          enum:
+            - none
+            - unknown
+            - unauthorized
+            - bad_nonce
+            - insufficient_funds
+            - invalid_account
+        transaction_error_raw:
+          type: string
 
     EventsRequestBody:
       type: array
@@ -138,12 +169,13 @@ components:
       type: object
       required:
         - kin_version
-        - envelope_xdr
       properties:
         kin_version:
           $ref: "#/components/schemas/KinVersion"
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
+        solana_transaction:
+          $ref: "#/components/schemas/SolanaTransaction"
         invoice_list:
           $ref: "#/components/schemas/InvoiceList"
 
