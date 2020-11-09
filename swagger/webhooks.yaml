@@ -119,13 +119,13 @@ components:
           format: byte
         invoice_list:
           $ref: "#/components/schemas/InvoiceList"
-        stellar_data:
-          $ref: "#/components/schemas/StellarData"
-        solana_data:
-          $ref: "#/components/schemas/SolanaData"
+        stellar_event:
+          $ref: "#/components/schemas/StellarEvent"
+        solana_event:
+          $ref: "#/components/schemas/SolanaEvent"
 
-    StellarData:
-      description: "Stellar-specific data related to a transaction."
+    StellarEvent:
+      description: "Stellar-specific event data related to a transaction."
       type: object
       required:
         - result_xdr
@@ -136,8 +136,8 @@ components:
         envelope_xdr:
           $ref: "#/components/schemas/TransactionEnvelopeXDR"
 
-    SolanaData:
-      description: "Solana-specific data related to a transaction."
+    SolanaEvent:
+      description: "Solana-specific event data related to a transaction."
       type: object
       required:
         - transaction
