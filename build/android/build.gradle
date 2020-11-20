@@ -25,6 +25,8 @@ repositories {
     }
 }
 
+// We want to strip proto validation because it doesn't support protobuf-lite atm
+// which we want for mobile usage to reduce dependencies and size
 task removeProtoValidation(type: Exec) {
     workingDir "${projectDir}"
     commandLine './remove_proto_validation.sh'
