@@ -1966,7 +1966,8 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.toObject = function(incl
   var f, obj = {
     transaction: (f = msg.getTransaction()) && common_v4_model_pb.Transaction.toObject(includeInstance, f),
     invoiceList: (f = msg.getInvoiceList()) && common_v3_model_pb.InvoiceList.toObject(includeInstance, f),
-    commitment: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    commitment: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    dedupeId: msg.getDedupeId_asB64()
   };
 
   if (includeInstance) {
@@ -2017,6 +2018,10 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.deserializeBinaryFromRea
       var value = /** @type {!proto.kin.agora.common.v4.Commitment} */ (reader.readEnum());
       msg.setCommitment(value);
       break;
+    case 4:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setDedupeId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -2066,6 +2071,13 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.serializeBinaryToWriter 
   if (f !== 0.0) {
     writer.writeEnum(
       3,
+      f
+    );
+  }
+  f = message.getDedupeId_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      4,
       f
     );
   }
@@ -2161,6 +2173,48 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getCommitment 
  */
 proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.setCommitment = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
+};
+
+
+/**
+ * optional bytes dedupe_id = 4;
+ * @return {!(string|Uint8Array)}
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getDedupeId = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * optional bytes dedupe_id = 4;
+ * This is a type-conversion wrapper around `getDedupeId()`
+ * @return {string}
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getDedupeId_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getDedupeId()));
+};
+
+
+/**
+ * optional bytes dedupe_id = 4;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getDedupeId()`
+ * @return {!Uint8Array}
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getDedupeId_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getDedupeId()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @return {!proto.kin.agora.transaction.v4.SubmitTransactionRequest} returns this
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.setDedupeId = function(value) {
+  return jspb.Message.setProto3BytesField(this, 4, value);
 };
 
 

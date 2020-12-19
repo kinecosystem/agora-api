@@ -275,6 +275,11 @@ export class SubmitTransactionRequest extends jspb.Message {
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): SubmitTransactionRequest;
 
+    getDedupeId(): Uint8Array | string;
+    getDedupeId_asU8(): Uint8Array;
+    getDedupeId_asB64(): string;
+    setDedupeId(value: Uint8Array | string): SubmitTransactionRequest;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SubmitTransactionRequest.AsObject;
@@ -291,6 +296,7 @@ export namespace SubmitTransactionRequest {
         transaction?: common_v4_model_pb.Transaction.AsObject,
         invoiceList?: common_v3_model_pb.InvoiceList.AsObject,
         commitment: common_v4_model_pb.Commitment,
+        dedupeId: Uint8Array | string,
     }
 }
 

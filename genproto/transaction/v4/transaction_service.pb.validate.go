@@ -873,6 +873,13 @@ func (m *SubmitTransactionRequest) Validate() error {
 
 	// no validation rules for Commitment
 
+	if len(m.GetDedupeId()) > 64 {
+		return SubmitTransactionRequestValidationError{
+			field:  "DedupeId",
+			reason: "value length must be at most 64 bytes",
+		}
+	}
+
 	return nil
 }
 

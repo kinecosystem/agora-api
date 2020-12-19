@@ -138,6 +138,20 @@ message SubmitTransactionRequest {
     common.v3.InvoiceList invoice_list = 2;
 
     common.v4.Commitment commitment = 3;
+
+    // dedupe_id specifies an identifier that this transaction is associated with.
+    //
+    // If the service has already seen this ID, it will return the previous transaction
+    // status.
+    //
+    // The motivator for this identifier is that SDKs that retry at a higher level do
+    // not have access to the Blockhash information that the underlying SDK used in
+    // certain circumstances. Notably, in time out related cases, it is possible that
+    // the transaction was submitted, but the (SDK) caller will not be able to infer
+    // the signature.
+    bytes dedupe_id = 4 [(validate.rules).bytes = {
+        max_len: 64
+    }];
 }
 
 message SubmitTransactionResponse {
