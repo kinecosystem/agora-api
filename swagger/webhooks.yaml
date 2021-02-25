@@ -66,6 +66,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SignTransactionForbiddenResponse"
+  /create_account:
+    post:
+      summary: |
+        A webhook for the Agora service to call when an account creation is being requested. The endpoint may
+        wish to allow or deny the creation, and if applicable, co-sign the transaction for subsidization to
+        avoid rate limits.
+      parameters:
+        - in: header
+          name: X-Agora-HMAC-SHA256
+          schema:
+            type: string
+            format: byte
+        - in: header
+          name: X-App-User-ID
+          schema:
+            type: string
+        - in: header
+          name: X-App-User-Passkey
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAccountRequestBody"
+      responses:
+        '200':
+          description: "Optionally contains the signature for the transaction if subsidizing"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateAccountRequestBody"
+        '403':
+          description: "Indicates the service rejects the account creation"
 
 components:
   schemas:
@@ -181,14 +216,13 @@ components:
 
     SignTransactionSuccessResponse:
       description: |
-        The expected response for a successful sign transaction request. Contains the signed transaction envelope, which
-        will be submitted by the requesting Agora service.
+        The expected response for a successful sign transaction request. Contains an optional signature.
       type: object
-      required:
-        - envelope_xdr
       properties:
-        envelope_xdr:
-          $ref: "#/components/schemas/TransactionEnvelopeXDR"
+        signature:
+          description: "The signature of the transaction. Not required if the transaction is already signed"
+          type: string
+          format: byte
     SignTransactionForbiddenResponse:
       type: object
       properties:
@@ -210,3 +244,15 @@ components:
                   * `already_paid`: the user has already paid for the submitted invoice
                   * `wrong_destination`: the destination account was incorrect
                   * `sku_not_found`: one or more skus in the invoice was not found
+    CreateAcccountRequestBody:
+      description: |
+        The body of a a create accoungt request. Contains a create account transaction payload that should be
+        verified prior to signing / approving.
+      type: object
+      required:
+        - kin_version
+      properties:
+        kin_version:
+          $ref: "#/components/schemas/KinVersion"
+        solana_transaction:
+          $ref: "#/components/schemas/SolanaTransaction"

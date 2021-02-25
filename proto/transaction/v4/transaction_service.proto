@@ -12,6 +12,8 @@ import "common/v4/model.proto";
 
 service Transaction {
     // GetServiceConfig returns the service and token parameters for the token.
+    //
+    // The subsidizer key returned may vary based on the 'app-index' header.
     rpc GetServiceConfig(GetServiceConfigRequest) returns (GetServiceConfigResponse);
 
     // GetMinimumKinVersion returns the minimum Kin version that is supported.
@@ -36,17 +38,65 @@ service Transaction {
     // with additional off-chain invoice data, if available.
     rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
 
+    // SignTransaction signs the provided transaction, returning the signature to be used.
+    //
+    // The transaction may include the following types of instructions:
+    //   - SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+    //   - SplToken::SetAuthority(CloseAuthority)
+    //   - SplToken::Transfer()
+    //   - SplToken::CloseAccount()
+    //   - Memo::Memo()
+    //
+    // The transaction can be divided into one or more 'regions', which are delineated by
+    // the memo instruction. Each instruction within a region is considered to be 'related to'
+    // the memo at the beginning of the region. The first (or only) region may not have a memo.
+    // For example, if there are instructions before the first memo instruction, or if there
+    // is no memo at all.
+    //
+    // If an invoice is applied, there must be a memo who's foreign key contains the SHA-226
+    // of the serialized memo. Additionally, the number of SplToken::Transfer instructions in
+    // the region _must_ match the number of invoices. Furthermore, the invoice cannot be
+    // referenced by more than one region.
+    //
+    // Examples:
+    //
+    // Basic Transfer (No Invoce)
+    //   1. SplToken::Transfer()
+    //
+    // Basic Transfer (Invoice)
+    //   1. Memo::Memo(Spend)
+    //   2. SplToken::Transfer()
+    //
+    // Transfer with Cleanup (Sender has token accounts A, B, sending to C)
+    //   1. Memo::Memo(GC) [Optional, 'memoless' region is ok]
+    //   2. SplToken::Transfer(B -> A)
+    //   3. SplToken::CloseAccount(B)
+    //   4. Memo::Memo(Spend)
+    //   5. SplToken::Transfer(A -> C)
+    //
+    // Transfer with Cleanup At End (Sender has token accounts A, B, sending to C)
+    //   1. Memo::Memo(Spend)
+    //   2. SplToken::Transfer(A -> C)
+    //   3. Memo::Memo(GC) [Required, delineate cleanup region from above]
+    //   4. SplToken::Transfer(B -> A)
+    //   5. SplToken::CloseAccount(B)
+    //
+    // Sender Creates (No Invoice)
+    //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+    //   2. SplToken::SetAuthority(CloseAuthority)
+    //   2. SplToken::Transfer()
+    //
+    // Sender Creates (Invoice)
+    //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+    //   2. SplToken::SetAuthority(CloseAuthority)
+    //   3. Memo::Memo(Earn)
+    //   4. SplToken::Transfer()
+    rpc SignTransaction(SignTransactionRequest) returns (SignTransactionResponse);
+
     // SubmitTransaction submits a transaction.
     //
-    // The transaction may include a single Memo[1] instruction.
-    // If a memo instruction is specified, it must be at position 0
-    // in the instruction array.
-    //
-    // If an invoice is provided, the Memo instruction must contain a
-    // Kin Binary memo[2], encoded as base64.
-    //
-    // [1]: https://spl.solana.com/memo
-    // [2]: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+    // If the transaction is already signed, the SignTransaction webhook will not
+    // be called.
     rpc SubmitTransaction(SubmitTransactionRequest) returns (SubmitTransactionResponse);
 
     // GetTransaction returns a transaction and additional off-chain invoice data, if available.
@@ -119,6 +169,45 @@ message GetHistoryResponse {
         min_items: 0
         max_items: 128
     }];
+}
+
+message SignTransactionRequest {
+    common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
+
+    // An optional invoice list associating each operation with an invoice.
+    //
+    // If an invoice list is included, it is expected that the foreign key in
+    // the transaction memo is the SHA-224 hash of the serialized invoice list.
+    //
+    // The invoice list will be included in webhook calls for the application the
+    // transaction pertains to (as specified by the memo app index).
+    //
+    // The submitted invoice data will only be available for retrieval from the service it
+    // was submitted to and not directly from the blockchain nor any other deployments of
+    // the service.
+    common.v3.InvoiceList invoice_list = 2;
+}
+message SignTransactionResponse {
+    Result result = 1;
+    enum Result {
+        OK = 0;
+
+        // Indicates that the configured webhook for this transaction
+        // rejected the transaction without a specified reason.
+        REJECTED = 3;
+
+        // Indicates there was an error with one or more of the
+        // supplied invoices.
+        //
+        // See: invoice_errors.
+        INVOICE_ERROR = 4;
+    }
+
+    // Present when result = OK
+    common.v4.TransactionSignature signature = 2;
+
+    // Present when result = INVOICE_ERROR.
+    repeated common.v3.InvoiceError invoice_errors = 4;
 }
 
 message SubmitTransactionRequest {

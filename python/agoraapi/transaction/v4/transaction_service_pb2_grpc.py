@@ -39,6 +39,11 @@ class TransactionStub(object):
                 request_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetHistoryRequest.SerializeToString,
                 response_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetHistoryResponse.FromString,
                 )
+        self.SignTransaction = channel.unary_unary(
+                '/kin.agora.transaction.v4.Transaction/SignTransaction',
+                request_serializer=transaction_dot_v4_dot_transaction__service__pb2.SignTransactionRequest.SerializeToString,
+                response_deserializer=transaction_dot_v4_dot_transaction__service__pb2.SignTransactionResponse.FromString,
+                )
         self.SubmitTransaction = channel.unary_unary(
                 '/kin.agora.transaction.v4.Transaction/SubmitTransaction',
                 request_serializer=transaction_dot_v4_dot_transaction__service__pb2.SubmitTransactionRequest.SerializeToString,
@@ -56,6 +61,8 @@ class TransactionServicer(object):
 
     def GetServiceConfig(self, request, context):
         """GetServiceConfig returns the service and token parameters for the token.
+
+        The subsidizer key returned may vary based on the 'app-index' header.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -99,18 +106,70 @@ class TransactionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SignTransaction(self, request, context):
+        """SignTransaction signs the provided transaction, returning the signature to be used.
+
+        The transaction may include the following types of instructions:
+        - SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+        - SplToken::SetAuthority(CloseAuthority)
+        - SplToken::Transfer()
+        - SplToken::CloseAccount()
+        - Memo::Memo()
+
+        The transaction can be divided into one or more 'regions', which are delineated by
+        the memo instruction. Each instruction within a region is considered to be 'related to'
+        the memo at the beginning of the region. The first (or only) region may not have a memo.
+        For example, if there are instructions before the first memo instruction, or if there
+        is no memo at all.
+
+        If an invoice is applied, there must be a memo who's foreign key contains the SHA-226
+        of the serialized memo. Additionally, the number of SplToken::Transfer instructions in
+        the region _must_ match the number of invoices. Furthermore, the invoice cannot be
+        referenced by more than one region.
+
+        Examples:
+
+        Basic Transfer (No Invoce)
+        1. SplToken::Transfer()
+
+        Basic Transfer (Invoice)
+        1. Memo::Memo(Spend)
+        2. SplToken::Transfer()
+
+        Transfer with Cleanup (Sender has token accounts A, B, sending to C)
+        1. Memo::Memo(GC) [Optional, 'memoless' region is ok]
+        2. SplToken::Transfer(B -> A)
+        3. SplToken::CloseAccount(B)
+        4. Memo::Memo(Spend)
+        5. SplToken::Transfer(A -> C)
+
+        Transfer with Cleanup At End (Sender has token accounts A, B, sending to C)
+        1. Memo::Memo(Spend)
+        2. SplToken::Transfer(A -> C)
+        3. Memo::Memo(GC) [Required, delineate cleanup region from above]
+        4. SplToken::Transfer(B -> A)
+        5. SplToken::CloseAccount(B)
+
+        Sender Creates (No Invoice)
+        1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+        2. SplToken::SetAuthority(CloseAuthority)
+        2. SplToken::Transfer()
+
+        Sender Creates (Invoice)
+        1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+        2. SplToken::SetAuthority(CloseAuthority)
+        3. Memo::Memo(Earn)
+        4. SplToken::Transfer()
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubmitTransaction(self, request, context):
         """SubmitTransaction submits a transaction.
 
-        The transaction may include a single Memo[1] instruction.
-        If a memo instruction is specified, it must be at position 0
-        in the instruction array.
-
-        If an invoice is provided, the Memo instruction must contain a
-        Kin Binary memo[2], encoded as base64.
-
-        [1]: https://spl.solana.com/memo
-        [2]: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+        If the transaction is already signed, the SignTransaction webhook will not
+        be called.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -150,6 +209,11 @@ def add_TransactionServicer_to_server(servicer, server):
                     servicer.GetHistory,
                     request_deserializer=transaction_dot_v4_dot_transaction__service__pb2.GetHistoryRequest.FromString,
                     response_serializer=transaction_dot_v4_dot_transaction__service__pb2.GetHistoryResponse.SerializeToString,
+            ),
+            'SignTransaction': grpc.unary_unary_rpc_method_handler(
+                    servicer.SignTransaction,
+                    request_deserializer=transaction_dot_v4_dot_transaction__service__pb2.SignTransactionRequest.FromString,
+                    response_serializer=transaction_dot_v4_dot_transaction__service__pb2.SignTransactionResponse.SerializeToString,
             ),
             'SubmitTransaction': grpc.unary_unary_rpc_method_handler(
                     servicer.SubmitTransaction,
@@ -248,6 +312,22 @@ class Transaction(object):
         return grpc.experimental.unary_unary(request, target, '/kin.agora.transaction.v4.Transaction/GetHistory',
             transaction_dot_v4_dot_transaction__service__pb2.GetHistoryRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetHistoryResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SignTransaction(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/kin.agora.transaction.v4.Transaction/SignTransaction',
+            transaction_dot_v4_dot_transaction__service__pb2.SignTransactionRequest.SerializeToString,
+            transaction_dot_v4_dot_transaction__service__pb2.SignTransactionResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

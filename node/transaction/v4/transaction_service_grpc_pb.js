@@ -139,6 +139,28 @@ function deserialize_kin_agora_transaction_v4_GetTransactionResponse(buffer_arg)
   return transaction_v4_transaction_service_pb.GetTransactionResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_kin_agora_transaction_v4_SignTransactionRequest(arg) {
+  if (!(arg instanceof transaction_v4_transaction_service_pb.SignTransactionRequest)) {
+    throw new Error('Expected argument of type kin.agora.transaction.v4.SignTransactionRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_kin_agora_transaction_v4_SignTransactionRequest(buffer_arg) {
+  return transaction_v4_transaction_service_pb.SignTransactionRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_kin_agora_transaction_v4_SignTransactionResponse(arg) {
+  if (!(arg instanceof transaction_v4_transaction_service_pb.SignTransactionResponse)) {
+    throw new Error('Expected argument of type kin.agora.transaction.v4.SignTransactionResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_kin_agora_transaction_v4_SignTransactionResponse(buffer_arg) {
+  return transaction_v4_transaction_service_pb.SignTransactionResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_kin_agora_transaction_v4_SubmitTransactionRequest(arg) {
   if (!(arg instanceof transaction_v4_transaction_service_pb.SubmitTransactionRequest)) {
     throw new Error('Expected argument of type kin.agora.transaction.v4.SubmitTransactionRequest');
@@ -164,6 +186,8 @@ function deserialize_kin_agora_transaction_v4_SubmitTransactionResponse(buffer_a
 
 var TransactionService = exports.TransactionService = {
   // GetServiceConfig returns the service and token parameters for the token.
+//
+// The subsidizer key returned may vary based on the 'app-index' header.
 getServiceConfig: {
     path: '/kin.agora.transaction.v4.Transaction/GetServiceConfig',
     requestStream: false,
@@ -233,17 +257,74 @@ getHistory: {
     responseSerialize: serialize_kin_agora_transaction_v4_GetHistoryResponse,
     responseDeserialize: deserialize_kin_agora_transaction_v4_GetHistoryResponse,
   },
+  // SignTransaction signs the provided transaction, returning the signature to be used.
+//
+// The transaction may include the following types of instructions:
+//   - SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+//   - SplToken::SetAuthority(CloseAuthority)
+//   - SplToken::Transfer()
+//   - SplToken::CloseAccount()
+//   - Memo::Memo()
+//
+// The transaction can be divided into one or more 'regions', which are delineated by
+// the memo instruction. Each instruction within a region is considered to be 'related to'
+// the memo at the beginning of the region. The first (or only) region may not have a memo.
+// For example, if there are instructions before the first memo instruction, or if there
+// is no memo at all.
+//
+// If an invoice is applied, there must be a memo who's foreign key contains the SHA-226
+// of the serialized memo. Additionally, the number of SplToken::Transfer instructions in
+// the region _must_ match the number of invoices. Furthermore, the invoice cannot be
+// referenced by more than one region.
+//
+// Examples:
+//
+// Basic Transfer (No Invoce)
+//   1. SplToken::Transfer()
+//
+// Basic Transfer (Invoice)
+//   1. Memo::Memo(Spend)
+//   2. SplToken::Transfer()
+//
+// Transfer with Cleanup (Sender has token accounts A, B, sending to C)
+//   1. Memo::Memo(GC) [Optional, 'memoless' region is ok]
+//   2. SplToken::Transfer(B -> A)
+//   3. SplToken::CloseAccount(B)
+//   4. Memo::Memo(Spend)
+//   5. SplToken::Transfer(A -> C)
+//
+// Transfer with Cleanup At End (Sender has token accounts A, B, sending to C)
+//   1. Memo::Memo(Spend)
+//   2. SplToken::Transfer(A -> C)
+//   3. Memo::Memo(GC) [Required, delineate cleanup region from above]
+//   4. SplToken::Transfer(B -> A)
+//   5. SplToken::CloseAccount(B)
+//
+// Sender Creates (No Invoice)
+//   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+//   2. SplToken::SetAuthority(CloseAuthority)
+//   2. SplToken::Transfer()
+//
+// Sender Creates (Invoice)
+//   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+//   2. SplToken::SetAuthority(CloseAuthority)
+//   3. Memo::Memo(Earn)
+//   4. SplToken::Transfer()
+signTransaction: {
+    path: '/kin.agora.transaction.v4.Transaction/SignTransaction',
+    requestStream: false,
+    responseStream: false,
+    requestType: transaction_v4_transaction_service_pb.SignTransactionRequest,
+    responseType: transaction_v4_transaction_service_pb.SignTransactionResponse,
+    requestSerialize: serialize_kin_agora_transaction_v4_SignTransactionRequest,
+    requestDeserialize: deserialize_kin_agora_transaction_v4_SignTransactionRequest,
+    responseSerialize: serialize_kin_agora_transaction_v4_SignTransactionResponse,
+    responseDeserialize: deserialize_kin_agora_transaction_v4_SignTransactionResponse,
+  },
   // SubmitTransaction submits a transaction.
 //
-// The transaction may include a single Memo[1] instruction.
-// If a memo instruction is specified, it must be at position 0
-// in the instruction array.
-//
-// If an invoice is provided, the Memo instruction must contain a
-// Kin Binary memo[2], encoded as base64.
-//
-// [1]: https://spl.solana.com/memo
-// [2]: https://github.com/kinecosystem/agora-api/blob/master/spec/memo.md
+// If the transaction is already signed, the SignTransaction webhook will not
+// be called.
 submitTransaction: {
     path: '/kin.agora.transaction.v4.Transaction/SubmitTransaction',
     requestStream: false,

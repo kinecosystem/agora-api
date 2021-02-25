@@ -259,6 +259,78 @@ export namespace GetHistoryResponse {
 
 }
 
+export class SignTransactionRequest extends jspb.Message { 
+
+    hasTransaction(): boolean;
+    clearTransaction(): void;
+    getTransaction(): common_v4_model_pb.Transaction | undefined;
+    setTransaction(value?: common_v4_model_pb.Transaction): SignTransactionRequest;
+
+
+    hasInvoiceList(): boolean;
+    clearInvoiceList(): void;
+    getInvoiceList(): common_v3_model_pb.InvoiceList | undefined;
+    setInvoiceList(value?: common_v3_model_pb.InvoiceList): SignTransactionRequest;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SignTransactionRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: SignTransactionRequest): SignTransactionRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SignTransactionRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SignTransactionRequest;
+    static deserializeBinaryFromReader(message: SignTransactionRequest, reader: jspb.BinaryReader): SignTransactionRequest;
+}
+
+export namespace SignTransactionRequest {
+    export type AsObject = {
+        transaction?: common_v4_model_pb.Transaction.AsObject,
+        invoiceList?: common_v3_model_pb.InvoiceList.AsObject,
+    }
+}
+
+export class SignTransactionResponse extends jspb.Message { 
+    getResult(): SignTransactionResponse.Result;
+    setResult(value: SignTransactionResponse.Result): SignTransactionResponse;
+
+
+    hasSignature(): boolean;
+    clearSignature(): void;
+    getSignature(): common_v4_model_pb.TransactionSignature | undefined;
+    setSignature(value?: common_v4_model_pb.TransactionSignature): SignTransactionResponse;
+
+    clearInvoiceErrorsList(): void;
+    getInvoiceErrorsList(): Array<common_v3_model_pb.InvoiceError>;
+    setInvoiceErrorsList(value: Array<common_v3_model_pb.InvoiceError>): SignTransactionResponse;
+    addInvoiceErrors(value?: common_v3_model_pb.InvoiceError, index?: number): common_v3_model_pb.InvoiceError;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SignTransactionResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: SignTransactionResponse): SignTransactionResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SignTransactionResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SignTransactionResponse;
+    static deserializeBinaryFromReader(message: SignTransactionResponse, reader: jspb.BinaryReader): SignTransactionResponse;
+}
+
+export namespace SignTransactionResponse {
+    export type AsObject = {
+        result: SignTransactionResponse.Result,
+        signature?: common_v4_model_pb.TransactionSignature.AsObject,
+        invoiceErrorsList: Array<common_v3_model_pb.InvoiceError.AsObject>,
+    }
+
+    export enum Result {
+    OK = 0,
+    REJECTED = 3,
+    INVOICE_ERROR = 4,
+    }
+
+}
+
 export class SubmitTransactionRequest extends jspb.Message { 
 
     hasTransaction(): boolean;

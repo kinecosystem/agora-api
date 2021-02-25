@@ -1,6 +1,6 @@
 # Kin Binary Memo Format
 
-This outlines the encoding required for a transaction memo to conform to the binary memo format expected by Kin.  
+This outlines the encoding required for a transaction memo to conform to the binary memo format expected by Kin.
 
 ```
  0               1               2               3
@@ -36,13 +36,13 @@ This outlines the encoding required for a transaction memo to conform to the bin
 **TypeID**: Transaction Type (5 bits)
 
     This field indicates the 'meta' type of transaction(s)
-    that the transaction the memo was emboddied in was for.
+    that the transaction the memo was embodied in was for.
     See Type Identifiers for mapping.
 
 **AppIdx**: App Index (16 bits)
 
     This field refers to the App in which the transaction
-    that the memo was emboddied in was related to. The
+    that the memo was embodied in was related to. The
     string representation for the corresponding App Index
     can be looked up via a central service. 16 bits allows
     for 65,536 apps before a memo revision is required.
@@ -58,7 +58,7 @@ This outlines the encoding required for a transaction memo to conform to the bin
 
 | Value  | Type     |
 | -----  |:--------:|
-| 0      | NONE  |
+| 0      | NONE     |
 | 1      | EARN     |
 | 2      | SPEND    |
 | 3      | P2P      |

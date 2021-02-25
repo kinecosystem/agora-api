@@ -69,6 +69,26 @@ func (m *AccountInfo) Validate() error {
 
 	// no validation rules for Balance
 
+	if v, ok := interface{}(m.GetOwner()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AccountInfoValidationError{
+				field:  "Owner",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetCloseAuthority()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AccountInfoValidationError{
+				field:  "CloseAuthority",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -481,6 +501,8 @@ func (m *ResolveTokenAccountsRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for IncludeAccountInfo
+
 	return nil
 }
 
@@ -556,6 +578,21 @@ func (m *ResolveTokenAccountsResponse) Validate() error {
 			if err := v.Validate(); err != nil {
 				return ResolveTokenAccountsResponseValidationError{
 					field:  fmt.Sprintf("TokenAccounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetTokenAccountInfos() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ResolveTokenAccountsResponseValidationError{
+					field:  fmt.Sprintf("TokenAccountInfos[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

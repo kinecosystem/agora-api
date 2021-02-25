@@ -19,6 +19,18 @@ export class AccountInfo extends jspb.Message {
     setBalance(value: string): AccountInfo;
 
 
+    hasOwner(): boolean;
+    clearOwner(): void;
+    getOwner(): common_v4_model_pb.SolanaAccountId | undefined;
+    setOwner(value?: common_v4_model_pb.SolanaAccountId): AccountInfo;
+
+
+    hasCloseAuthority(): boolean;
+    clearCloseAuthority(): void;
+    getCloseAuthority(): common_v4_model_pb.SolanaAccountId | undefined;
+    setCloseAuthority(value?: common_v4_model_pb.SolanaAccountId): AccountInfo;
+
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AccountInfo.AsObject;
     static toObject(includeInstance: boolean, msg: AccountInfo): AccountInfo.AsObject;
@@ -33,6 +45,8 @@ export namespace AccountInfo {
     export type AsObject = {
         accountId?: common_v4_model_pb.SolanaAccountId.AsObject,
         balance: string,
+        owner?: common_v4_model_pb.SolanaAccountId.AsObject,
+        closeAuthority?: common_v4_model_pb.SolanaAccountId.AsObject,
     }
 }
 
@@ -169,6 +183,9 @@ export class ResolveTokenAccountsRequest extends jspb.Message {
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): ResolveTokenAccountsRequest;
 
+    getIncludeAccountInfo(): boolean;
+    setIncludeAccountInfo(value: boolean): ResolveTokenAccountsRequest;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResolveTokenAccountsRequest.AsObject;
@@ -183,6 +200,7 @@ export class ResolveTokenAccountsRequest extends jspb.Message {
 export namespace ResolveTokenAccountsRequest {
     export type AsObject = {
         accountId?: common_v4_model_pb.SolanaAccountId.AsObject,
+        includeAccountInfo: boolean,
     }
 }
 
@@ -191,6 +209,11 @@ export class ResolveTokenAccountsResponse extends jspb.Message {
     getTokenAccountsList(): Array<common_v4_model_pb.SolanaAccountId>;
     setTokenAccountsList(value: Array<common_v4_model_pb.SolanaAccountId>): ResolveTokenAccountsResponse;
     addTokenAccounts(value?: common_v4_model_pb.SolanaAccountId, index?: number): common_v4_model_pb.SolanaAccountId;
+
+    clearTokenAccountInfosList(): void;
+    getTokenAccountInfosList(): Array<AccountInfo>;
+    setTokenAccountInfosList(value: Array<AccountInfo>): ResolveTokenAccountsResponse;
+    addTokenAccountInfos(value?: AccountInfo, index?: number): AccountInfo;
 
 
     serializeBinary(): Uint8Array;
@@ -206,6 +229,7 @@ export class ResolveTokenAccountsResponse extends jspb.Message {
 export namespace ResolveTokenAccountsResponse {
     export type AsObject = {
         tokenAccountsList: Array<common_v4_model_pb.SolanaAccountId.AsObject>,
+        tokenAccountInfosList: Array<AccountInfo.AsObject>,
     }
 }
 

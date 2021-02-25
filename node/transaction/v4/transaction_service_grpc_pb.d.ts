@@ -16,6 +16,7 @@ interface ITransactionService extends grpc.ServiceDefinition<grpc.UntypedService
     getRecentBlockhash: ITransactionService_IGetRecentBlockhash;
     getMinimumBalanceForRentExemption: ITransactionService_IGetMinimumBalanceForRentExemption;
     getHistory: ITransactionService_IGetHistory;
+    signTransaction: ITransactionService_ISignTransaction;
     submitTransaction: ITransactionService_ISubmitTransaction;
     getTransaction: ITransactionService_IGetTransaction;
 }
@@ -65,6 +66,15 @@ interface ITransactionService_IGetHistory extends grpc.MethodDefinition<transact
     responseSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetHistoryResponse>;
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetHistoryResponse>;
 }
+interface ITransactionService_ISignTransaction extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.SignTransactionRequest, transaction_v4_transaction_service_pb.SignTransactionResponse> {
+    path: string; // "/kin.agora.transaction.v4.Transaction/SignTransaction"
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.SignTransactionRequest>;
+    requestDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.SignTransactionRequest>;
+    responseSerialize: grpc.serialize<transaction_v4_transaction_service_pb.SignTransactionResponse>;
+    responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.SignTransactionResponse>;
+}
 interface ITransactionService_ISubmitTransaction extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.SubmitTransactionRequest, transaction_v4_transaction_service_pb.SubmitTransactionResponse> {
     path: string; // "/kin.agora.transaction.v4.Transaction/SubmitTransaction"
     requestStream: false;
@@ -92,6 +102,7 @@ export interface ITransactionServer {
     getRecentBlockhash: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, transaction_v4_transaction_service_pb.GetRecentBlockhashResponse>;
     getMinimumBalanceForRentExemption: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionRequest, transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionResponse>;
     getHistory: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetHistoryRequest, transaction_v4_transaction_service_pb.GetHistoryResponse>;
+    signTransaction: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.SignTransactionRequest, transaction_v4_transaction_service_pb.SignTransactionResponse>;
     submitTransaction: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.SubmitTransactionRequest, transaction_v4_transaction_service_pb.SubmitTransactionResponse>;
     getTransaction: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetTransactionRequest, transaction_v4_transaction_service_pb.GetTransactionResponse>;
 }
@@ -112,6 +123,9 @@ export interface ITransactionClient {
     getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
     getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
     getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
+    signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
+    signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
+    signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
     submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;
     submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;
     submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;
@@ -137,6 +151,9 @@ export class TransactionClient extends grpc.Client implements ITransactionClient
     public getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
     public getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
     public getHistory(request: transaction_v4_transaction_service_pb.GetHistoryRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetHistoryResponse) => void): grpc.ClientUnaryCall;
+    public signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
+    public signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
+    public signTransaction(request: transaction_v4_transaction_service_pb.SignTransactionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SignTransactionResponse) => void): grpc.ClientUnaryCall;
     public submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;
     public submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;
     public submitTransaction(request: transaction_v4_transaction_service_pb.SubmitTransactionRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.SubmitTransactionResponse) => void): grpc.ClientUnaryCall;

@@ -30,21 +30,33 @@ message AccountInfo {
 
     // The last known balance, in quarks, of the account.
     int64 balance = 2 [jstype = JS_STRING];
+
+    common.v4.SolanaAccountId owner = 3;
+    common.v4.SolanaAccountId close_authority = 4;
 }
 
 message CreateAccountRequest {
-    // Transaction should contain the following instructions:
+    // CreateAccountRequest be of one of the following forms:
+    //   Legacy:
+    //     1. [Optional] Memo::Memo()
+    //     2. SystemProgram::CreateAccount()
+    //     3. SplTokenProgram::InitializeAccount()
+    //     4. [Optional] SplTokenProgram::SetAuthority()
+    //   Standard:
+    //     1. [Optional] Memo::Memo()
+    //     2. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
+    //     3. [Optional] SplTokenProgram::SetAuthority()
     //
-    //   1. SystemProgram::CreateAccount()
-    //   2. SplTokenProgram::InitializeAccount()
-    //   3. SplTokenProgram::SetAuthority()
+    // The SetAuthority() instruction only needs to be set if the service is
+    // subsidizing the account creation. In that case, a SetAuthority()
+    // instruction must be included that sets the CloseAuthority of
+    // the account to the subsidizer. This is to prevent the farming of Sol
+    // by creating accounts. It should be noted that an account can only
+    // be closed if there is zero kin in the account.
     //
-    // (3) only needs to be set if the service is subsidizing the
-    // account creation. In that case, a SetAuthority() instruction
-    // should be included that sets the CloseAuthority of the account
-    // to the subsidizer. This is to prevent farming of Sol by creating
-    // accounts. It should be noted that an account can only be closed
-    // if there is zero kin in the account.
+    // An optional memo may be provided to attribute the account
+    // creation with an app index. This may be used for the KRE.
+    // The memo type should be NONE.
     //
     // If the parameters are not for the Kin token, or there are
     // any other instructions, InvalidArgument will be returned.
@@ -91,6 +103,11 @@ message GetAccountInfoResponse {
 
 message ResolveTokenAccountsRequest {
     common.v4.SolanaAccountId account_id = 1 [(validate.rules).message.required = true];
+
+    // Specifies whether or not detailed account info for each token account should
+    // be returned. This should only be specified if needed, as it requires extra
+    // lookups.
+    bool include_account_info = 2;
 }
 message ResolveTokenAccountsResponse {
     // Zero or more accounts that are owned by the provided account id.
@@ -98,7 +115,18 @@ message ResolveTokenAccountsResponse {
     // If the provided account is also a token account, it will be first in the list.
     // Otherwise, the list order should not be depended on, as there is no reliable way
     // to sort accounts based on creation time.
-    repeated common.v4.SolanaAccountId token_accounts = 1;
+    //
+    // Deprecated in favour of token_account_infos.
+    repeated common.v4.SolanaAccountId token_accounts = 1 [deprecated = true];
+
+    // Zero or more account infos that are owned by the provided account id.
+    //
+    // In the case where include_account_info is false, token_account_infos will
+    // still be provided. However, they will not include any data requiring account
+    // lookups. That is, only account_id and owner will be set.
+    //
+    // Note: the ordering of token_account_infos is identical to token_accounts.
+    repeated AccountInfo token_account_infos = 2;
 }
 
 message GetEventsRequest {

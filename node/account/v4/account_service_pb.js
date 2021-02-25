@@ -317,7 +317,9 @@ proto.kin.agora.account.v4.AccountInfo.prototype.toObject = function(opt_include
 proto.kin.agora.account.v4.AccountInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
     accountId: (f = msg.getAccountId()) && common_v4_model_pb.SolanaAccountId.toObject(includeInstance, f),
-    balance: jspb.Message.getFieldWithDefault(msg, 2, "0")
+    balance: jspb.Message.getFieldWithDefault(msg, 2, "0"),
+    owner: (f = msg.getOwner()) && common_v4_model_pb.SolanaAccountId.toObject(includeInstance, f),
+    closeAuthority: (f = msg.getCloseAuthority()) && common_v4_model_pb.SolanaAccountId.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -363,6 +365,16 @@ proto.kin.agora.account.v4.AccountInfo.deserializeBinaryFromReader = function(ms
       var value = /** @type {string} */ (reader.readInt64String());
       msg.setBalance(value);
       break;
+    case 3:
+      var value = new common_v4_model_pb.SolanaAccountId;
+      reader.readMessage(value,common_v4_model_pb.SolanaAccountId.deserializeBinaryFromReader);
+      msg.setOwner(value);
+      break;
+    case 4:
+      var value = new common_v4_model_pb.SolanaAccountId;
+      reader.readMessage(value,common_v4_model_pb.SolanaAccountId.deserializeBinaryFromReader);
+      msg.setCloseAuthority(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -405,6 +417,22 @@ proto.kin.agora.account.v4.AccountInfo.serializeBinaryToWriter = function(messag
     writer.writeInt64String(
       2,
       f
+    );
+  }
+  f = message.getOwner();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      common_v4_model_pb.SolanaAccountId.serializeBinaryToWriter
+    );
+  }
+  f = message.getCloseAuthority();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      common_v4_model_pb.SolanaAccountId.serializeBinaryToWriter
     );
   }
 };
@@ -462,6 +490,80 @@ proto.kin.agora.account.v4.AccountInfo.prototype.getBalance = function() {
  */
 proto.kin.agora.account.v4.AccountInfo.prototype.setBalance = function(value) {
   return jspb.Message.setProto3StringIntField(this, 2, value);
+};
+
+
+/**
+ * optional kin.agora.common.v4.SolanaAccountId owner = 3;
+ * @return {?proto.kin.agora.common.v4.SolanaAccountId}
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.getOwner = function() {
+  return /** @type{?proto.kin.agora.common.v4.SolanaAccountId} */ (
+    jspb.Message.getWrapperField(this, common_v4_model_pb.SolanaAccountId, 3));
+};
+
+
+/**
+ * @param {?proto.kin.agora.common.v4.SolanaAccountId|undefined} value
+ * @return {!proto.kin.agora.account.v4.AccountInfo} returns this
+*/
+proto.kin.agora.account.v4.AccountInfo.prototype.setOwner = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.kin.agora.account.v4.AccountInfo} returns this
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.clearOwner = function() {
+  return this.setOwner(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.hasOwner = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional kin.agora.common.v4.SolanaAccountId close_authority = 4;
+ * @return {?proto.kin.agora.common.v4.SolanaAccountId}
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.getCloseAuthority = function() {
+  return /** @type{?proto.kin.agora.common.v4.SolanaAccountId} */ (
+    jspb.Message.getWrapperField(this, common_v4_model_pb.SolanaAccountId, 4));
+};
+
+
+/**
+ * @param {?proto.kin.agora.common.v4.SolanaAccountId|undefined} value
+ * @return {!proto.kin.agora.account.v4.AccountInfo} returns this
+*/
+proto.kin.agora.account.v4.AccountInfo.prototype.setCloseAuthority = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.kin.agora.account.v4.AccountInfo} returns this
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.clearCloseAuthority = function() {
+  return this.setCloseAuthority(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.kin.agora.account.v4.AccountInfo.prototype.hasCloseAuthority = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -1239,7 +1341,8 @@ proto.kin.agora.account.v4.ResolveTokenAccountsRequest.prototype.toObject = func
  */
 proto.kin.agora.account.v4.ResolveTokenAccountsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    accountId: (f = msg.getAccountId()) && common_v4_model_pb.SolanaAccountId.toObject(includeInstance, f)
+    accountId: (f = msg.getAccountId()) && common_v4_model_pb.SolanaAccountId.toObject(includeInstance, f),
+    includeAccountInfo: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -1281,6 +1384,10 @@ proto.kin.agora.account.v4.ResolveTokenAccountsRequest.deserializeBinaryFromRead
       reader.readMessage(value,common_v4_model_pb.SolanaAccountId.deserializeBinaryFromReader);
       msg.setAccountId(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIncludeAccountInfo(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1316,6 +1423,13 @@ proto.kin.agora.account.v4.ResolveTokenAccountsRequest.serializeBinaryToWriter =
       1,
       f,
       common_v4_model_pb.SolanaAccountId.serializeBinaryToWriter
+    );
+  }
+  f = message.getIncludeAccountInfo();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
     );
   }
 };
@@ -1358,13 +1472,31 @@ proto.kin.agora.account.v4.ResolveTokenAccountsRequest.prototype.hasAccountId = 
 };
 
 
+/**
+ * optional bool include_account_info = 2;
+ * @return {boolean}
+ */
+proto.kin.agora.account.v4.ResolveTokenAccountsRequest.prototype.getIncludeAccountInfo = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.kin.agora.account.v4.ResolveTokenAccountsRequest} returns this
+ */
+proto.kin.agora.account.v4.ResolveTokenAccountsRequest.prototype.setIncludeAccountInfo = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
+};
+
+
 
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.kin.agora.account.v4.ResolveTokenAccountsResponse.repeatedFields_ = [1];
+proto.kin.agora.account.v4.ResolveTokenAccountsResponse.repeatedFields_ = [1,2];
 
 
 
@@ -1398,7 +1530,9 @@ proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.toObject = fun
 proto.kin.agora.account.v4.ResolveTokenAccountsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     tokenAccountsList: jspb.Message.toObjectList(msg.getTokenAccountsList(),
-    common_v4_model_pb.SolanaAccountId.toObject, includeInstance)
+    common_v4_model_pb.SolanaAccountId.toObject, includeInstance),
+    tokenAccountInfosList: jspb.Message.toObjectList(msg.getTokenAccountInfosList(),
+    proto.kin.agora.account.v4.AccountInfo.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1440,6 +1574,11 @@ proto.kin.agora.account.v4.ResolveTokenAccountsResponse.deserializeBinaryFromRea
       reader.readMessage(value,common_v4_model_pb.SolanaAccountId.deserializeBinaryFromReader);
       msg.addTokenAccounts(value);
       break;
+    case 2:
+      var value = new proto.kin.agora.account.v4.AccountInfo;
+      reader.readMessage(value,proto.kin.agora.account.v4.AccountInfo.deserializeBinaryFromReader);
+      msg.addTokenAccountInfos(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1475,6 +1614,14 @@ proto.kin.agora.account.v4.ResolveTokenAccountsResponse.serializeBinaryToWriter 
       1,
       f,
       common_v4_model_pb.SolanaAccountId.serializeBinaryToWriter
+    );
+  }
+  f = message.getTokenAccountInfosList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      proto.kin.agora.account.v4.AccountInfo.serializeBinaryToWriter
     );
   }
 };
@@ -1515,6 +1662,44 @@ proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.addTokenAccoun
  */
 proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.clearTokenAccountsList = function() {
   return this.setTokenAccountsList([]);
+};
+
+
+/**
+ * repeated AccountInfo token_account_infos = 2;
+ * @return {!Array<!proto.kin.agora.account.v4.AccountInfo>}
+ */
+proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.getTokenAccountInfosList = function() {
+  return /** @type{!Array<!proto.kin.agora.account.v4.AccountInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.kin.agora.account.v4.AccountInfo, 2));
+};
+
+
+/**
+ * @param {!Array<!proto.kin.agora.account.v4.AccountInfo>} value
+ * @return {!proto.kin.agora.account.v4.ResolveTokenAccountsResponse} returns this
+*/
+proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.setTokenAccountInfosList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.kin.agora.account.v4.AccountInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.kin.agora.account.v4.AccountInfo}
+ */
+proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.addTokenAccountInfos = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.kin.agora.account.v4.AccountInfo, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.kin.agora.account.v4.ResolveTokenAccountsResponse} returns this
+ */
+proto.kin.agora.account.v4.ResolveTokenAccountsResponse.prototype.clearTokenAccountInfosList = function() {
+  return this.setTokenAccountInfosList([]);
 };
 
 
