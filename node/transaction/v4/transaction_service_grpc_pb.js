@@ -3,6 +3,7 @@
 'use strict';
 var grpc = require('grpc');
 var transaction_v4_transaction_service_pb = require('../../transaction/v4/transaction_service_pb.js');
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 var validate_validate_pb = require('../../validate/validate_pb.js');
 var common_v3_model_pb = require('../../common/v3/model_pb.js');
 var common_v4_model_pb = require('../../common/v4/model_pb.js');
@@ -272,14 +273,14 @@ getHistory: {
 // For example, if there are instructions before the first memo instruction, or if there
 // is no memo at all.
 //
-// If an invoice is applied, there must be a memo who's foreign key contains the SHA-226
+// If an invoice is applied, there must be a memo whose foreign key contains the SHA-226
 // of the serialized memo. Additionally, the number of SplToken::Transfer instructions in
 // the region _must_ match the number of invoices. Furthermore, the invoice cannot be
 // referenced by more than one region.
 //
 // Examples:
 //
-// Basic Transfer (No Invoce)
+// Basic Transfer (No Invoice)
 //   1. SplToken::Transfer()
 //
 // Basic Transfer (Invoice)
@@ -300,12 +301,12 @@ getHistory: {
 //   4. SplToken::Transfer(B -> A)
 //   5. SplToken::CloseAccount(B)
 //
-// Sender Creates (No Invoice)
+// Sender Creates Destination (No Invoice)
 //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
 //   2. SplToken::SetAuthority(CloseAuthority)
 //   2. SplToken::Transfer()
 //
-// Sender Creates (Invoice)
+// Sender Creates Destination (Invoice)
 //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
 //   2. SplToken::SetAuthority(CloseAuthority)
 //   3. Memo::Memo(Earn)

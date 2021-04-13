@@ -12,6 +12,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
+goog.object.extend(proto, google_protobuf_timestamp_pb);
 var validate_validate_pb = require('../../validate/validate_pb.js');
 goog.object.extend(proto, validate_validate_pb);
 var common_v3_model_pb = require('../../common/v3/model_pb.js');
@@ -3523,7 +3525,8 @@ proto.kin.agora.transaction.v4.HistoryItem.toObject = function(includeInstance, 
     transactionError: (f = msg.getTransactionError()) && common_v4_model_pb.TransactionError.toObject(includeInstance, f),
     paymentsList: jspb.Message.toObjectList(msg.getPaymentsList(),
     proto.kin.agora.transaction.v4.HistoryItem.Payment.toObject, includeInstance),
-    invoiceList: (f = msg.getInvoiceList()) && common_v3_model_pb.InvoiceList.toObject(includeInstance, f)
+    invoiceList: (f = msg.getInvoiceList()) && common_v3_model_pb.InvoiceList.toObject(includeInstance, f),
+    transactionTime: (f = msg.getTransactionTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3594,6 +3597,11 @@ proto.kin.agora.transaction.v4.HistoryItem.deserializeBinaryFromReader = functio
       var value = new common_v3_model_pb.InvoiceList;
       reader.readMessage(value,common_v3_model_pb.InvoiceList.deserializeBinaryFromReader);
       msg.setInvoiceList(value);
+      break;
+    case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setTransactionTime(value);
       break;
     default:
       reader.skipField();
@@ -3678,6 +3686,14 @@ proto.kin.agora.transaction.v4.HistoryItem.serializeBinaryToWriter = function(me
       7,
       f,
       common_v3_model_pb.InvoiceList.serializeBinaryToWriter
+    );
+  }
+  f = message.getTransactionTime();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -4202,6 +4218,43 @@ proto.kin.agora.transaction.v4.HistoryItem.prototype.clearInvoiceList = function
  */
 proto.kin.agora.transaction.v4.HistoryItem.prototype.hasInvoiceList = function() {
   return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp transaction_time = 8;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.kin.agora.transaction.v4.HistoryItem.prototype.getTransactionTime = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.kin.agora.transaction.v4.HistoryItem} returns this
+*/
+proto.kin.agora.transaction.v4.HistoryItem.prototype.setTransactionTime = function(value) {
+  return jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.kin.agora.transaction.v4.HistoryItem} returns this
+ */
+proto.kin.agora.transaction.v4.HistoryItem.prototype.clearTransactionTime = function() {
+  return this.setTransactionTime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.kin.agora.transaction.v4.HistoryItem.prototype.hasTransactionTime = function() {
+  return jspb.Message.getField(this, 8) != null;
 };
 
 

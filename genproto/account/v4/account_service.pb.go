@@ -178,7 +178,7 @@ func (m *AccountInfo) GetCloseAuthority() *v4.SolanaAccountId {
 }
 
 type CreateAccountRequest struct {
-	// CreateAccountRequest be of one of the following forms:
+	// CreateAccountRequest should be of one of the following forms:
 	//   Legacy:
 	//     1. [Optional] Memo::Memo()
 	//     2. SystemProgram::CreateAccount()

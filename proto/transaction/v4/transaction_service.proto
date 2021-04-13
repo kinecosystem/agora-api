@@ -6,6 +6,7 @@ option go_package = "github.com/kinecosystem/agora-api/genproto/transaction/v4;t
 option java_package = "org.kin.agora.gen.transaction.v4";
 option objc_class_prefix = "APBTransactionV4";
 
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "common/v3/model.proto";
 import "common/v4/model.proto";
@@ -53,14 +54,14 @@ service Transaction {
     // For example, if there are instructions before the first memo instruction, or if there
     // is no memo at all.
     //
-    // If an invoice is applied, there must be a memo who's foreign key contains the SHA-226
+    // If an invoice is applied, there must be a memo whose foreign key contains the SHA-226
     // of the serialized memo. Additionally, the number of SplToken::Transfer instructions in
     // the region _must_ match the number of invoices. Furthermore, the invoice cannot be
     // referenced by more than one region.
     //
     // Examples:
     //
-    // Basic Transfer (No Invoce)
+    // Basic Transfer (No Invoice)
     //   1. SplToken::Transfer()
     //
     // Basic Transfer (Invoice)
@@ -81,12 +82,12 @@ service Transaction {
     //   4. SplToken::Transfer(B -> A)
     //   5. SplToken::CloseAccount(B)
     //
-    // Sender Creates (No Invoice)
+    // Sender Creates Destination (No Invoice)
     //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
     //   2. SplToken::SetAuthority(CloseAuthority)
     //   2. SplToken::Transfer()
     //
-    // Sender Creates (Invoice)
+    // Sender Creates Destination (Invoice)
     //   1. SplAssociateTokenAccount::CreateAssociatedTokenAccount()
     //   2. SplToken::SetAuthority(CloseAuthority)
     //   3. Memo::Memo(Earn)
@@ -371,6 +372,9 @@ message HistoryItem {
     // If an invoice list was submitted with the transaction, and the transaction
     // was submitted via this instance of the service, this field will be set.
     common.v3.InvoiceList invoice_list = 7;
+
+    // Note: this may not always be available.
+    google.protobuf.Timestamp transaction_time = 8;
 }
 
 message Cursor {

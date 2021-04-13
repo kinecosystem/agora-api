@@ -1470,6 +1470,16 @@ func (m *HistoryItem) Validate() error {
 		}
 	}
 
+	if v, ok := interface{}(m.GetTransactionTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return HistoryItemValidationError{
+				field:  "TransactionTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	switch m.RawTransaction.(type) {
 
 	case *HistoryItem_SolanaTransaction:

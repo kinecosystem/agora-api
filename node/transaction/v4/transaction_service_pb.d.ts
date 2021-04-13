@@ -5,6 +5,7 @@
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
+import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 import * as validate_validate_pb from "../../validate/validate_pb";
 import * as common_v3_model_pb from "../../common/v3/model_pb";
 import * as common_v4_model_pb from "../../common/v4/model_pb";
@@ -538,6 +539,12 @@ export class HistoryItem extends jspb.Message {
     setInvoiceList(value?: common_v3_model_pb.InvoiceList): HistoryItem;
 
 
+    hasTransactionTime(): boolean;
+    clearTransactionTime(): void;
+    getTransactionTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
+    setTransactionTime(value?: google_protobuf_timestamp_pb.Timestamp): HistoryItem;
+
+
     getRawTransactionCase(): HistoryItem.RawTransactionCase;
 
     serializeBinary(): Uint8Array;
@@ -559,6 +566,7 @@ export namespace HistoryItem {
         transactionError?: common_v4_model_pb.TransactionError.AsObject,
         paymentsList: Array<HistoryItem.Payment.AsObject>,
         invoiceList?: common_v3_model_pb.InvoiceList.AsObject,
+        transactionTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
 
 

@@ -23,7 +23,7 @@ This outlines the encoding required for a transaction memo to conform to the bin
     This field is intended to add a hint for memo decoders to
     infer that the memo format is the one described in this
     document. If the MXB matches the defined constant, however,
-    it does not gaurentee that the memo encoding is that of the
+    it does not guarantee that the memo encoding is that of the
     one described in this document. The value of the magic byte
     is `0x1`.
 
@@ -35,17 +35,16 @@ This outlines the encoding required for a transaction memo to conform to the bin
 
 **TypeID**: Transaction Type (5 bits)
 
-    This field indicates the 'meta' type of transaction(s)
-    that the transaction the memo was embodied in was for.
+    This field indicates the 'meta' type of transaction(s).
     See Type Identifiers for mapping.
 
 **AppIdx**: App Index (16 bits)
 
     This field refers to the App in which the transaction
-    that the memo was embodied in was related to. The
-    string representation for the corresponding App Index
-    can be looked up via a central service. 16 bits allows
-    for 65,536 apps before a memo revision is required.
+    was related to. The string representation for the
+    corresponding App Index can be looked up via a central
+    service. 16 bits allows for 65,536 apps before a memo
+    revision is required.
 
 **FK**: Foreign Key (230 bits)
 

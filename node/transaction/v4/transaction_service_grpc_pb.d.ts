@@ -6,6 +6,7 @@
 
 import * as grpc from "grpc";
 import * as transaction_v4_transaction_service_pb from "../../transaction/v4/transaction_service_pb";
+import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 import * as validate_validate_pb from "../../validate/validate_pb";
 import * as common_v3_model_pb from "../../common/v3/model_pb";
 import * as common_v4_model_pb from "../../common/v4/model_pb";
