@@ -1068,6 +1068,8 @@ func (m *SubmitTransactionRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for SendSimulationEvent
+
 	return nil
 }
 

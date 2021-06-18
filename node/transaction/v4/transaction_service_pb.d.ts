@@ -353,6 +353,9 @@ export class SubmitTransactionRequest extends jspb.Message {
     getDedupeId_asB64(): string;
     setDedupeId(value: Uint8Array | string): SubmitTransactionRequest;
 
+    getSendSimulationEvent(): boolean;
+    setSendSimulationEvent(value: boolean): SubmitTransactionRequest;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SubmitTransactionRequest.AsObject;
@@ -370,6 +373,7 @@ export namespace SubmitTransactionRequest {
         invoiceList?: common_v3_model_pb.InvoiceList.AsObject,
         commitment: common_v4_model_pb.Commitment,
         dedupeId: Uint8Array | string,
+        sendSimulationEvent: boolean,
     }
 }
 

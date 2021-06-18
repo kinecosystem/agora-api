@@ -242,6 +242,14 @@ message SubmitTransactionRequest {
     bytes dedupe_id = 4 [(validate.rules).bytes = {
         max_len: 64
     }];
+
+
+    // SendSimulationEvent will inform the server to trigger an event over the
+    // account.v4.GetEvents stream when simulation has passed. This event will
+    // notify all participants of the transaction.
+    //
+    // Both successful and failed simulations will trigger an event.
+    bool send_simulation_event = 5;
 }
 
 message SubmitTransactionResponse {

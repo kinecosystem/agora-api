@@ -864,6 +864,18 @@ func (m *Event) Validate() error {
 			}
 		}
 
+	case *Event_SimulationEvent:
+
+		if v, ok := interface{}(m.GetSimulationEvent()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EventValidationError{
+					field:  "SimulationEvent",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
@@ -1098,3 +1110,95 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TransactionEventValidationError{}
+
+// Validate checks the field values on SimulationEvent with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *SimulationEvent) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetTransaction() == nil {
+		return SimulationEventValidationError{
+			field:  "Transaction",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetTransaction()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SimulationEventValidationError{
+				field:  "Transaction",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetTransactionError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SimulationEventValidationError{
+				field:  "TransactionError",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SimulationEventValidationError is the validation error returned by
+// SimulationEvent.Validate if the designated constraints aren't met.
+type SimulationEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SimulationEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SimulationEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SimulationEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SimulationEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SimulationEventValidationError) ErrorName() string { return "SimulationEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SimulationEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSimulationEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SimulationEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SimulationEventValidationError{}

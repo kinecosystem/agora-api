@@ -2466,7 +2466,8 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.toObject = function(incl
     transaction: (f = msg.getTransaction()) && common_v4_model_pb.Transaction.toObject(includeInstance, f),
     invoiceList: (f = msg.getInvoiceList()) && common_v3_model_pb.InvoiceList.toObject(includeInstance, f),
     commitment: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    dedupeId: msg.getDedupeId_asB64()
+    dedupeId: msg.getDedupeId_asB64(),
+    sendSimulationEvent: jspb.Message.getBooleanFieldWithDefault(msg, 5, false)
   };
 
   if (includeInstance) {
@@ -2520,6 +2521,10 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.deserializeBinaryFromRea
     case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setDedupeId(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setSendSimulationEvent(value);
       break;
     default:
       reader.skipField();
@@ -2577,6 +2582,13 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.serializeBinaryToWriter 
   if (f.length > 0) {
     writer.writeBytes(
       4,
+      f
+    );
+  }
+  f = message.getSendSimulationEvent();
+  if (f) {
+    writer.writeBool(
+      5,
       f
     );
   }
@@ -2714,6 +2726,24 @@ proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getDedupeId_as
  */
 proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.setDedupeId = function(value) {
   return jspb.Message.setProto3BytesField(this, 4, value);
+};
+
+
+/**
+ * optional bool send_simulation_event = 5;
+ * @return {boolean}
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.getSendSimulationEvent = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.kin.agora.transaction.v4.SubmitTransactionRequest} returns this
+ */
+proto.kin.agora.transaction.v4.SubmitTransactionRequest.prototype.setSendSimulationEvent = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 

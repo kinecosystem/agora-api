@@ -304,6 +304,12 @@ export class Event extends jspb.Message {
     setTransactionEvent(value?: TransactionEvent): Event;
 
 
+    hasSimulationEvent(): boolean;
+    clearSimulationEvent(): void;
+    getSimulationEvent(): SimulationEvent | undefined;
+    setSimulationEvent(value?: SimulationEvent): Event;
+
+
     getTypeCase(): Event.TypeCase;
 
     serializeBinary(): Uint8Array;
@@ -320,6 +326,7 @@ export namespace Event {
     export type AsObject = {
         accountUpdateEvent?: AccountUpdateEvent.AsObject,
         transactionEvent?: TransactionEvent.AsObject,
+        simulationEvent?: SimulationEvent.AsObject,
     }
 
     export enum TypeCase {
@@ -328,6 +335,8 @@ export namespace Event {
     ACCOUNT_UPDATE_EVENT = 1,
 
     TRANSACTION_EVENT = 2,
+
+    SIMULATION_EVENT = 3,
 
     }
 
@@ -382,6 +391,37 @@ export class TransactionEvent extends jspb.Message {
 }
 
 export namespace TransactionEvent {
+    export type AsObject = {
+        transaction?: common_v4_model_pb.Transaction.AsObject,
+        transactionError?: common_v4_model_pb.TransactionError.AsObject,
+    }
+}
+
+export class SimulationEvent extends jspb.Message { 
+
+    hasTransaction(): boolean;
+    clearTransaction(): void;
+    getTransaction(): common_v4_model_pb.Transaction | undefined;
+    setTransaction(value?: common_v4_model_pb.Transaction): SimulationEvent;
+
+
+    hasTransactionError(): boolean;
+    clearTransactionError(): void;
+    getTransactionError(): common_v4_model_pb.TransactionError | undefined;
+    setTransactionError(value?: common_v4_model_pb.TransactionError): SimulationEvent;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SimulationEvent.AsObject;
+    static toObject(includeInstance: boolean, msg: SimulationEvent): SimulationEvent.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SimulationEvent, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SimulationEvent;
+    static deserializeBinaryFromReader(message: SimulationEvent, reader: jspb.BinaryReader): SimulationEvent;
+}
+
+export namespace SimulationEvent {
     export type AsObject = {
         transaction?: common_v4_model_pb.Transaction.AsObject,
         transactionError?: common_v4_model_pb.TransactionError.AsObject,

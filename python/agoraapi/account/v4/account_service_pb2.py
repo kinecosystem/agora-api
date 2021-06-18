@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\034org.kin.agora.gen.account.v4Z=github.com/kinecosystem/agora-api/genproto/account/v4;account\242\002\014APBAccountV4',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n account/v4/account_service.proto\x12\x14kin.agora.account.v4\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v4/model.proto\"\xda\x01\n\x0b\x41\x63\x63ountInfo\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x13\n\x07\x62\x61lance\x18\x02 \x01(\x03\x42\x02\x30\x01\x12\x33\n\x05owner\x18\x03 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\x12=\n\x0f\x63lose_authority\x18\x04 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\"\x8c\x01\n\x14\x43reateAccountRequest\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xd5\x01\n\x15\x43reateAccountResponse\x12\x42\n\x06result\x18\x01 \x01(\x0e\x32\x32.kin.agora.account.v4.CreateAccountResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfo\"?\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x45XISTS\x10\x01\x12\x12\n\x0ePAYER_REQUIRED\x10\x02\x12\r\n\tBAD_NONCE\x10\x03\"\x90\x01\n\x15GetAccountInfoRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xb7\x01\n\x16GetAccountInfoResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.account.v4.GetAccountInfoResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfo\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\x7f\n\x1bResolveTokenAccountsRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1c\n\x14include_account_info\x18\x02 \x01(\x08\"\xa0\x01\n\x1cResolveTokenAccountsResponse\x12@\n\x0etoken_accounts\x18\x01 \x03(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x02\x18\x01\x12>\n\x13token_account_infos\x18\x02 \x03(\x0b\x32!.kin.agora.account.v4.AccountInfo\"V\n\x10GetEventsRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x96\x01\n\x06\x45vents\x12\x33\n\x06result\x18\x01 \x01(\x0e\x32#.kin.agora.account.v4.Events.Result\x12\x36\n\x06\x65vents\x18\x02 \x03(\x0b\x32\x1b.kin.agora.account.v4.EventB\t\xfa\x42\x06\x92\x01\x03\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\x9e\x01\n\x05\x45vent\x12H\n\x14\x61\x63\x63ount_update_event\x18\x01 \x01(\x0b\x32(.kin.agora.account.v4.AccountUpdateEventH\x00\x12\x43\n\x11transaction_event\x18\x02 \x01(\x0b\x32&.kin.agora.account.v4.TransactionEventH\x00\x42\x06\n\x04type\"W\n\x12\x41\x63\x63ountUpdateEvent\x12\x41\n\x0c\x61\x63\x63ount_info\x18\x01 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x95\x01\n\x10TransactionEvent\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12@\n\x11transaction_error\x18\x02 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError2\xb4\x03\n\x07\x41\x63\x63ount\x12h\n\rCreateAccount\x12*.kin.agora.account.v4.CreateAccountRequest\x1a+.kin.agora.account.v4.CreateAccountResponse\x12k\n\x0eGetAccountInfo\x12+.kin.agora.account.v4.GetAccountInfoRequest\x1a,.kin.agora.account.v4.GetAccountInfoResponse\x12}\n\x14ResolveTokenAccounts\x12\x31.kin.agora.account.v4.ResolveTokenAccountsRequest\x1a\x32.kin.agora.account.v4.ResolveTokenAccountsResponse\x12S\n\tGetEvents\x12&.kin.agora.account.v4.GetEventsRequest\x1a\x1c.kin.agora.account.v4.Events0\x01\x42l\n\x1corg.kin.agora.gen.account.v4Z=github.com/kinecosystem/agora-api/genproto/account/v4;account\xa2\x02\x0c\x41PBAccountV4b\x06proto3'
+  serialized_pb=b'\n account/v4/account_service.proto\x12\x14kin.agora.account.v4\x1a\x17validate/validate.proto\x1a\x15\x63ommon/v4/model.proto\"\xda\x01\n\x0b\x41\x63\x63ountInfo\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x13\n\x07\x62\x61lance\x18\x02 \x01(\x03\x42\x02\x30\x01\x12\x33\n\x05owner\x18\x03 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\x12=\n\x0f\x63lose_authority\x18\x04 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountId\"\x8c\x01\n\x14\x43reateAccountRequest\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xd5\x01\n\x15\x43reateAccountResponse\x12\x42\n\x06result\x18\x01 \x01(\x0e\x32\x32.kin.agora.account.v4.CreateAccountResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfo\"?\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\n\n\x06\x45XISTS\x10\x01\x12\x12\n\x0ePAYER_REQUIRED\x10\x02\x12\r\n\tBAD_NONCE\x10\x03\"\x90\x01\n\x15GetAccountInfoRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x33\n\ncommitment\x18\x02 \x01(\x0e\x32\x1f.kin.agora.common.v4.Commitment\"\xb7\x01\n\x16GetAccountInfoResponse\x12\x43\n\x06result\x18\x01 \x01(\x0e\x32\x33.kin.agora.account.v4.GetAccountInfoResponse.Result\x12\x37\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfo\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\x7f\n\x1bResolveTokenAccountsRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12\x1c\n\x14include_account_info\x18\x02 \x01(\x08\"\xa0\x01\n\x1cResolveTokenAccountsResponse\x12@\n\x0etoken_accounts\x18\x01 \x03(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x02\x18\x01\x12>\n\x13token_account_infos\x18\x02 \x03(\x0b\x32!.kin.agora.account.v4.AccountInfo\"V\n\x10GetEventsRequest\x12\x42\n\naccount_id\x18\x01 \x01(\x0b\x32$.kin.agora.common.v4.SolanaAccountIdB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x96\x01\n\x06\x45vents\x12\x33\n\x06result\x18\x01 \x01(\x0e\x32#.kin.agora.account.v4.Events.Result\x12\x36\n\x06\x65vents\x18\x02 \x03(\x0b\x32\x1b.kin.agora.account.v4.EventB\t\xfa\x42\x06\x92\x01\x03\x10\x80\x01\"\x1f\n\x06Result\x12\x06\n\x02OK\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\"\xe1\x01\n\x05\x45vent\x12H\n\x14\x61\x63\x63ount_update_event\x18\x01 \x01(\x0b\x32(.kin.agora.account.v4.AccountUpdateEventH\x00\x12\x43\n\x11transaction_event\x18\x02 \x01(\x0b\x32&.kin.agora.account.v4.TransactionEventH\x00\x12\x41\n\x10simulation_event\x18\x03 \x01(\x0b\x32%.kin.agora.account.v4.SimulationEventH\x00\x42\x06\n\x04type\"W\n\x12\x41\x63\x63ountUpdateEvent\x12\x41\n\x0c\x61\x63\x63ount_info\x18\x01 \x01(\x0b\x32!.kin.agora.account.v4.AccountInfoB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\"\x95\x01\n\x10TransactionEvent\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12@\n\x11transaction_error\x18\x02 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError\"\x94\x01\n\x0fSimulationEvent\x12?\n\x0btransaction\x18\x01 \x01(\x0b\x32 .kin.agora.common.v4.TransactionB\x08\xfa\x42\x05\x8a\x01\x02\x10\x01\x12@\n\x11transaction_error\x18\x02 \x01(\x0b\x32%.kin.agora.common.v4.TransactionError2\xb4\x03\n\x07\x41\x63\x63ount\x12h\n\rCreateAccount\x12*.kin.agora.account.v4.CreateAccountRequest\x1a+.kin.agora.account.v4.CreateAccountResponse\x12k\n\x0eGetAccountInfo\x12+.kin.agora.account.v4.GetAccountInfoRequest\x1a,.kin.agora.account.v4.GetAccountInfoResponse\x12}\n\x14ResolveTokenAccounts\x12\x31.kin.agora.account.v4.ResolveTokenAccountsRequest\x1a\x32.kin.agora.account.v4.ResolveTokenAccountsResponse\x12S\n\tGetEvents\x12&.kin.agora.account.v4.GetEventsRequest\x1a\x1c.kin.agora.account.v4.Events0\x01\x42l\n\x1corg.kin.agora.gen.account.v4Z=github.com/kinecosystem/agora-api/genproto/account/v4;account\xa2\x02\x0c\x41PBAccountV4b\x06proto3'
   ,
   dependencies=[validate_dot_validate__pb2.DESCRIPTOR,common_dot_v4_dot_model__pb2.DESCRIPTOR,])
 
@@ -496,6 +496,13 @@ _EVENT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='simulation_event', full_name='kin.agora.account.v4.Event.simulation_event', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -514,7 +521,7 @@ _EVENT = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=1553,
-  serialized_end=1711,
+  serialized_end=1778,
 )
 
 
@@ -545,8 +552,8 @@ _ACCOUNTUPDATEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1713,
-  serialized_end=1800,
+  serialized_start=1780,
+  serialized_end=1867,
 )
 
 
@@ -584,8 +591,47 @@ _TRANSACTIONEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1803,
-  serialized_end=1952,
+  serialized_start=1870,
+  serialized_end=2019,
+)
+
+
+_SIMULATIONEVENT = _descriptor.Descriptor(
+  name='SimulationEvent',
+  full_name='kin.agora.account.v4.SimulationEvent',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='transaction', full_name='kin.agora.account.v4.SimulationEvent.transaction', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\372B\005\212\001\002\020\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='transaction_error', full_name='kin.agora.account.v4.SimulationEvent.transaction_error', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2022,
+  serialized_end=2170,
 )
 
 _ACCOUNTINFO.fields_by_name['account_id'].message_type = common_dot_v4_dot_model__pb2._SOLANAACCOUNTID
@@ -610,15 +656,21 @@ _EVENTS.fields_by_name['events'].message_type = _EVENT
 _EVENTS_RESULT.containing_type = _EVENTS
 _EVENT.fields_by_name['account_update_event'].message_type = _ACCOUNTUPDATEEVENT
 _EVENT.fields_by_name['transaction_event'].message_type = _TRANSACTIONEVENT
+_EVENT.fields_by_name['simulation_event'].message_type = _SIMULATIONEVENT
 _EVENT.oneofs_by_name['type'].fields.append(
   _EVENT.fields_by_name['account_update_event'])
 _EVENT.fields_by_name['account_update_event'].containing_oneof = _EVENT.oneofs_by_name['type']
 _EVENT.oneofs_by_name['type'].fields.append(
   _EVENT.fields_by_name['transaction_event'])
 _EVENT.fields_by_name['transaction_event'].containing_oneof = _EVENT.oneofs_by_name['type']
+_EVENT.oneofs_by_name['type'].fields.append(
+  _EVENT.fields_by_name['simulation_event'])
+_EVENT.fields_by_name['simulation_event'].containing_oneof = _EVENT.oneofs_by_name['type']
 _ACCOUNTUPDATEEVENT.fields_by_name['account_info'].message_type = _ACCOUNTINFO
 _TRANSACTIONEVENT.fields_by_name['transaction'].message_type = common_dot_v4_dot_model__pb2._TRANSACTION
 _TRANSACTIONEVENT.fields_by_name['transaction_error'].message_type = common_dot_v4_dot_model__pb2._TRANSACTIONERROR
+_SIMULATIONEVENT.fields_by_name['transaction'].message_type = common_dot_v4_dot_model__pb2._TRANSACTION
+_SIMULATIONEVENT.fields_by_name['transaction_error'].message_type = common_dot_v4_dot_model__pb2._TRANSACTIONERROR
 DESCRIPTOR.message_types_by_name['AccountInfo'] = _ACCOUNTINFO
 DESCRIPTOR.message_types_by_name['CreateAccountRequest'] = _CREATEACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['CreateAccountResponse'] = _CREATEACCOUNTRESPONSE
@@ -631,6 +683,7 @@ DESCRIPTOR.message_types_by_name['Events'] = _EVENTS
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
 DESCRIPTOR.message_types_by_name['AccountUpdateEvent'] = _ACCOUNTUPDATEEVENT
 DESCRIPTOR.message_types_by_name['TransactionEvent'] = _TRANSACTIONEVENT
+DESCRIPTOR.message_types_by_name['SimulationEvent'] = _SIMULATIONEVENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AccountInfo = _reflection.GeneratedProtocolMessageType('AccountInfo', (_message.Message,), {
@@ -717,6 +770,13 @@ TransactionEvent = _reflection.GeneratedProtocolMessageType('TransactionEvent', 
   })
 _sym_db.RegisterMessage(TransactionEvent)
 
+SimulationEvent = _reflection.GeneratedProtocolMessageType('SimulationEvent', (_message.Message,), {
+  'DESCRIPTOR' : _SIMULATIONEVENT,
+  '__module__' : 'account.v4.account_service_pb2'
+  # @@protoc_insertion_point(class_scope:kin.agora.account.v4.SimulationEvent)
+  })
+_sym_db.RegisterMessage(SimulationEvent)
+
 
 DESCRIPTOR._options = None
 _ACCOUNTINFO.fields_by_name['account_id']._options = None
@@ -729,6 +789,7 @@ _GETEVENTSREQUEST.fields_by_name['account_id']._options = None
 _EVENTS.fields_by_name['events']._options = None
 _ACCOUNTUPDATEEVENT.fields_by_name['account_info']._options = None
 _TRANSACTIONEVENT.fields_by_name['transaction']._options = None
+_SIMULATIONEVENT.fields_by_name['transaction']._options = None
 
 _ACCOUNT = _descriptor.ServiceDescriptor(
   name='Account',
@@ -737,8 +798,8 @@ _ACCOUNT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1955,
-  serialized_end=2391,
+  serialized_start=2173,
+  serialized_end=2609,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateAccount',

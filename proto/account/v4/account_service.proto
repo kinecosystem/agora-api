@@ -151,6 +151,7 @@ message Event {
     oneof type {
         AccountUpdateEvent account_update_event = 1;
         TransactionEvent transaction_event = 2;
+        SimulationEvent simulation_event = 3;
     }
 }
 
@@ -163,6 +164,17 @@ message AccountUpdateEvent {
 // An event that gets sent when a transaction related to an account has been
 // successfully submitted to the blockchain.
 message TransactionEvent {
+    common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
+
+    common.v4.TransactionError transaction_error = 2;
+}
+
+// An event that gets sent when a transaction has completed simulation.
+//
+// It does _not_ imply that the transaction was successfully submitted, however.
+// This allows clients to optimistically start performing other actions in
+// experimental cases.
+message SimulationEvent {
     common.v4.Transaction transaction = 1 [(validate.rules).message.required = true];
 
     common.v4.TransactionError transaction_error = 2;
