@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package kin.agora.metrics.v3;
-
-option go_package = "github.com/kinecosystem/agora-api/genproto/metrics/v3;metrics";
-option java_package = "org.kin.agora.gen.metrics.v3";
-option objc_class_prefix = "APBMetricsV3";
-
-// todo
