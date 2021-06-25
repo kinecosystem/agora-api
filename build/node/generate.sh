@@ -4,7 +4,7 @@ for f in $(find /proto/ -type f -name "*.proto"); do
     FILES="$FILES $f"
 done
 
-yarn add grpc grpc-tools grpc_tools_node_protoc_ts
+yarn add @grpc/grpc-js grpc-tools grpc_tools_node_protoc_ts
 
 PROTO_DEST=../genproto
 
