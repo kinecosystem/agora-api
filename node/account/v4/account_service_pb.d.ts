@@ -14,22 +14,18 @@ export class AccountInfo extends jspb.Message {
     clearAccountId(): void;
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): AccountInfo;
-
     getBalance(): string;
     setBalance(value: string): AccountInfo;
-
 
     hasOwner(): boolean;
     clearOwner(): void;
     getOwner(): common_v4_model_pb.SolanaAccountId | undefined;
     setOwner(value?: common_v4_model_pb.SolanaAccountId): AccountInfo;
 
-
     hasCloseAuthority(): boolean;
     clearCloseAuthority(): void;
     getCloseAuthority(): common_v4_model_pb.SolanaAccountId | undefined;
     setCloseAuthority(value?: common_v4_model_pb.SolanaAccountId): AccountInfo;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AccountInfo.AsObject;
@@ -56,10 +52,8 @@ export class CreateAccountRequest extends jspb.Message {
     clearTransaction(): void;
     getTransaction(): common_v4_model_pb.Transaction | undefined;
     setTransaction(value?: common_v4_model_pb.Transaction): CreateAccountRequest;
-
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): CreateAccountRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): CreateAccountRequest.AsObject;
@@ -82,12 +76,10 @@ export class CreateAccountResponse extends jspb.Message {
     getResult(): CreateAccountResponse.Result;
     setResult(value: CreateAccountResponse.Result): CreateAccountResponse;
 
-
     hasAccountInfo(): boolean;
     clearAccountInfo(): void;
     getAccountInfo(): AccountInfo | undefined;
     setAccountInfo(value?: AccountInfo): CreateAccountResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): CreateAccountResponse.AsObject;
@@ -120,10 +112,8 @@ export class GetAccountInfoRequest extends jspb.Message {
     clearAccountId(): void;
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): GetAccountInfoRequest;
-
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): GetAccountInfoRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetAccountInfoRequest.AsObject;
@@ -146,12 +136,10 @@ export class GetAccountInfoResponse extends jspb.Message {
     getResult(): GetAccountInfoResponse.Result;
     setResult(value: GetAccountInfoResponse.Result): GetAccountInfoResponse;
 
-
     hasAccountInfo(): boolean;
     clearAccountInfo(): void;
     getAccountInfo(): AccountInfo | undefined;
     setAccountInfo(value?: AccountInfo): GetAccountInfoResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetAccountInfoResponse.AsObject;
@@ -182,10 +170,8 @@ export class ResolveTokenAccountsRequest extends jspb.Message {
     clearAccountId(): void;
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): ResolveTokenAccountsRequest;
-
     getIncludeAccountInfo(): boolean;
     setIncludeAccountInfo(value: boolean): ResolveTokenAccountsRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResolveTokenAccountsRequest.AsObject;
@@ -209,12 +195,10 @@ export class ResolveTokenAccountsResponse extends jspb.Message {
     getTokenAccountsList(): Array<common_v4_model_pb.SolanaAccountId>;
     setTokenAccountsList(value: Array<common_v4_model_pb.SolanaAccountId>): ResolveTokenAccountsResponse;
     addTokenAccounts(value?: common_v4_model_pb.SolanaAccountId, index?: number): common_v4_model_pb.SolanaAccountId;
-
     clearTokenAccountInfosList(): void;
     getTokenAccountInfosList(): Array<AccountInfo>;
     setTokenAccountInfosList(value: Array<AccountInfo>): ResolveTokenAccountsResponse;
     addTokenAccountInfos(value?: AccountInfo, index?: number): AccountInfo;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResolveTokenAccountsResponse.AsObject;
@@ -240,7 +224,6 @@ export class GetEventsRequest extends jspb.Message {
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): GetEventsRequest;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetEventsRequest.AsObject;
     static toObject(includeInstance: boolean, msg: GetEventsRequest): GetEventsRequest.AsObject;
@@ -260,12 +243,10 @@ export namespace GetEventsRequest {
 export class Events extends jspb.Message { 
     getResult(): Events.Result;
     setResult(value: Events.Result): Events;
-
     clearEventsList(): void;
     getEventsList(): Array<Event>;
     setEventsList(value: Array<Event>): Events;
     addEvents(value?: Event, index?: number): Event;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Events.AsObject;
@@ -297,18 +278,15 @@ export class Event extends jspb.Message {
     getAccountUpdateEvent(): AccountUpdateEvent | undefined;
     setAccountUpdateEvent(value?: AccountUpdateEvent): Event;
 
-
     hasTransactionEvent(): boolean;
     clearTransactionEvent(): void;
     getTransactionEvent(): TransactionEvent | undefined;
     setTransactionEvent(value?: TransactionEvent): Event;
 
-
     hasSimulationEvent(): boolean;
     clearSimulationEvent(): void;
     getSimulationEvent(): SimulationEvent | undefined;
     setSimulationEvent(value?: SimulationEvent): Event;
-
 
     getTypeCase(): Event.TypeCase;
 
@@ -331,13 +309,9 @@ export namespace Event {
 
     export enum TypeCase {
         TYPE_NOT_SET = 0,
-    
-    ACCOUNT_UPDATE_EVENT = 1,
-
-    TRANSACTION_EVENT = 2,
-
-    SIMULATION_EVENT = 3,
-
+        ACCOUNT_UPDATE_EVENT = 1,
+        TRANSACTION_EVENT = 2,
+        SIMULATION_EVENT = 3,
     }
 
 }
@@ -348,7 +322,6 @@ export class AccountUpdateEvent extends jspb.Message {
     clearAccountInfo(): void;
     getAccountInfo(): AccountInfo | undefined;
     setAccountInfo(value?: AccountInfo): AccountUpdateEvent;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AccountUpdateEvent.AsObject;
@@ -373,12 +346,10 @@ export class TransactionEvent extends jspb.Message {
     getTransaction(): common_v4_model_pb.Transaction | undefined;
     setTransaction(value?: common_v4_model_pb.Transaction): TransactionEvent;
 
-
     hasTransactionError(): boolean;
     clearTransactionError(): void;
     getTransactionError(): common_v4_model_pb.TransactionError | undefined;
     setTransactionError(value?: common_v4_model_pb.TransactionError): TransactionEvent;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TransactionEvent.AsObject;
@@ -404,12 +375,10 @@ export class SimulationEvent extends jspb.Message {
     getTransaction(): common_v4_model_pb.Transaction | undefined;
     setTransaction(value?: common_v4_model_pb.Transaction): SimulationEvent;
 
-
     hasTransactionError(): boolean;
     clearTransactionError(): void;
     getTransactionError(): common_v4_model_pb.TransactionError | undefined;
     setTransactionError(value?: common_v4_model_pb.TransactionError): SimulationEvent;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SimulationEvent.AsObject;

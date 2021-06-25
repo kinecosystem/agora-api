@@ -13,7 +13,6 @@ export class SolanaAccountId extends jspb.Message {
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): SolanaAccountId;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SolanaAccountId.AsObject;
     static toObject(includeInstance: boolean, msg: SolanaAccountId): SolanaAccountId.AsObject;
@@ -35,7 +34,6 @@ export class TransactionId extends jspb.Message {
     getValue_asU8(): Uint8Array;
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): TransactionId;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TransactionId.AsObject;
@@ -59,7 +57,6 @@ export class Blockhash extends jspb.Message {
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): Blockhash;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Blockhash.AsObject;
     static toObject(includeInstance: boolean, msg: Blockhash): Blockhash.AsObject;
@@ -81,7 +78,6 @@ export class TransactionSignature extends jspb.Message {
     getValue_asU8(): Uint8Array;
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): TransactionSignature;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TransactionSignature.AsObject;
@@ -105,7 +101,6 @@ export class Transaction extends jspb.Message {
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): Transaction;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Transaction.AsObject;
     static toObject(includeInstance: boolean, msg: Transaction): Transaction.AsObject;
@@ -125,15 +120,12 @@ export namespace Transaction {
 export class TransactionError extends jspb.Message { 
     getReason(): TransactionError.Reason;
     setReason(value: TransactionError.Reason): TransactionError;
-
     getInstructionIndex(): number;
     setInstructionIndex(value: number): TransactionError;
-
     getRaw(): Uint8Array | string;
     getRaw_asU8(): Uint8Array;
     getRaw_asB64(): string;
     setRaw(value: Uint8Array | string): TransactionError;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TransactionError.AsObject;
@@ -168,12 +160,10 @@ export class StellarTransaction extends jspb.Message {
     getResultXdr_asU8(): Uint8Array;
     getResultXdr_asB64(): string;
     setResultXdr(value: Uint8Array | string): StellarTransaction;
-
     getEnvelopeXdr(): Uint8Array | string;
     getEnvelopeXdr_asU8(): Uint8Array;
     getEnvelopeXdr_asB64(): string;
     setEnvelopeXdr(value: Uint8Array | string): StellarTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): StellarTransaction.AsObject;

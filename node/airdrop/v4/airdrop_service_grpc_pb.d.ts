@@ -14,7 +14,7 @@ interface IAirdropService extends grpc.ServiceDefinition<grpc.UntypedServiceImpl
 }
 
 interface IAirdropService_IRequestAirdrop extends grpc.MethodDefinition<airdrop_v4_airdrop_service_pb.RequestAirdropRequest, airdrop_v4_airdrop_service_pb.RequestAirdropResponse> {
-    path: string; // "/kin.agora.airdrop.v4.Airdrop/RequestAirdrop"
+    path: "/kin.agora.airdrop.v4.Airdrop/RequestAirdrop";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<airdrop_v4_airdrop_service_pb.RequestAirdropRequest>;

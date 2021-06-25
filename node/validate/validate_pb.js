@@ -2,11 +2,14 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
 var jspb = require('google-protobuf');
 var goog = jspb;
@@ -46,6 +49,7 @@ goog.exportSymbol('proto.validate.TimestampRules', null, global);
 goog.exportSymbol('proto.validate.UInt32Rules', null, global);
 goog.exportSymbol('proto.validate.UInt64Rules', null, global);
 goog.exportSymbol('proto.validate.disabled', null, global);
+goog.exportSymbol('proto.validate.ignored', null, global);
 goog.exportSymbol('proto.validate.required', null, global);
 goog.exportSymbol('proto.validate.rules', null, global);
 /**
@@ -1843,7 +1847,8 @@ proto.validate.FloatRules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getOptionalFloatingPointField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getOptionalFloatingPointField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -1901,12 +1906,20 @@ proto.validate.FloatRules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFloat() : [reader.readFloat()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFloat() : [reader.readFloat()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -1983,6 +1996,13 @@ proto.validate.FloatRules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedFloat(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -2243,6 +2263,42 @@ proto.validate.FloatRules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.FloatRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.FloatRules} returns this
+ */
+proto.validate.FloatRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.FloatRules} returns this
+ */
+proto.validate.FloatRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.FloatRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -2288,7 +2344,8 @@ proto.validate.DoubleRules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getOptionalFloatingPointField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getOptionalFloatingPointField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -2346,12 +2403,20 @@ proto.validate.DoubleRules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedDouble() : [reader.readDouble()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readDouble());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedDouble() : [reader.readDouble()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -2428,6 +2493,13 @@ proto.validate.DoubleRules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedDouble(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -2688,6 +2760,42 @@ proto.validate.DoubleRules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.DoubleRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.DoubleRules} returns this
+ */
+proto.validate.DoubleRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.DoubleRules} returns this
+ */
+proto.validate.DoubleRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.DoubleRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -2733,7 +2841,8 @@ proto.validate.Int32Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -2791,12 +2900,20 @@ proto.validate.Int32Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt32() : [reader.readInt32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt32() : [reader.readInt32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -2873,6 +2990,13 @@ proto.validate.Int32Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedInt32(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -3133,6 +3257,42 @@ proto.validate.Int32Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.Int32Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.Int32Rules} returns this
+ */
+proto.validate.Int32Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.Int32Rules} returns this
+ */
+proto.validate.Int32Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.Int32Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -3178,7 +3338,8 @@ proto.validate.Int64Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -3236,12 +3397,20 @@ proto.validate.Int64Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt64() : [reader.readInt64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt64() : [reader.readInt64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -3318,6 +3487,13 @@ proto.validate.Int64Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedInt64(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -3578,6 +3754,42 @@ proto.validate.Int64Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.Int64Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.Int64Rules} returns this
+ */
+proto.validate.Int64Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.Int64Rules} returns this
+ */
+proto.validate.Int64Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.Int64Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -3623,7 +3835,8 @@ proto.validate.UInt32Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -3681,12 +3894,20 @@ proto.validate.UInt32Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint32() : [reader.readUint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint32() : [reader.readUint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -3763,6 +3984,13 @@ proto.validate.UInt32Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedUint32(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -4023,6 +4251,42 @@ proto.validate.UInt32Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.UInt32Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.UInt32Rules} returns this
+ */
+proto.validate.UInt32Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.UInt32Rules} returns this
+ */
+proto.validate.UInt32Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.UInt32Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -4068,7 +4332,8 @@ proto.validate.UInt64Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -4126,12 +4391,20 @@ proto.validate.UInt64Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint64() : [reader.readUint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedUint64() : [reader.readUint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -4208,6 +4481,13 @@ proto.validate.UInt64Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedUint64(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -4468,6 +4748,42 @@ proto.validate.UInt64Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.UInt64Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.UInt64Rules} returns this
+ */
+proto.validate.UInt64Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.UInt64Rules} returns this
+ */
+proto.validate.UInt64Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.UInt64Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -4513,7 +4829,8 @@ proto.validate.SInt32Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -4571,12 +4888,20 @@ proto.validate.SInt32Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readSint32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSint32() : [reader.readSint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readSint32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSint32() : [reader.readSint32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -4653,6 +4978,13 @@ proto.validate.SInt32Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedSint32(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -4913,6 +5245,42 @@ proto.validate.SInt32Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.SInt32Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.SInt32Rules} returns this
+ */
+proto.validate.SInt32Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.SInt32Rules} returns this
+ */
+proto.validate.SInt32Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.SInt32Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -4958,7 +5326,8 @@ proto.validate.SInt64Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -5016,12 +5385,20 @@ proto.validate.SInt64Rules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readSint64());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSint64() : [reader.readSint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readSint64());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSint64() : [reader.readSint64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -5098,6 +5475,13 @@ proto.validate.SInt64Rules.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeRepeatedSint64(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -5358,6 +5742,42 @@ proto.validate.SInt64Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.SInt64Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.SInt64Rules} returns this
+ */
+proto.validate.SInt64Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.SInt64Rules} returns this
+ */
+proto.validate.SInt64Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.SInt64Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -5403,7 +5823,8 @@ proto.validate.Fixed32Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -5461,12 +5882,20 @@ proto.validate.Fixed32Rules.deserializeBinaryFromReader = function(msg, reader) 
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readFixed32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFixed32() : [reader.readFixed32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readFixed32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFixed32() : [reader.readFixed32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -5543,6 +5972,13 @@ proto.validate.Fixed32Rules.serializeBinaryToWriter = function(message, writer) 
   if (f.length > 0) {
     writer.writeRepeatedFixed32(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -5803,6 +6239,42 @@ proto.validate.Fixed32Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.Fixed32Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.Fixed32Rules} returns this
+ */
+proto.validate.Fixed32Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.Fixed32Rules} returns this
+ */
+proto.validate.Fixed32Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.Fixed32Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -5848,7 +6320,8 @@ proto.validate.Fixed64Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -5906,12 +6379,20 @@ proto.validate.Fixed64Rules.deserializeBinaryFromReader = function(msg, reader) 
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readFixed64());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFixed64() : [reader.readFixed64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readFixed64());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedFixed64() : [reader.readFixed64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -5988,6 +6469,13 @@ proto.validate.Fixed64Rules.serializeBinaryToWriter = function(message, writer) 
   if (f.length > 0) {
     writer.writeRepeatedFixed64(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -6248,6 +6736,42 @@ proto.validate.Fixed64Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.Fixed64Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.Fixed64Rules} returns this
+ */
+proto.validate.Fixed64Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.Fixed64Rules} returns this
+ */
+proto.validate.Fixed64Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.Fixed64Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -6293,7 +6817,8 @@ proto.validate.SFixed32Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -6351,12 +6876,20 @@ proto.validate.SFixed32Rules.deserializeBinaryFromReader = function(msg, reader)
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readSfixed32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSfixed32() : [reader.readSfixed32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readSfixed32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSfixed32() : [reader.readSfixed32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -6433,6 +6966,13 @@ proto.validate.SFixed32Rules.serializeBinaryToWriter = function(message, writer)
   if (f.length > 0) {
     writer.writeRepeatedSfixed32(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -6693,6 +7233,42 @@ proto.validate.SFixed32Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.SFixed32Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.SFixed32Rules} returns this
+ */
+proto.validate.SFixed32Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.SFixed32Rules} returns this
+ */
+proto.validate.SFixed32Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.SFixed32Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -6738,7 +7314,8 @@ proto.validate.SFixed64Rules.toObject = function(includeInstance, msg) {
     gt: (f = jspb.Message.getField(msg, 4)) == null ? undefined : f,
     gte: (f = jspb.Message.getField(msg, 5)) == null ? undefined : f,
     inList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
-    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+    notInList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 8)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -6796,12 +7373,20 @@ proto.validate.SFixed64Rules.deserializeBinaryFromReader = function(msg, reader)
       msg.setGte(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readSfixed64());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSfixed64() : [reader.readSfixed64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 7:
-      var value = /** @type {number} */ (reader.readSfixed64());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedSfixed64() : [reader.readSfixed64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -6878,6 +7463,13 @@ proto.validate.SFixed64Rules.serializeBinaryToWriter = function(message, writer)
   if (f.length > 0) {
     writer.writeRepeatedSfixed64(
       7,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -7138,6 +7730,42 @@ proto.validate.SFixed64Rules.prototype.clearNotInList = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 8;
+ * @return {boolean}
+ */
+proto.validate.SFixed64Rules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.SFixed64Rules} returns this
+ */
+proto.validate.SFixed64Rules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.SFixed64Rules} returns this
+ */
+proto.validate.SFixed64Rules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.SFixed64Rules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
 
 
 
@@ -7383,7 +8011,8 @@ proto.validate.StringRules.toObject = function(includeInstance, msg) {
     address: (f = jspb.Message.getBooleanField(msg, 21)) == null ? undefined : f,
     uuid: (f = jspb.Message.getBooleanField(msg, 22)) == null ? undefined : f,
     wellKnownRegex: (f = jspb.Message.getField(msg, 24)) == null ? undefined : f,
-    strict: jspb.Message.getBooleanFieldWithDefault(msg, 25, true)
+    strict: jspb.Message.getBooleanFieldWithDefault(msg, 25, true),
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 26)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -7519,6 +8148,10 @@ proto.validate.StringRules.deserializeBinaryFromReader = function(msg, reader) {
     case 25:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setStrict(value);
+      break;
+    case 26:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -7721,6 +8354,13 @@ proto.validate.StringRules.serializeBinaryToWriter = function(message, writer) {
   if (f != null) {
     writer.writeBool(
       25,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 26));
+  if (f != null) {
+    writer.writeBool(
+      26,
       f
     );
   }
@@ -8629,6 +9269,42 @@ proto.validate.StringRules.prototype.hasStrict = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 26;
+ * @return {boolean}
+ */
+proto.validate.StringRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 26, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.StringRules} returns this
+ */
+proto.validate.StringRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 26, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.StringRules} returns this
+ */
+proto.validate.StringRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 26, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.StringRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 26) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -8707,7 +9383,8 @@ proto.validate.BytesRules.toObject = function(includeInstance, msg) {
     notInList: msg.getNotInList_asB64(),
     ip: (f = jspb.Message.getBooleanField(msg, 10)) == null ? undefined : f,
     ipv4: (f = jspb.Message.getBooleanField(msg, 11)) == null ? undefined : f,
-    ipv6: (f = jspb.Message.getBooleanField(msg, 12)) == null ? undefined : f
+    ipv6: (f = jspb.Message.getBooleanField(msg, 12)) == null ? undefined : f,
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 14)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -8795,6 +9472,10 @@ proto.validate.BytesRules.deserializeBinaryFromReader = function(msg, reader) {
     case 12:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIpv6(value);
+      break;
+    case 14:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -8913,6 +9594,13 @@ proto.validate.BytesRules.serializeBinaryToWriter = function(message, writer) {
   if (f != null) {
     writer.writeBool(
       12,
+      f
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 14));
+  if (f != null) {
+    writer.writeBool(
+      14,
       f
     );
   }
@@ -9533,6 +10221,42 @@ proto.validate.BytesRules.prototype.hasIpv6 = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 14;
+ * @return {boolean}
+ */
+proto.validate.BytesRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 14, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.BytesRules} returns this
+ */
+proto.validate.BytesRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 14, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.BytesRules} returns this
+ */
+proto.validate.BytesRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 14, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.BytesRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 14) != null;
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -9621,12 +10345,16 @@ proto.validate.EnumRules.deserializeBinaryFromReader = function(msg, reader) {
       msg.setDefinedOnly(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.addIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt32() : [reader.readInt32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addIn(values[i]);
+      }
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.addNotIn(value);
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt32() : [reader.readInt32()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addNotIn(values[i]);
+      }
       break;
     default:
       reader.skipField();
@@ -10065,7 +10793,8 @@ proto.validate.RepeatedRules.toObject = function(includeInstance, msg) {
     minItems: (f = jspb.Message.getField(msg, 1)) == null ? undefined : f,
     maxItems: (f = jspb.Message.getField(msg, 2)) == null ? undefined : f,
     unique: (f = jspb.Message.getBooleanField(msg, 3)) == null ? undefined : f,
-    items: (f = msg.getItems()) && proto.validate.FieldRules.toObject(includeInstance, f)
+    items: (f = msg.getItems()) && proto.validate.FieldRules.toObject(includeInstance, f),
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 5)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -10118,6 +10847,10 @@ proto.validate.RepeatedRules.deserializeBinaryFromReader = function(msg, reader)
       var value = new proto.validate.FieldRules;
       reader.readMessage(value,proto.validate.FieldRules.deserializeBinaryFromReader);
       msg.setItems(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -10175,6 +10908,13 @@ proto.validate.RepeatedRules.serializeBinaryToWriter = function(message, writer)
       4,
       f,
       proto.validate.FieldRules.serializeBinaryToWriter
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 5));
+  if (f != null) {
+    writer.writeBool(
+      5,
+      f
     );
   }
 };
@@ -10325,6 +11065,42 @@ proto.validate.RepeatedRules.prototype.hasItems = function() {
 };
 
 
+/**
+ * optional bool ignore_empty = 5;
+ * @return {boolean}
+ */
+proto.validate.RepeatedRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.RepeatedRules} returns this
+ */
+proto.validate.RepeatedRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.RepeatedRules} returns this
+ */
+proto.validate.RepeatedRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 5, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.RepeatedRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
 
 
 
@@ -10361,7 +11137,8 @@ proto.validate.MapRules.toObject = function(includeInstance, msg) {
     maxPairs: (f = jspb.Message.getField(msg, 2)) == null ? undefined : f,
     noSparse: (f = jspb.Message.getBooleanField(msg, 3)) == null ? undefined : f,
     keys: (f = msg.getKeys()) && proto.validate.FieldRules.toObject(includeInstance, f),
-    values: (f = msg.getValues()) && proto.validate.FieldRules.toObject(includeInstance, f)
+    values: (f = msg.getValues()) && proto.validate.FieldRules.toObject(includeInstance, f),
+    ignoreEmpty: (f = jspb.Message.getBooleanField(msg, 6)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -10419,6 +11196,10 @@ proto.validate.MapRules.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.validate.FieldRules;
       reader.readMessage(value,proto.validate.FieldRules.deserializeBinaryFromReader);
       msg.setValues(value);
+      break;
+    case 6:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIgnoreEmpty(value);
       break;
     default:
       reader.skipField();
@@ -10484,6 +11265,13 @@ proto.validate.MapRules.serializeBinaryToWriter = function(message, writer) {
       5,
       f,
       proto.validate.FieldRules.serializeBinaryToWriter
+    );
+  }
+  f = /** @type {boolean} */ (jspb.Message.getField(message, 6));
+  if (f != null) {
+    writer.writeBool(
+      6,
+      f
     );
   }
 };
@@ -10668,6 +11456,42 @@ proto.validate.MapRules.prototype.clearValues = function() {
  */
 proto.validate.MapRules.prototype.hasValues = function() {
   return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional bool ignore_empty = 6;
+ * @return {boolean}
+ */
+proto.validate.MapRules.prototype.getIgnoreEmpty = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.validate.MapRules} returns this
+ */
+proto.validate.MapRules.prototype.setIgnoreEmpty = function(value) {
+  return jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.validate.MapRules} returns this
+ */
+proto.validate.MapRules.prototype.clearIgnoreEmpty = function() {
+  return jspb.Message.setField(this, 6, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.validate.MapRules.prototype.hasIgnoreEmpty = function() {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
@@ -12023,6 +12847,31 @@ google_protobuf_descriptor_pb.MessageOptions.extensionsBinary[1071] = new jspb.E
 // This registers the extension field with the extended class, so that
 // toObject() will function correctly.
 google_protobuf_descriptor_pb.MessageOptions.extensions[1071] = proto.validate.disabled;
+
+
+/**
+ * A tuple of {field number, class constructor} for the extension
+ * field named `ignored`.
+ * @type {!jspb.ExtensionFieldInfo<boolean>}
+ */
+proto.validate.ignored = new jspb.ExtensionFieldInfo(
+    1072,
+    {ignored: 0},
+    null,
+     /** @type {?function((boolean|undefined),!jspb.Message=): !Object} */ (
+         null),
+    0);
+
+google_protobuf_descriptor_pb.MessageOptions.extensionsBinary[1072] = new jspb.ExtensionFieldBinaryInfo(
+    proto.validate.ignored,
+    jspb.BinaryReader.prototype.readBool,
+    jspb.BinaryWriter.prototype.writeBool,
+    undefined,
+    undefined,
+    false);
+// This registers the extension field with the extended class, so that
+// toObject() will function correctly.
+google_protobuf_descriptor_pb.MessageOptions.extensions[1072] = proto.validate.ignored;
 
 
 /**
