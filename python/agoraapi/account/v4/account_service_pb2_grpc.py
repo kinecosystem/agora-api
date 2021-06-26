@@ -108,6 +108,7 @@ class Account(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -116,7 +117,7 @@ class Account(object):
             account_dot_v4_dot_account__service__pb2.CreateAccountRequest.SerializeToString,
             account_dot_v4_dot_account__service__pb2.CreateAccountResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetAccountInfo(request,
@@ -124,6 +125,7 @@ class Account(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -132,7 +134,7 @@ class Account(object):
             account_dot_v4_dot_account__service__pb2.GetAccountInfoRequest.SerializeToString,
             account_dot_v4_dot_account__service__pb2.GetAccountInfoResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def ResolveTokenAccounts(request,
@@ -140,6 +142,7 @@ class Account(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -148,7 +151,7 @@ class Account(object):
             account_dot_v4_dot_account__service__pb2.ResolveTokenAccountsRequest.SerializeToString,
             account_dot_v4_dot_account__service__pb2.ResolveTokenAccountsResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetEvents(request,
@@ -156,6 +159,7 @@ class Account(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -164,4 +168,4 @@ class Account(object):
             account_dot_v4_dot_account__service__pb2.GetEventsRequest.SerializeToString,
             account_dot_v4_dot_account__service__pb2.Events.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -17,7 +17,7 @@ interface IAccountService extends grpc.ServiceDefinition<grpc.UntypedServiceImpl
 }
 
 interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v4_account_service_pb.CreateAccountRequest, account_v4_account_service_pb.CreateAccountResponse> {
-    path: string; // "/kin.agora.account.v4.Account/CreateAccount"
+    path: "/kin.agora.account.v4.Account/CreateAccount";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.CreateAccountRequest>;
@@ -26,7 +26,7 @@ interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.CreateAccountResponse>;
 }
 interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_v4_account_service_pb.GetAccountInfoRequest, account_v4_account_service_pb.GetAccountInfoResponse> {
-    path: string; // "/kin.agora.account.v4.Account/GetAccountInfo"
+    path: "/kin.agora.account.v4.Account/GetAccountInfo";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.GetAccountInfoRequest>;
@@ -35,7 +35,7 @@ interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.GetAccountInfoResponse>;
 }
 interface IAccountService_IResolveTokenAccounts extends grpc.MethodDefinition<account_v4_account_service_pb.ResolveTokenAccountsRequest, account_v4_account_service_pb.ResolveTokenAccountsResponse> {
-    path: string; // "/kin.agora.account.v4.Account/ResolveTokenAccounts"
+    path: "/kin.agora.account.v4.Account/ResolveTokenAccounts";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.ResolveTokenAccountsRequest>;
@@ -44,7 +44,7 @@ interface IAccountService_IResolveTokenAccounts extends grpc.MethodDefinition<ac
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.ResolveTokenAccountsResponse>;
 }
 interface IAccountService_IGetEvents extends grpc.MethodDefinition<account_v4_account_service_pb.GetEventsRequest, account_v4_account_service_pb.Events> {
-    path: string; // "/kin.agora.account.v4.Account/GetEvents"
+    path: "/kin.agora.account.v4.Account/GetEvents";
     requestStream: false;
     responseStream: true;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.GetEventsRequest>;
