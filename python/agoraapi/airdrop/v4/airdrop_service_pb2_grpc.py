@@ -58,6 +58,7 @@ class Airdrop(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -66,4 +67,4 @@ class Airdrop(object):
             airdrop_dot_v4_dot_airdrop__service__pb2.RequestAirdropRequest.SerializeToString,
             airdrop_dot_v4_dot_airdrop__service__pb2.RequestAirdropResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
