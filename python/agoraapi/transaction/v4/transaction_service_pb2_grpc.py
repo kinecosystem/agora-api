@@ -241,6 +241,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -249,7 +250,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetServiceConfigResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetMinimumKinVersion(request,
@@ -257,6 +258,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -265,7 +267,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetMinimumKinVersionResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetRecentBlockhash(request,
@@ -273,6 +275,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -281,7 +284,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetRecentBlockhashRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetRecentBlockhashResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetMinimumBalanceForRentExemption(request,
@@ -289,6 +292,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -297,7 +301,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetMinimumBalanceForRentExemptionRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetMinimumBalanceForRentExemptionResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetHistory(request,
@@ -305,6 +309,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -313,7 +318,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetHistoryRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetHistoryResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def SignTransaction(request,
@@ -321,6 +326,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -329,7 +335,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.SignTransactionRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.SignTransactionResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def SubmitTransaction(request,
@@ -337,6 +343,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -345,7 +352,7 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.SubmitTransactionRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.SubmitTransactionResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetTransaction(request,
@@ -353,6 +360,7 @@ class Transaction(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -361,4 +369,4 @@ class Transaction(object):
             transaction_dot_v4_dot_transaction__service__pb2.GetTransactionRequest.SerializeToString,
             transaction_dot_v4_dot_transaction__service__pb2.GetTransactionResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
