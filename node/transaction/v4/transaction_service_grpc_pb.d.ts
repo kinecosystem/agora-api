@@ -4,7 +4,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 import * as transaction_v4_transaction_service_pb from "../../transaction/v4/transaction_service_pb";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 import * as validate_validate_pb from "../../validate/validate_pb";
@@ -23,7 +23,7 @@ interface ITransactionService extends grpc.ServiceDefinition<grpc.UntypedService
 }
 
 interface ITransactionService_IGetServiceConfig extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetServiceConfigRequest, transaction_v4_transaction_service_pb.GetServiceConfigResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetServiceConfig"
+    path: "/kin.agora.transaction.v4.Transaction/GetServiceConfig";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetServiceConfigRequest>;
@@ -32,7 +32,7 @@ interface ITransactionService_IGetServiceConfig extends grpc.MethodDefinition<tr
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetServiceConfigResponse>;
 }
 interface ITransactionService_IGetMinimumKinVersion extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion"
+    path: "/kin.agora.transaction.v4.Transaction/GetMinimumKinVersion";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest>;
@@ -41,7 +41,7 @@ interface ITransactionService_IGetMinimumKinVersion extends grpc.MethodDefinitio
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse>;
 }
 interface ITransactionService_IGetRecentBlockhash extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, transaction_v4_transaction_service_pb.GetRecentBlockhashResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetRecentBlockhash"
+    path: "/kin.agora.transaction.v4.Transaction/GetRecentBlockhash";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest>;
@@ -50,7 +50,7 @@ interface ITransactionService_IGetRecentBlockhash extends grpc.MethodDefinition<
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetRecentBlockhashResponse>;
 }
 interface ITransactionService_IGetMinimumBalanceForRentExemption extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionRequest, transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetMinimumBalanceForRentExemption"
+    path: "/kin.agora.transaction.v4.Transaction/GetMinimumBalanceForRentExemption";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionRequest>;
@@ -59,7 +59,7 @@ interface ITransactionService_IGetMinimumBalanceForRentExemption extends grpc.Me
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetMinimumBalanceForRentExemptionResponse>;
 }
 interface ITransactionService_IGetHistory extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetHistoryRequest, transaction_v4_transaction_service_pb.GetHistoryResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetHistory"
+    path: "/kin.agora.transaction.v4.Transaction/GetHistory";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetHistoryRequest>;
@@ -68,7 +68,7 @@ interface ITransactionService_IGetHistory extends grpc.MethodDefinition<transact
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.GetHistoryResponse>;
 }
 interface ITransactionService_ISignTransaction extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.SignTransactionRequest, transaction_v4_transaction_service_pb.SignTransactionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/SignTransaction"
+    path: "/kin.agora.transaction.v4.Transaction/SignTransaction";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.SignTransactionRequest>;
@@ -77,7 +77,7 @@ interface ITransactionService_ISignTransaction extends grpc.MethodDefinition<tra
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.SignTransactionResponse>;
 }
 interface ITransactionService_ISubmitTransaction extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.SubmitTransactionRequest, transaction_v4_transaction_service_pb.SubmitTransactionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/SubmitTransaction"
+    path: "/kin.agora.transaction.v4.Transaction/SubmitTransaction";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.SubmitTransactionRequest>;
@@ -86,7 +86,7 @@ interface ITransactionService_ISubmitTransaction extends grpc.MethodDefinition<t
     responseDeserialize: grpc.deserialize<transaction_v4_transaction_service_pb.SubmitTransactionResponse>;
 }
 interface ITransactionService_IGetTransaction extends grpc.MethodDefinition<transaction_v4_transaction_service_pb.GetTransactionRequest, transaction_v4_transaction_service_pb.GetTransactionResponse> {
-    path: string; // "/kin.agora.transaction.v4.Transaction/GetTransaction"
+    path: "/kin.agora.transaction.v4.Transaction/GetTransaction";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<transaction_v4_transaction_service_pb.GetTransactionRequest>;
@@ -97,7 +97,7 @@ interface ITransactionService_IGetTransaction extends grpc.MethodDefinition<tran
 
 export const TransactionService: ITransactionService;
 
-export interface ITransactionServer {
+export interface ITransactionServer extends grpc.UntypedServiceImplementation {
     getServiceConfig: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetServiceConfigRequest, transaction_v4_transaction_service_pb.GetServiceConfigResponse>;
     getMinimumKinVersion: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetMinimumKinVersionRequest, transaction_v4_transaction_service_pb.GetMinimumKinVersionResponse>;
     getRecentBlockhash: grpc.handleUnaryCall<transaction_v4_transaction_service_pb.GetRecentBlockhashRequest, transaction_v4_transaction_service_pb.GetRecentBlockhashResponse>;
@@ -136,7 +136,7 @@ export interface ITransactionClient {
 }
 
 export class TransactionClient extends grpc.Client implements ITransactionClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;
     public getServiceConfig(request: transaction_v4_transaction_service_pb.GetServiceConfigRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: transaction_v4_transaction_service_pb.GetServiceConfigResponse) => void): grpc.ClientUnaryCall;

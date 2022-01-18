@@ -29,7 +29,7 @@ gennode:
 	rm -rf node/*
 	docker run -v $(PWD)/proto:/proto -v $(PWD)/node:/genproto \
 		--mount type=bind,source="$(PWD)/package.json",target=/package.json \
-		--mount type=bind,source="$(PWD)/package.lock",target=/package.lock \
+		--mount type=bind,source="$(PWD)/yarn.lock",target=/yarn.lock \
 		-e "USER_ID=$(USER_ID)" -e "GROUP_ID=$(GROUP_ID)" \
 		agora-api-builder-node
 

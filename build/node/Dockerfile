@@ -1,11 +1,8 @@
-FROM node:14
+FROM node:16
 
 # Base libraries
 RUN apt-get update
 RUN apt-get install -y protobuf-compiler
-
-# Yarn proto dependencies
-RUN yarn add grpc grpc-tools grpc_tools_node_protoc_ts
 
 # Common base proto dependencies.
 RUN git clone https://github.com/envoyproxy/protoc-gen-validate

@@ -4,7 +4,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 import * as account_v4_account_service_pb from "../../account/v4/account_service_pb";
 import * as validate_validate_pb from "../../validate/validate_pb";
 import * as common_v4_model_pb from "../../common/v4/model_pb";
@@ -17,7 +17,7 @@ interface IAccountService extends grpc.ServiceDefinition<grpc.UntypedServiceImpl
 }
 
 interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v4_account_service_pb.CreateAccountRequest, account_v4_account_service_pb.CreateAccountResponse> {
-    path: string; // "/kin.agora.account.v4.Account/CreateAccount"
+    path: "/kin.agora.account.v4.Account/CreateAccount";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.CreateAccountRequest>;
@@ -26,7 +26,7 @@ interface IAccountService_ICreateAccount extends grpc.MethodDefinition<account_v
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.CreateAccountResponse>;
 }
 interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_v4_account_service_pb.GetAccountInfoRequest, account_v4_account_service_pb.GetAccountInfoResponse> {
-    path: string; // "/kin.agora.account.v4.Account/GetAccountInfo"
+    path: "/kin.agora.account.v4.Account/GetAccountInfo";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.GetAccountInfoRequest>;
@@ -35,7 +35,7 @@ interface IAccountService_IGetAccountInfo extends grpc.MethodDefinition<account_
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.GetAccountInfoResponse>;
 }
 interface IAccountService_IResolveTokenAccounts extends grpc.MethodDefinition<account_v4_account_service_pb.ResolveTokenAccountsRequest, account_v4_account_service_pb.ResolveTokenAccountsResponse> {
-    path: string; // "/kin.agora.account.v4.Account/ResolveTokenAccounts"
+    path: "/kin.agora.account.v4.Account/ResolveTokenAccounts";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.ResolveTokenAccountsRequest>;
@@ -44,7 +44,7 @@ interface IAccountService_IResolveTokenAccounts extends grpc.MethodDefinition<ac
     responseDeserialize: grpc.deserialize<account_v4_account_service_pb.ResolveTokenAccountsResponse>;
 }
 interface IAccountService_IGetEvents extends grpc.MethodDefinition<account_v4_account_service_pb.GetEventsRequest, account_v4_account_service_pb.Events> {
-    path: string; // "/kin.agora.account.v4.Account/GetEvents"
+    path: "/kin.agora.account.v4.Account/GetEvents";
     requestStream: false;
     responseStream: true;
     requestSerialize: grpc.serialize<account_v4_account_service_pb.GetEventsRequest>;
@@ -55,7 +55,7 @@ interface IAccountService_IGetEvents extends grpc.MethodDefinition<account_v4_ac
 
 export const AccountService: IAccountService;
 
-export interface IAccountServer {
+export interface IAccountServer extends grpc.UntypedServiceImplementation {
     createAccount: grpc.handleUnaryCall<account_v4_account_service_pb.CreateAccountRequest, account_v4_account_service_pb.CreateAccountResponse>;
     getAccountInfo: grpc.handleUnaryCall<account_v4_account_service_pb.GetAccountInfoRequest, account_v4_account_service_pb.GetAccountInfoResponse>;
     resolveTokenAccounts: grpc.handleUnaryCall<account_v4_account_service_pb.ResolveTokenAccountsRequest, account_v4_account_service_pb.ResolveTokenAccountsResponse>;
@@ -77,7 +77,7 @@ export interface IAccountClient {
 }
 
 export class AccountClient extends grpc.Client implements IAccountClient {
-    constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
     public createAccount(request: account_v4_account_service_pb.CreateAccountRequest, callback: (error: grpc.ServiceError | null, response: account_v4_account_service_pb.CreateAccountResponse) => void): grpc.ClientUnaryCall;
     public createAccount(request: account_v4_account_service_pb.CreateAccountRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: account_v4_account_service_pb.CreateAccountResponse) => void): grpc.ClientUnaryCall;
     public createAccount(request: account_v4_account_service_pb.CreateAccountRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: account_v4_account_service_pb.CreateAccountResponse) => void): grpc.ClientUnaryCall;
