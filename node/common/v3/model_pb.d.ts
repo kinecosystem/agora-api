@@ -11,7 +11,6 @@ export class StellarAccountId extends jspb.Message {
     getValue(): string;
     setValue(value: string): StellarAccountId;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): StellarAccountId.AsObject;
     static toObject(includeInstance: boolean, msg: StellarAccountId): StellarAccountId.AsObject;
@@ -33,7 +32,6 @@ export class TransactionHash extends jspb.Message {
     getValue_asU8(): Uint8Array;
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): TransactionHash;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TransactionHash.AsObject;
@@ -57,7 +55,6 @@ export class InvoiceHash extends jspb.Message {
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): InvoiceHash;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): InvoiceHash.AsObject;
     static toObject(includeInstance: boolean, msg: InvoiceHash): InvoiceHash.AsObject;
@@ -80,7 +77,6 @@ export class Invoice extends jspb.Message {
     setItemsList(value: Array<Invoice.LineItem>): Invoice;
     addItems(value?: Invoice.LineItem, index?: number): Invoice.LineItem;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Invoice.AsObject;
     static toObject(includeInstance: boolean, msg: Invoice): Invoice.AsObject;
@@ -100,18 +96,14 @@ export namespace Invoice {
     export class LineItem extends jspb.Message { 
         getTitle(): string;
         setTitle(value: string): LineItem;
-
         getDescription(): string;
         setDescription(value: string): LineItem;
-
         getAmount(): string;
         setAmount(value: string): LineItem;
-
         getSku(): Uint8Array | string;
         getSku_asU8(): Uint8Array;
         getSku_asB64(): string;
         setSku(value: Uint8Array | string): LineItem;
-
 
         serializeBinary(): Uint8Array;
         toObject(includeInstance?: boolean): LineItem.AsObject;
@@ -140,7 +132,6 @@ export class InvoiceList extends jspb.Message {
     setInvoicesList(value: Array<Invoice>): InvoiceList;
     addInvoices(value?: Invoice, index?: number): Invoice;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): InvoiceList.AsObject;
     static toObject(includeInstance: boolean, msg: InvoiceList): InvoiceList.AsObject;
@@ -161,15 +152,12 @@ export class InvoiceError extends jspb.Message {
     getOpIndex(): number;
     setOpIndex(value: number): InvoiceError;
 
-
     hasInvoice(): boolean;
     clearInvoice(): void;
     getInvoice(): Invoice | undefined;
     setInvoice(value?: Invoice): InvoiceError;
-
     getReason(): InvoiceError.Reason;
     setReason(value: InvoiceError.Reason): InvoiceError;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): InvoiceError.AsObject;

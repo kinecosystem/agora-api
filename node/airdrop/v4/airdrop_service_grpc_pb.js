@@ -1,7 +1,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var airdrop_v4_airdrop_service_pb = require('../../airdrop/v4/airdrop_service_pb.js');
 var validate_validate_pb = require('../../validate/validate_pb.js');
 var common_v4_model_pb = require('../../common/v4/model_pb.js');

@@ -34,18 +34,15 @@ export class GetServiceConfigResponse extends jspb.Message {
     getSubsidizerAccount(): common_v4_model_pb.SolanaAccountId | undefined;
     setSubsidizerAccount(value?: common_v4_model_pb.SolanaAccountId): GetServiceConfigResponse;
 
-
     hasTokenProgram(): boolean;
     clearTokenProgram(): void;
     getTokenProgram(): common_v4_model_pb.SolanaAccountId | undefined;
     setTokenProgram(value?: common_v4_model_pb.SolanaAccountId): GetServiceConfigResponse;
 
-
     hasToken(): boolean;
     clearToken(): void;
     getToken(): common_v4_model_pb.SolanaAccountId | undefined;
     setToken(value?: common_v4_model_pb.SolanaAccountId): GetServiceConfigResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetServiceConfigResponse.AsObject;
@@ -85,7 +82,6 @@ export namespace GetMinimumKinVersionRequest {
 export class GetMinimumKinVersionResponse extends jspb.Message { 
     getVersion(): number;
     setVersion(value: number): GetMinimumKinVersionResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetMinimumKinVersionResponse.AsObject;
@@ -127,7 +123,6 @@ export class GetRecentBlockhashResponse extends jspb.Message {
     getBlockhash(): common_v4_model_pb.Blockhash | undefined;
     setBlockhash(value?: common_v4_model_pb.Blockhash): GetRecentBlockhashResponse;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetRecentBlockhashResponse.AsObject;
     static toObject(includeInstance: boolean, msg: GetRecentBlockhashResponse): GetRecentBlockhashResponse.AsObject;
@@ -148,7 +143,6 @@ export class GetMinimumBalanceForRentExemptionRequest extends jspb.Message {
     getSize(): number;
     setSize(value: number): GetMinimumBalanceForRentExemptionRequest;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetMinimumBalanceForRentExemptionRequest.AsObject;
     static toObject(includeInstance: boolean, msg: GetMinimumBalanceForRentExemptionRequest): GetMinimumBalanceForRentExemptionRequest.AsObject;
@@ -168,7 +162,6 @@ export namespace GetMinimumBalanceForRentExemptionRequest {
 export class GetMinimumBalanceForRentExemptionResponse extends jspb.Message { 
     getLamports(): number;
     setLamports(value: number): GetMinimumBalanceForRentExemptionResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetMinimumBalanceForRentExemptionResponse.AsObject;
@@ -193,15 +186,12 @@ export class GetHistoryRequest extends jspb.Message {
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): GetHistoryRequest;
 
-
     hasCursor(): boolean;
     clearCursor(): void;
     getCursor(): Cursor | undefined;
     setCursor(value?: Cursor): GetHistoryRequest;
-
     getDirection(): GetHistoryRequest.Direction;
     setDirection(value: GetHistoryRequest.Direction): GetHistoryRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetHistoryRequest.AsObject;
@@ -230,12 +220,10 @@ export namespace GetHistoryRequest {
 export class GetHistoryResponse extends jspb.Message { 
     getResult(): GetHistoryResponse.Result;
     setResult(value: GetHistoryResponse.Result): GetHistoryResponse;
-
     clearItemsList(): void;
     getItemsList(): Array<HistoryItem>;
     setItemsList(value: Array<HistoryItem>): GetHistoryResponse;
     addItems(value?: HistoryItem, index?: number): HistoryItem;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetHistoryResponse.AsObject;
@@ -267,12 +255,10 @@ export class SignTransactionRequest extends jspb.Message {
     getTransaction(): common_v4_model_pb.Transaction | undefined;
     setTransaction(value?: common_v4_model_pb.Transaction): SignTransactionRequest;
 
-
     hasInvoiceList(): boolean;
     clearInvoiceList(): void;
     getInvoiceList(): common_v3_model_pb.InvoiceList | undefined;
     setInvoiceList(value?: common_v3_model_pb.InvoiceList): SignTransactionRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SignTransactionRequest.AsObject;
@@ -295,17 +281,14 @@ export class SignTransactionResponse extends jspb.Message {
     getResult(): SignTransactionResponse.Result;
     setResult(value: SignTransactionResponse.Result): SignTransactionResponse;
 
-
     hasSignature(): boolean;
     clearSignature(): void;
     getSignature(): common_v4_model_pb.TransactionSignature | undefined;
     setSignature(value?: common_v4_model_pb.TransactionSignature): SignTransactionResponse;
-
     clearInvoiceErrorsList(): void;
     getInvoiceErrorsList(): Array<common_v3_model_pb.InvoiceError>;
     setInvoiceErrorsList(value: Array<common_v3_model_pb.InvoiceError>): SignTransactionResponse;
     addInvoiceErrors(value?: common_v3_model_pb.InvoiceError, index?: number): common_v3_model_pb.InvoiceError;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SignTransactionResponse.AsObject;
@@ -339,23 +322,18 @@ export class SubmitTransactionRequest extends jspb.Message {
     getTransaction(): common_v4_model_pb.Transaction | undefined;
     setTransaction(value?: common_v4_model_pb.Transaction): SubmitTransactionRequest;
 
-
     hasInvoiceList(): boolean;
     clearInvoiceList(): void;
     getInvoiceList(): common_v3_model_pb.InvoiceList | undefined;
     setInvoiceList(value?: common_v3_model_pb.InvoiceList): SubmitTransactionRequest;
-
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): SubmitTransactionRequest;
-
     getDedupeId(): Uint8Array | string;
     getDedupeId_asU8(): Uint8Array;
     getDedupeId_asB64(): string;
     setDedupeId(value: Uint8Array | string): SubmitTransactionRequest;
-
     getSendSimulationEvent(): boolean;
     setSendSimulationEvent(value: boolean): SubmitTransactionRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SubmitTransactionRequest.AsObject;
@@ -381,23 +359,19 @@ export class SubmitTransactionResponse extends jspb.Message {
     getResult(): SubmitTransactionResponse.Result;
     setResult(value: SubmitTransactionResponse.Result): SubmitTransactionResponse;
 
-
     hasSignature(): boolean;
     clearSignature(): void;
     getSignature(): common_v4_model_pb.TransactionSignature | undefined;
     setSignature(value?: common_v4_model_pb.TransactionSignature): SubmitTransactionResponse;
 
-
     hasTransactionError(): boolean;
     clearTransactionError(): void;
     getTransactionError(): common_v4_model_pb.TransactionError | undefined;
     setTransactionError(value?: common_v4_model_pb.TransactionError): SubmitTransactionResponse;
-
     clearInvoiceErrorsList(): void;
     getInvoiceErrorsList(): Array<common_v3_model_pb.InvoiceError>;
     setInvoiceErrorsList(value: Array<common_v3_model_pb.InvoiceError>): SubmitTransactionResponse;
     addInvoiceErrors(value?: common_v3_model_pb.InvoiceError, index?: number): common_v3_model_pb.InvoiceError;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): SubmitTransactionResponse.AsObject;
@@ -434,10 +408,8 @@ export class GetTransactionRequest extends jspb.Message {
     clearTransactionId(): void;
     getTransactionId(): common_v4_model_pb.TransactionId | undefined;
     setTransactionId(value?: common_v4_model_pb.TransactionId): GetTransactionRequest;
-
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): GetTransactionRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetTransactionRequest.AsObject;
@@ -459,19 +431,15 @@ export namespace GetTransactionRequest {
 export class GetTransactionResponse extends jspb.Message { 
     getState(): GetTransactionResponse.State;
     setState(value: GetTransactionResponse.State): GetTransactionResponse;
-
     getSlot(): string;
     setSlot(value: string): GetTransactionResponse;
-
     getConfirmations(): number;
     setConfirmations(value: number): GetTransactionResponse;
-
 
     hasItem(): boolean;
     clearItem(): void;
     getItem(): HistoryItem | undefined;
     setItem(value?: HistoryItem): GetTransactionResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetTransactionResponse.AsObject;
@@ -507,47 +475,39 @@ export class HistoryItem extends jspb.Message {
     getTransactionId(): common_v4_model_pb.TransactionId | undefined;
     setTransactionId(value?: common_v4_model_pb.TransactionId): HistoryItem;
 
-
     hasCursor(): boolean;
     clearCursor(): void;
     getCursor(): Cursor | undefined;
     setCursor(value?: Cursor): HistoryItem;
-
 
     hasSolanaTransaction(): boolean;
     clearSolanaTransaction(): void;
     getSolanaTransaction(): common_v4_model_pb.Transaction | undefined;
     setSolanaTransaction(value?: common_v4_model_pb.Transaction): HistoryItem;
 
-
     hasStellarTransaction(): boolean;
     clearStellarTransaction(): void;
     getStellarTransaction(): common_v4_model_pb.StellarTransaction | undefined;
     setStellarTransaction(value?: common_v4_model_pb.StellarTransaction): HistoryItem;
 
-
     hasTransactionError(): boolean;
     clearTransactionError(): void;
     getTransactionError(): common_v4_model_pb.TransactionError | undefined;
     setTransactionError(value?: common_v4_model_pb.TransactionError): HistoryItem;
-
     clearPaymentsList(): void;
     getPaymentsList(): Array<HistoryItem.Payment>;
     setPaymentsList(value: Array<HistoryItem.Payment>): HistoryItem;
     addPayments(value?: HistoryItem.Payment, index?: number): HistoryItem.Payment;
-
 
     hasInvoiceList(): boolean;
     clearInvoiceList(): void;
     getInvoiceList(): common_v3_model_pb.InvoiceList | undefined;
     setInvoiceList(value?: common_v3_model_pb.InvoiceList): HistoryItem;
 
-
     hasTransactionTime(): boolean;
     clearTransactionTime(): void;
     getTransactionTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setTransactionTime(value?: google_protobuf_timestamp_pb.Timestamp): HistoryItem;
-
 
     getRawTransactionCase(): HistoryItem.RawTransactionCase;
 
@@ -581,18 +541,14 @@ export namespace HistoryItem {
         getSource(): common_v4_model_pb.SolanaAccountId | undefined;
         setSource(value?: common_v4_model_pb.SolanaAccountId): Payment;
 
-
         hasDestination(): boolean;
         clearDestination(): void;
         getDestination(): common_v4_model_pb.SolanaAccountId | undefined;
         setDestination(value?: common_v4_model_pb.SolanaAccountId): Payment;
-
         getAmount(): number;
         setAmount(value: number): Payment;
-
         getIndex(): number;
         setIndex(value: number): Payment;
-
 
         serializeBinary(): Uint8Array;
         toObject(includeInstance?: boolean): Payment.AsObject;
@@ -616,11 +572,8 @@ export namespace HistoryItem {
 
     export enum RawTransactionCase {
         RAW_TRANSACTION_NOT_SET = 0,
-    
-    SOLANA_TRANSACTION = 3,
-
-    STELLAR_TRANSACTION = 4,
-
+        SOLANA_TRANSACTION = 3,
+        STELLAR_TRANSACTION = 4,
     }
 
 }
@@ -630,7 +583,6 @@ export class Cursor extends jspb.Message {
     getValue_asU8(): Uint8Array;
     getValue_asB64(): string;
     setValue(value: Uint8Array | string): Cursor;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Cursor.AsObject;

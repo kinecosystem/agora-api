@@ -14,13 +14,10 @@ export class RequestAirdropRequest extends jspb.Message {
     clearAccountId(): void;
     getAccountId(): common_v4_model_pb.SolanaAccountId | undefined;
     setAccountId(value?: common_v4_model_pb.SolanaAccountId): RequestAirdropRequest;
-
     getQuarks(): number;
     setQuarks(value: number): RequestAirdropRequest;
-
     getCommitment(): common_v4_model_pb.Commitment;
     setCommitment(value: common_v4_model_pb.Commitment): RequestAirdropRequest;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestAirdropRequest.AsObject;
@@ -44,12 +41,10 @@ export class RequestAirdropResponse extends jspb.Message {
     getResult(): RequestAirdropResponse.Result;
     setResult(value: RequestAirdropResponse.Result): RequestAirdropResponse;
 
-
     hasSignature(): boolean;
     clearSignature(): void;
     getSignature(): common_v4_model_pb.TransactionSignature | undefined;
     setSignature(value?: common_v4_model_pb.TransactionSignature): RequestAirdropResponse;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestAirdropResponse.AsObject;
